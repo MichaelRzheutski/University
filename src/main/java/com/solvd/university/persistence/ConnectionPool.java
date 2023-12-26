@@ -19,16 +19,16 @@ public class ConnectionPool {
         this.connectionPoolSize = connectionPoolSize;
         Properties property = new Properties();
 
-        String url = "jdbc:mysql://localhost:3306/university";
-        String username = "root";
-        String password = "root";
-
         for (int i = 0; i < this.connectionPoolSize; i++) {
             Connection connection;
             try (FileInputStream fis = new FileInputStream("src/main/resources/jdbc.properties")) {
                 property.load(fis);
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                connection = DriverManager.getConnection(url, username, password);
+                connection = DriverManager.getConnection(
+                        property.getProperty("URL"),
+                        property.getProperty("USER_NAME"),
+                        property.getProperty("PASSWORD")
+                );
             } catch (IOException e) {
                 throw new RuntimeException("Невозможно прочитать property файл!", e);
             } catch (ClassNotFoundException e) {
