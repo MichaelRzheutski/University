@@ -1,8 +1,10 @@
 package com.solvd.university.util.menus;
 
+import com.solvd.university.domain.Admin;
 import com.solvd.university.domain.Building;
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
+import com.solvd.university.persistence.impl.AdminRepositoryImpl;
 import com.solvd.university.persistence.impl.StudentContactImpl;
 import com.solvd.university.persistence.impl.StudentRepositoryImpl;
 import com.solvd.university.util.exceptions.NotNumberException;
@@ -15,6 +17,7 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class AdminMenu {
+    Admin admin = new Admin();
     private static Building building;
     private static Student student;
     private static StudentContact studentContact;
@@ -24,6 +27,8 @@ public class AdminMenu {
         boolean isExit = false;
 
         try {
+            new AdminRepositoryImpl().setAdminCredentials(admin);
+
             while (!isExit) {
                 MY_LOGGER.info(ANSI_GREEN + "Меню администратора: " + ANSI_RESET);
                 MY_LOGGER.info("[1]. " + AdminMenuItems.ADMIN_SHOW_ALL_STUDENTS);
