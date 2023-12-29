@@ -14,7 +14,7 @@ import java.util.Scanner;
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class StudentContactImpl implements StudentContactRepository {
+public class StudentContactDaoImpl implements StudentContactRepository {
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
     private static final String INSERT_INTO_STUDENT_CONTACTS =
             "INSERT INTO student_contacts(phone, email) values(?, ?);";

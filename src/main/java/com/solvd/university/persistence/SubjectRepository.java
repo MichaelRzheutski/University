@@ -4,6 +4,6 @@ import com.solvd.university.domain.Subject;
 
 import java.util.List;
 
-public interface SubjectRepositoryDao {
+public interface SubjectRepository {
     List<Subject> getAllSubjects();
 }

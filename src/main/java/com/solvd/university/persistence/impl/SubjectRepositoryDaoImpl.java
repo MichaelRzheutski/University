@@ -2,7 +2,7 @@ package com.solvd.university.persistence.impl;
 
 import com.solvd.university.domain.Subject;
 import com.solvd.university.persistence.ConnectionPool;
-import com.solvd.university.persistence.SubjectRepositoryDao;
+import com.solvd.university.persistence.SubjectRepository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubjectRepositoryImpl implements SubjectRepositoryDao {
+public class SubjectRepositoryDaoImpl implements SubjectRepository {
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
     private static final String GET_ALL_SUBJECTS = "SELECT * FROM subjects";
 

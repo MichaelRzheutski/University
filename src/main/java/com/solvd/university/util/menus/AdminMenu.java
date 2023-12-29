@@ -3,10 +3,10 @@ package com.solvd.university.util.menus;
 import com.solvd.university.domain.Admin;
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
-import com.solvd.university.domain.logic.AdminLogic;
-import com.solvd.university.persistence.impl.AdminRepositoryImpl;
-import com.solvd.university.persistence.impl.StudentContactImpl;
-import com.solvd.university.persistence.impl.StudentRepositoryImpl;
+import com.solvd.university.service.impl.AdminServiceImpl;
+import com.solvd.university.persistence.impl.AdminRepositoryDaoImpl;
+import com.solvd.university.persistence.impl.StudentContactDaoImpl;
+import com.solvd.university.persistence.impl.StudentRepositoryDaoImpl;
 import com.solvd.university.util.exceptions.NotNumberException;
 import com.solvd.university.util.menus.menuenums.AdminMenuItems;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
@@ -26,7 +26,7 @@ public class AdminMenu {
         boolean isExit = false;
 
         try {
-            new AdminRepositoryImpl().setAdminCredentials(ADMIN);
+            new AdminRepositoryDaoImpl().setAdminCredentials(ADMIN);
 
             while (!isExit) {
                 MY_LOGGER.info(ANSI_GREEN + "Меню администратора: " + ANSI_RESET);
@@ -45,13 +45,13 @@ public class AdminMenu {
 
                     switch (option) {
                         case 0 -> System.exit(0);
-                        case 1 -> new AdminLogic().getAllStudents();
-                        case 2 -> new StudentContactImpl().create(studentContact);
-                        case 3 -> new StudentRepositoryImpl().create(student);
-                        case 4 -> new StudentRepositoryImpl().findById();
-                        case 5 -> new StudentRepositoryImpl().update(student);
-                        case 6 -> new StudentRepositoryImpl().deleteById();
-                        case 7 -> new StudentRepositoryImpl().countOfEntries();
+                        case 1 -> new AdminServiceImpl().getAllStudents();
+                        case 2 -> new StudentContactDaoImpl().create(studentContact);
+                        case 3 -> new StudentRepositoryDaoImpl().create(student);
+                        case 4 -> new StudentRepositoryDaoImpl().findById();
+                        case 5 -> new StudentRepositoryDaoImpl().update(student);
+                        case 6 -> new StudentRepositoryDaoImpl().deleteById();
+                        case 7 -> new StudentRepositoryDaoImpl().countOfEntries();
                         case 8 -> isExit = true;
                         default -> MY_LOGGER.info(
                                 String.format("%sНеверная операция, попробуйте ещё раз!%s\n",

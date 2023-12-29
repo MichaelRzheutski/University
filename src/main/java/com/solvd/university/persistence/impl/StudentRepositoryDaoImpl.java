@@ -2,7 +2,7 @@ package com.solvd.university.persistence.impl;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.persistence.ConnectionPool;
-import com.solvd.university.persistence.StudentRepositoryDao;
+import com.solvd.university.persistence.StudentRepository;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -13,7 +13,7 @@ import java.util.Scanner;
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class StudentRepositoryImpl implements StudentRepositoryDao {
+public class StudentRepositoryDaoImpl implements StudentRepository {
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
     private static final String INSERT_INTO_STUDENTS =
             "INSERT INTO students(first_name, last_name, date_of_birth, student_contact_id) values(?, ?, ?, ?);";

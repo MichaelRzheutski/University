@@ -1,41 +1,21 @@
-package com.solvd.university.domain.logic;
+package com.solvd.university.service.impl;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.Subject;
-import com.solvd.university.persistence.impl.StudentRepositoryImpl;
-import com.solvd.university.persistence.impl.SubjectRepositoryImpl;
+import com.solvd.university.persistence.impl.StudentRepositoryDaoImpl;
+import com.solvd.university.persistence.impl.SubjectRepositoryDaoImpl;
+import com.solvd.university.service.StudentService;
 
 import java.util.*;
 
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class StudentLogic {
-    List<Student> studentList = new StudentRepositoryImpl().findAll();
-    List<Subject> subjectList = new SubjectRepositoryImpl().getAllSubjects();
+public class StudentLogicImpl implements StudentService {
+    List<Student> studentList = new StudentRepositoryDaoImpl().findAll();
+    List<Subject> subjectList = new SubjectRepositoryDaoImpl().getAllSubjects();
 
-    private List<Student> getAllStudentsSubjects() {
-        Set<Subject> tempSubjects = new HashSet<>();
-        List<Student> allStudentsSubjects = new ArrayList<>(studentList);
-
-        for (Student studentsSubject : allStudentsSubjects) {
-            Random randomQuantity = new Random();
-            int randomSubjectQuantity = randomQuantity.nextInt(studentList.size() - 1) % studentList.size() + 1;
-
-            tempSubjects.clear();
-            for (int i = 0; i < randomSubjectQuantity; i++) {
-                Random randomIndex = new Random();
-                int randomSubjectIndex = randomIndex.nextInt(studentList.size() - 1) % studentList.size();
-                subjectList.get(randomSubjectIndex).setGrade(createGrade());
-                tempSubjects.add(subjectList.get(randomSubjectIndex));
-            }
-
-            studentsSubject.setSubjects(tempSubjects);
-        }
-
-        return allStudentsSubjects;
-    }
-
+    @Override
     public List<Student> printAllSubjects() {
         Set<Subject> tempSubjects = new HashSet<>();
         List<Student> allStudentsSubjects = new ArrayList<>(studentList);
@@ -61,14 +41,15 @@ public class StudentLogic {
         return allStudentsSubjects;
     }
 
-    public Integer createGrade() {
+    private Integer createGrade() {
         Random randomGrade = new Random();
         return randomGrade.nextInt(studentList.size() - 1) % studentList.size() + 1;
     }
 
+    @Override
     public Student getStudentSubjects() {
         List<Student> students = getAllStudentsSubjects();
-        Student finalStudent = new StudentRepositoryImpl().findById();
+        Student finalStudent = new StudentRepositoryDaoImpl().findById();
 
         for (Student student : students) {
             if (finalStudent.getStudentId().equals(student.getStudentId())) {
@@ -81,9 +62,10 @@ public class StudentLogic {
         return finalStudent;
     }
 
+    @Override
     public Student showStudentPerformance() {
         List<Student> studentsWithSubjects = getAllStudentsSubjects();
-        Student student = new StudentRepositoryImpl().findById();
+        Student student = new StudentRepositoryDaoImpl().findById();
 
         for (Student studentsWithSubject : studentsWithSubjects) {
             if (student.getStudentId().equals(studentsWithSubject.getStudentId())) {
@@ -100,6 +82,29 @@ public class StudentLogic {
         return student;
     }
 
+    private List<Student> getAllStudentsSubjects() {
+        Set<Subject> tempSubjects = new HashSet<>();
+        List<Student> allStudentsSubjects = new ArrayList<>(studentList);
+
+        for (Student studentsSubject : allStudentsSubjects) {
+            Random randomQuantity = new Random();
+            int randomSubjectQuantity = randomQuantity.nextInt(studentList.size() - 1) % studentList.size() + 1;
+
+            tempSubjects.clear();
+            for (int i = 0; i < randomSubjectQuantity; i++) {
+                Random randomIndex = new Random();
+                int randomSubjectIndex = randomIndex.nextInt(studentList.size() - 1) % studentList.size();
+                subjectList.get(randomSubjectIndex).setGrade(createGrade());
+                tempSubjects.add(subjectList.get(randomSubjectIndex));
+            }
+
+            studentsSubject.setSubjects(tempSubjects);
+        }
+
+        return allStudentsSubjects;
+    }
+
+    @Override
     public String takeExam() {
         Scanner scanner = new Scanner(System.in);
         int enteredStudentId;

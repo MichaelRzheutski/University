@@ -1,7 +1,7 @@
 package com.solvd.university.persistence.impl;
 
 import com.solvd.university.domain.Admin;
-import com.solvd.university.persistence.AdminRepositoryDao;
+import com.solvd.university.persistence.AdminRepository;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,7 +11,7 @@ import java.util.Scanner;
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class AdminRepositoryImpl implements AdminRepositoryDao {
+public class AdminRepositoryDaoImpl implements AdminRepository {
     public void setAdminCredentials(Admin admin) {
         Properties property = new Properties();
         try (FileInputStream fis = new FileInputStream("src/main/resources/admin_credentials.properties")) {
