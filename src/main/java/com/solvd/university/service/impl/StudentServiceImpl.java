@@ -11,7 +11,7 @@ import java.util.*;
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class StudentLogicImpl implements StudentService {
+public class StudentServiceImpl implements StudentService {
     List<Student> studentList = new StudentRepositoryDaoImpl().findAll();
     List<Subject> subjectList = new SubjectRepositoryDaoImpl().getAllSubjects();
 

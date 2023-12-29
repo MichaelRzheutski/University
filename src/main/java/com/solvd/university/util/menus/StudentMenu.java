@@ -2,7 +2,7 @@ package com.solvd.university.util.menus;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.Subject;
-import com.solvd.university.service.impl.StudentLogicImpl;
+import com.solvd.university.service.impl.StudentServiceImpl;
 import com.solvd.university.util.exceptions.NotNumberException;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
 import com.solvd.university.util.menus.menuenums.StudentMenuItems;
@@ -35,10 +35,10 @@ public final class StudentMenu {
 
                     switch (option) {
                         case 0 -> System.exit(0);
-                        case 1 -> new StudentLogicImpl().printAllSubjects();
-                        case 2 -> new StudentLogicImpl().getStudentSubjects();
-                        case 3 -> new StudentLogicImpl().showStudentPerformance();
-                        case 4 -> new StudentLogicImpl().takeExam();
+                        case 1 -> new StudentServiceImpl().printAllSubjects();
+                        case 2 -> new StudentServiceImpl().getStudentSubjects();
+                        case 3 -> new StudentServiceImpl().showStudentPerformance();
+                        case 4 -> new StudentServiceImpl().takeExam();
                         case 5 -> isExit = true;
                         default -> MY_LOGGER.info(
                                 String.format("%sНеверная операция, попробуйте ещё раз!%s\n",

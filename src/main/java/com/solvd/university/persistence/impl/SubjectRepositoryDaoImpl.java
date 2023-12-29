@@ -37,26 +37,4 @@ public class SubjectRepositoryDaoImpl implements SubjectRepository {
 
         return subjects;
     }
-
-//    @Override
-//    public String takeExam() {
-//        List<Subject> subjects = new ArrayList<>();
-//        Connection connection = CONNECTION_POOL.getConnection();
-//        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_SUBJECTS)) {
-//            ResultSet resultSet = preparedStatement.executeQuery();
-//
-//            while (resultSet.next()) {
-//                Subject subject = new Subject();
-//                subject.setSubjectName(resultSet.getString(2));
-//                subjects.add(subject);
-//            }
-//
-//        } catch (SQLException e) {
-//            throw new RuntimeException("Не удалось получить все предметы!", e);
-//        } finally {
-//            CONNECTION_POOL.releaseConnection(connection);
-//        }
-//
-//        return subjects;
-//    }
 }
