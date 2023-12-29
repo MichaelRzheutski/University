@@ -48,7 +48,7 @@ public class AdminMenu {
                         case 1 -> new AdminServiceImpl().getAllStudents();
                         case 2 -> new StudentContactDaoImpl().create(studentContact);
                         case 3 -> new StudentRepositoryDaoImpl().create(student);
-                        case 4 -> new StudentRepositoryDaoImpl().findById();
+                        case 4 -> new StudentRepositoryDaoImpl().printStudentById();
                         case 5 -> new StudentRepositoryDaoImpl().update(student);
                         case 6 -> new StudentRepositoryDaoImpl().deleteById();
                         case 7 -> new StudentRepositoryDaoImpl().countOfEntries();

@@ -96,6 +96,7 @@ public class StudentRepositoryDaoImpl implements StudentRepository {
                 student.setStudentId(resultSet.getLong(1));
                 student.setFirstName(resultSet.getString(2));
                 student.setLastName(resultSet.getString(3));
+
             } else {
                 MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
             }
@@ -106,6 +107,13 @@ public class StudentRepositoryDaoImpl implements StudentRepository {
             CONNECTION_POOL.releaseConnection(connection);
         }
 
+        return student;
+    }
+
+    public Student printStudentById() {
+        Student student = findById();
+        MY_LOGGER.info(ANSI_GREEN + "Найден студент: " + ANSI_YELLOW + student.getStudentId() + " | " +
+                student.getFirstName() + " " + student.getLastName() + ANSI_RESET);
         return student;
     }
 
