@@ -23,7 +23,7 @@ public final class AppMainMenu {
                 MY_LOGGER.info(ANSI_GREEN + "Выберите базу для работы: " + ANSI_RESET);
                 MY_LOGGER.info("[1]. " + AppMainMenuItems.UNIVERSITY_DB);
                 MY_LOGGER.info("[2]. " + AppMainMenuItems.UNIVERSITY_JSON);
-                MY_LOGGER.info("[0]. " + GeneralMenuItems.AUTOSERVICE_EXIT);
+                MY_LOGGER.info("[0]. " + GeneralMenuItems.UNIVERSITY_EXIT);
 
                 if (scanner.hasNextInt()) {
                     option = scanner.nextInt();

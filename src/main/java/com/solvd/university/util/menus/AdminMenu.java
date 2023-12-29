@@ -1,9 +1,9 @@
 package com.solvd.university.util.menus;
 
 import com.solvd.university.domain.Admin;
-import com.solvd.university.domain.Building;
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
+import com.solvd.university.domain.logic.AdminLogic;
 import com.solvd.university.persistence.impl.AdminRepositoryImpl;
 import com.solvd.university.persistence.impl.StudentContactImpl;
 import com.solvd.university.persistence.impl.StudentRepositoryImpl;
@@ -17,8 +17,7 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class AdminMenu {
-    Admin admin = new Admin();
-    private static Building building;
+    private static final Admin ADMIN = new Admin();
     private static Student student;
     private static StudentContact studentContact;
 
@@ -27,7 +26,7 @@ public class AdminMenu {
         boolean isExit = false;
 
         try {
-            new AdminRepositoryImpl().setAdminCredentials(admin);
+            new AdminRepositoryImpl().setAdminCredentials(ADMIN);
 
             while (!isExit) {
                 MY_LOGGER.info(ANSI_GREEN + "Меню администратора: " + ANSI_RESET);
@@ -38,15 +37,15 @@ public class AdminMenu {
                 MY_LOGGER.info("[5]. " + AdminMenuItems.ADMIN_UPDATE_STUDENT_INFO);
                 MY_LOGGER.info("[6]. " + AdminMenuItems.ADMIN_DELETE_STUDENT);
                 MY_LOGGER.info("[7]. " + AdminMenuItems.ADMIN_COUNT_STUDENTS);
-                MY_LOGGER.info("[8]. " + GeneralMenuItems.AUTOSERVICE_PREVIOUS_MENU);
-                MY_LOGGER.info("[0]. " + GeneralMenuItems.AUTOSERVICE_EXIT);
+                MY_LOGGER.info("[8]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);
+                MY_LOGGER.info("[0]. " + GeneralMenuItems.UNIVERSITY_EXIT);
 
                 if (scanner.hasNextInt()) {
                     option = scanner.nextInt();
 
                     switch (option) {
                         case 0 -> System.exit(0);
-                        case 1 -> new StudentRepositoryImpl().findAll();
+                        case 1 -> new AdminLogic().getAllStudents();
                         case 2 -> new StudentContactImpl().create(studentContact);
                         case 3 -> new StudentRepositoryImpl().create(student);
                         case 4 -> new StudentRepositoryImpl().findById();

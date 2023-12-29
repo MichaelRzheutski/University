@@ -22,8 +22,8 @@ public class UniversityMenu {
                 MY_LOGGER.info(ANSI_GREEN + "Меню университета: " + ANSI_RESET);
                 MY_LOGGER.info("[1]. " + UniversityMenuItems.UNIVERSITY_STUDENT_OPERATIONS);
                 MY_LOGGER.info("[2]. " + UniversityMenuItems.UNIVERSITY_ADMIN_OPERATIONS);
-                MY_LOGGER.info("[3]. " + GeneralMenuItems.AUTOSERVICE_PREVIOUS_MENU);
-                MY_LOGGER.info("[0]. " + GeneralMenuItems.AUTOSERVICE_EXIT);
+                MY_LOGGER.info("[3]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);
+                MY_LOGGER.info("[0]. " + GeneralMenuItems.UNIVERSITY_EXIT);
 
                 if (scanner.hasNextInt()) {
                     option = scanner.nextInt();

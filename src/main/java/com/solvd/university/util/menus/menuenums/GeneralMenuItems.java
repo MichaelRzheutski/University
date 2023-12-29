@@ -1,8 +1,8 @@
 package com.solvd.university.util.menus.menuenums;
 
 public enum GeneralMenuItems {
-    AUTOSERVICE_PREVIOUS_MENU("Выйти в предыдущее меню"),
-    AUTOSERVICE_EXIT("Выйти из программы");
+    UNIVERSITY_PREVIOUS_MENU("Выйти в предыдущее меню"),
+    UNIVERSITY_EXIT("Выйти из программы");
 
     private final String generalMenuItem;
 

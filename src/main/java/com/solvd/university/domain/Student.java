@@ -1,7 +1,8 @@
 package com.solvd.university.domain;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class Student {
     private Long studentId;
@@ -9,24 +10,21 @@ public class Student {
     private String lastName;
     private Date dateOfBirth;
     private StudentContact studentContactId;
-    private Course course;
-    private Semester semester;
-    private List<Subject> subjects;
+    private Set<Subject> subjects;
+    private Double averageScore;
 
     public Student() {
     }
 
-    public Student(
-            Long studentId, String firstName, String lastName, Date dateOfBirth,
-            StudentContact studentContactId, Course course, Semester semester, List<Subject> subjects) {
+    public Student(Long studentId, String firstName, String lastName, Date dateOfBirth,
+                   StudentContact studentContactId, Set<Subject> subjects, Double averageScore) {
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         this.studentContactId = studentContactId;
-        this.course = course;
-        this.semester = semester;
         this.subjects = subjects;
+        this.averageScore = averageScore;
     }
 
     public Long getStudentId() {
@@ -69,27 +67,39 @@ public class Student {
         this.studentContactId = studentContactId;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
-    public Semester getSemester() {
-        return semester;
-    }
-
-    public void setSemester(Semester semester) {
-        this.semester = semester;
-    }
-
-    public List<Subject> getSubjects() {
+    public Set<Subject> getSubjects() {
         return subjects;
     }
 
-    public void setSubjects(List<Subject> subjects) {
+    public void setSubjects(Set<Subject> subjects) {
         this.subjects = subjects;
+    }
+
+    public Double getAverageScore() {
+        return averageScore;
+    }
+
+    public void setAverageScore(Double averageScore) {
+        this.averageScore = averageScore;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Student student = (Student) o;
+        return Objects.equals(studentId, student.studentId)
+                && Objects.equals(firstName, student.firstName)
+                && Objects.equals(lastName, student.lastName)
+                && Objects.equals(dateOfBirth, student.dateOfBirth)
+                && Objects.equals(studentContactId, student.studentContactId)
+                && Objects.equals(subjects, student.subjects)
+                && Objects.equals(averageScore, student.averageScore);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studentId, firstName, lastName, dateOfBirth,
+                studentContactId, subjects, averageScore);
     }
 }

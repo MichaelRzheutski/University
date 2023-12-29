@@ -1,13 +1,14 @@
 package com.solvd.university.persistence;
 
 import com.solvd.university.domain.Student;
+import com.solvd.university.domain.Subject;
 
 import java.util.List;
 
 public interface StudentRepositoryDao {
     void create(Student student);
 
-    void findById();
+    Student findById();
 
     List<Student> findAll();
 

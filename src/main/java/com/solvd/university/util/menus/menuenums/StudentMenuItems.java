@@ -1,11 +1,11 @@
 package com.solvd.university.util.menus.menuenums;
 
 public enum StudentMenuItems {
-    UNIVERSITY_DEPARTMENTS("Показать список кафедр"),
-    UNIVERSITY_ENROLLMENT_RESULTS("Показать результаты вступительной кампании"),
-    UNIVERSITY_STUDENTS("Показать список студентов"),
-    UNIVERSITY_LECTURERS("Показать список преподавателей"),
-    UNIVERSITY_SUBJECT_LIST("Показать список предметов");
+    STUDENT_SHOW_ALL_STUDENT_SUBJECTS("Показать список всех студентов и их предметов"),
+    STUDENT_SHOW_STUDENT_SUBJECTS("Показать список всех предметов студента"),
+    STUDENT_SHOW_GRADES("Посмотрть успеваемость студента"),
+    STUDENT_TAKE_EXAM("Сдать экзамен по предметам");
+//    UNIVERSITY_SUBJECT_LIST("Показать список предметов");
 
     private final String studentMenuItem;
 

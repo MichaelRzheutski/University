@@ -17,12 +17,14 @@ public class StudentRepositoryImpl implements StudentRepositoryDao {
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
     private static final String INSERT_INTO_STUDENTS =
             "INSERT INTO students(first_name, last_name, date_of_birth, student_contact_id) values(?, ?, ?, ?);";
-    private static final String SELECT_ALL_FROM_STUDENTS =
-            "SELECT * FROM students;";
     private static final String FIND_STUDENT_BY_ID = "SELECT * FROM students WHERE student_id = ?;";
     private static final String UPDATE_STUDENT_INFO = "UPDATE students SET first_name = ? WHERE student_id = ?;";
     private static final String DELETE_FROM_BUILDINGS = "DELETE FROM students WHERE student_id = ?;";
     private static final String COUNT_STUDENT_ENTRIES = "SELECT COUNT(*) AS students_count FROM students;";
+    private static final String GET_STUDENT_AVERAGE_SCORE = "SELECT students.student_id AS `ID Студента`," +
+            "students.first_name AS `Имя`, students.last_name AS `Фамилия`," +
+            "students.date_of_birth AS `Дата рождения`," + "enrollments.grade AS `Средний балл`" +
+            "FROM students LEFT JOIN enrollments ON students.student_id = enrollments.student_id;";
 
     @Override
     public void create(Student student) {
@@ -76,10 +78,11 @@ public class StudentRepositoryImpl implements StudentRepositoryDao {
     }
 
     @Override
-    public void findById() {
+    public Student findById() {
         Connection connection = CONNECTION_POOL.getConnection();
         Scanner scanner = new Scanner(System.in);
         int enteredStudentId;
+        Student student = new Student();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_STUDENT_BY_ID)) {
             MY_LOGGER.info(ANSI_GREEN + "Введите ID студента" + ANSI_RESET);
@@ -90,9 +93,9 @@ public class StudentRepositoryImpl implements StudentRepositoryDao {
                 ResultSet resultSet = preparedStatement.executeQuery();
                 resultSet.next();
 
-                MY_LOGGER.info(ANSI_GREEN + "Найден студент: "
-                        + ANSI_YELLOW + resultSet.getString(2) + " "
-                        + resultSet.getString(3) + ANSI_RESET + "\n");
+                student.setStudentId(resultSet.getLong(1));
+                student.setFirstName(resultSet.getString(2));
+                student.setLastName(resultSet.getString(3));
             } else {
                 MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
             }
@@ -102,12 +105,14 @@ public class StudentRepositoryImpl implements StudentRepositoryDao {
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
+
+        return student;
     }
 
     public List<Student> findAll() {
         List<Student> students;
         Connection connection = CONNECTION_POOL.getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(SELECT_ALL_FROM_STUDENTS)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_STUDENT_AVERAGE_SCORE)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             students = mapStudents(resultSet);
@@ -205,6 +210,7 @@ public class StudentRepositoryImpl implements StudentRepositoryDao {
 
     private static List<Student> mapStudents(ResultSet resultSet) {
         List<Student> students = new ArrayList<>();
+
         try {
             while (resultSet.next()) {
                 Student student = new Student();
@@ -212,14 +218,8 @@ public class StudentRepositoryImpl implements StudentRepositoryDao {
                 student.setFirstName(resultSet.getString(2));
                 student.setLastName(resultSet.getString(3));
                 student.setDateOfBirth(resultSet.getDate(4));
+                student.setAverageScore(resultSet.getDouble(5));
                 students.add(student);
-
-                MY_LOGGER.info(
-                        resultSet.getLong(1) + " | " +
-                                resultSet.getString(2) + " | " +
-                                resultSet.getString(3) + " | " +
-                                resultSet.getDate(4) + " | "
-                );
             }
         } catch (SQLException e) {
             throw new RuntimeException("Не удалось добавить студента!", e);
