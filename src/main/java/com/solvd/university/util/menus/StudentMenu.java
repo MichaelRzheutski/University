@@ -36,7 +36,7 @@ public final class StudentMenu {
                     switch (option) {
                         case 0 -> System.exit(0);
                         case 1 -> new StudentServiceImpl().printAllSubjects();
-                        case 2 -> new StudentServiceImpl().getStudentSubjects();
+                        case 2 -> new StudentServiceImpl().getStudentAllSubjects();
                         case 3 -> new StudentServiceImpl().showStudentPerformance();
                         case 4 -> new StudentServiceImpl().takeExam();
                         case 5 -> isExit = true;

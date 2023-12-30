@@ -15,93 +15,81 @@ public class StudentServiceImpl implements StudentService {
     List<Student> studentList = new StudentRepositoryDaoImpl().findAll();
     List<Subject> subjectList = new SubjectRepositoryDaoImpl().getAllSubjects();
 
-    @Override
-    public List<Student> printAllSubjects() {
-        Set<Subject> tempSubjects = new HashSet<>();
-        List<Student> allStudentsSubjects = new ArrayList<>(studentList);
+    public List<Student> createAllSubjects() {
 
-        for (Student studentsSubject : allStudentsSubjects) {
+        for (Student student : studentList) {
+            Set<Subject> tempSubjects = new HashSet<>();
             Random randomQuantity = new Random();
             int randomSubjectQuantity = randomQuantity.nextInt(studentList.size() - 1) % studentList.size() + 1;
 
-            tempSubjects.clear();
             for (int i = 0; i < randomSubjectQuantity; i++) {
                 Random randomIndex = new Random();
                 int randomSubjectIndex = randomIndex.nextInt(studentList.size() - 1) % studentList.size();
                 subjectList.get(randomSubjectIndex).setGrade(createGrade());
                 tempSubjects.add(subjectList.get(randomSubjectIndex));
+                student.setSubjects(tempSubjects);
             }
-
-            studentsSubject.setSubjects(tempSubjects);
-
-            MY_LOGGER.info(studentsSubject.getFirstName() + " "
-                    + studentsSubject.getLastName() + " " + studentsSubject.getSubjects().toString());
         }
-
-        return allStudentsSubjects;
-    }
-
-    private Integer createGrade() {
-        Random randomGrade = new Random();
-        return randomGrade.nextInt(studentList.size() - 1) % studentList.size() + 1;
+        return studentList;
     }
 
     @Override
-    public Student getStudentSubjects() {
-        List<Student> students = getAllStudentsSubjects();
-        Student finalStudent = new StudentRepositoryDaoImpl().findById();
+    public List<Student> printAllSubjects() {
+        List<Student> allStudentsWithSubjects = createAllSubjects();
 
-        for (Student student : students) {
-            if (finalStudent.getStudentId().equals(student.getStudentId())) {
+        for (Student student : allStudentsWithSubjects) {
 
-                MY_LOGGER.info(finalStudent.getStudentId() + " | " + finalStudent.getFirstName() + " "
-                        + finalStudent.getLastName() + " " + student.getSubjects());
+            MY_LOGGER.info(student.getStudentId() + " | " + student.getFirstName() + " "
+                    + student.getLastName() + " " + student.getSubjects().toString());
+        }
+
+        return allStudentsWithSubjects;
+    }
+
+    private Integer createGrade() {
+        return new Random().nextInt(studentList.size() - 1) % studentList.size() + 1;
+    }
+
+    @Override
+    public Student getStudentAllSubjects() {
+        createAllSubjects();
+        Student foundStudent = new StudentRepositoryDaoImpl().findById();
+
+        for (Student student : studentList) {
+            if (foundStudent.getStudentId().equals(student.getStudentId())) {
+                MY_LOGGER.info(ANSI_GREEN + "Список предметов студента: " + ANSI_YELLOW +
+                        student.getStudentId() + " | " + student.getFirstName() + " "
+                        + student.getLastName() + ANSI_RESET);
+
+                for (Subject subject : studentList.get(9).getSubjects()) {
+                    MY_LOGGER.info(ANSI_YELLOW + subject.getSubjectName() + ANSI_RESET);
+                }
+                System.out.println();
             }
         }
 
-        return finalStudent;
+        return foundStudent;
     }
 
     @Override
     public Student showStudentPerformance() {
-        List<Student> studentsWithSubjects = getAllStudentsSubjects();
-        Student student = new StudentRepositoryDaoImpl().findById();
+        createAllSubjects();
+        Student foundStudent = new StudentRepositoryDaoImpl().findById();
 
-        for (Student studentsWithSubject : studentsWithSubjects) {
-            if (student.getStudentId().equals(studentsWithSubject.getStudentId())) {
-                MY_LOGGER.info(ANSI_GREEN + "Студент: " + ANSI_YELLOW + student.getStudentId()
-                        + " | " + student.getFirstName() + " " + student.getLastName() + ANSI_RESET);
+        for (Student student : studentList) {
+            if (foundStudent.getStudentId().equals(student.getStudentId())) {
+                MY_LOGGER.info(ANSI_GREEN + "Успеваемость студента: " + ANSI_YELLOW + foundStudent.getStudentId()
+                        + " | " + foundStudent.getFirstName() + " " + foundStudent.getLastName() + ANSI_RESET);
 
-                for (Subject subject : studentsWithSubject.getSubjects()) {
+                for (Subject subject : student.getSubjects()) {
                     MY_LOGGER.info(ANSI_GREEN + "Предмет: " + ANSI_YELLOW + subject.getSubjectName() + " | "
                             + ANSI_GREEN + "Оценка " + ANSI_YELLOW + subject.getGrade() + ANSI_RESET);
                 }
+                System.out.println();
             }
         }
 
-        return student;
-    }
-
-    private List<Student> getAllStudentsSubjects() {
-        Set<Subject> tempSubjects = new HashSet<>();
-        List<Student> allStudentsSubjects = new ArrayList<>(studentList);
-
-        for (Student studentsSubject : allStudentsSubjects) {
-            Random randomQuantity = new Random();
-            int randomSubjectQuantity = randomQuantity.nextInt(studentList.size() - 1) % studentList.size() + 1;
-
-            tempSubjects.clear();
-            for (int i = 0; i < randomSubjectQuantity; i++) {
-                Random randomIndex = new Random();
-                int randomSubjectIndex = randomIndex.nextInt(studentList.size() - 1) % studentList.size();
-                subjectList.get(randomSubjectIndex).setGrade(createGrade());
-                tempSubjects.add(subjectList.get(randomSubjectIndex));
-            }
-
-            studentsSubject.setSubjects(tempSubjects);
-        }
-
-        return allStudentsSubjects;
+        return foundStudent;
     }
 
     @Override

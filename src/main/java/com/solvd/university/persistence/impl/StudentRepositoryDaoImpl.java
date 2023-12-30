@@ -21,7 +21,7 @@ public class StudentRepositoryDaoImpl implements StudentRepository {
     private static final String UPDATE_STUDENT_INFO = "UPDATE students SET first_name = ? WHERE student_id = ?;";
     private static final String DELETE_FROM_BUILDINGS = "DELETE FROM students WHERE student_id = ?;";
     private static final String COUNT_STUDENT_ENTRIES = "SELECT COUNT(*) AS students_count FROM students;";
-    private static final String GET_STUDENT_AVERAGE_SCORE = "SELECT students.student_id AS `ID Студента`," +
+    private static final String GET_ALL_STUDENTS = "SELECT students.student_id AS `ID Студента`," +
             "students.first_name AS `Имя`, students.last_name AS `Фамилия`," +
             "students.date_of_birth AS `Дата рождения`," + "enrollments.grade AS `Средний балл`" +
             "FROM students LEFT JOIN enrollments ON students.student_id = enrollments.student_id;";
@@ -120,7 +120,7 @@ public class StudentRepositoryDaoImpl implements StudentRepository {
     public List<Student> findAll() {
         List<Student> students;
         Connection connection = CONNECTION_POOL.getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_STUDENT_AVERAGE_SCORE)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_STUDENTS)) {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             students = mapStudents(resultSet);
@@ -218,7 +218,6 @@ public class StudentRepositoryDaoImpl implements StudentRepository {
 
     private static List<Student> mapStudents(ResultSet resultSet) {
         List<Student> students = new ArrayList<>();
-
         try {
             while (resultSet.next()) {
                 Student student = new Student();
