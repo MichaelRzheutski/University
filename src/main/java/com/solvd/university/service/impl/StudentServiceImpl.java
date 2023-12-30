@@ -54,18 +54,22 @@ public class StudentServiceImpl implements StudentService {
     public Student getStudentAllSubjects() {
         createAllSubjects();
         Student foundStudent = new StudentRepositoryDaoImpl().findById();
+        int enteredStudentId = Math.toIntExact(foundStudent.getStudentId() - 1);
 
-        for (Student student : studentList) {
-            if (foundStudent.getStudentId().equals(student.getStudentId())) {
-                MY_LOGGER.info(ANSI_GREEN + "Список предметов студента: " + ANSI_YELLOW +
-                        student.getStudentId() + " | " + student.getFirstName() + " "
-                        + student.getLastName() + ANSI_RESET);
+        if (foundStudent.getStudentId().equals(studentList.get(enteredStudentId).getStudentId())) {
+            MY_LOGGER.info(ANSI_GREEN + "Список предметов студента: " + ANSI_YELLOW +
+                    studentList.get(enteredStudentId).getStudentId() + " | " +
+                    studentList.get(enteredStudentId).getFirstName() + " " +
+                    studentList.get(enteredStudentId).getLastName() + ANSI_RESET);
 
-                for (Subject subject : studentList.get(9).getSubjects()) {
-                    MY_LOGGER.info(ANSI_YELLOW + subject.getSubjectName() + ANSI_RESET);
-                }
-                System.out.println();
+            for (Subject subject : studentList.get(enteredStudentId).getSubjects()) {
+                MY_LOGGER.info(ANSI_YELLOW + subject.getSubjectName() + ANSI_RESET);
             }
+            System.out.println();
+
+
+        } else {
+            MY_LOGGER.info(ANSI_RED + "Студент отсутствует в базе данных!" + ANSI_RESET);
         }
 
         return foundStudent;
@@ -75,18 +79,22 @@ public class StudentServiceImpl implements StudentService {
     public Student showStudentPerformance() {
         createAllSubjects();
         Student foundStudent = new StudentRepositoryDaoImpl().findById();
+        int enteredStudentId = Math.toIntExact(foundStudent.getStudentId() - 1);
 
-        for (Student student : studentList) {
-            if (foundStudent.getStudentId().equals(student.getStudentId())) {
-                MY_LOGGER.info(ANSI_GREEN + "Успеваемость студента: " + ANSI_YELLOW + foundStudent.getStudentId()
-                        + " | " + foundStudent.getFirstName() + " " + foundStudent.getLastName() + ANSI_RESET);
+        if (foundStudent.getStudentId().equals(studentList.get(enteredStudentId).getStudentId())) {
+            MY_LOGGER.info(ANSI_GREEN + "Успеваемость студента: " + ANSI_YELLOW +
+                    studentList.get(enteredStudentId).getStudentId() + " | " +
+                    studentList.get(enteredStudentId).getFirstName() + " " +
+                    studentList.get(enteredStudentId).getLastName() + ANSI_RESET);
 
-                for (Subject subject : student.getSubjects()) {
-                    MY_LOGGER.info(ANSI_GREEN + "Предмет: " + ANSI_YELLOW + subject.getSubjectName() + " | "
-                            + ANSI_GREEN + "Оценка " + ANSI_YELLOW + subject.getGrade() + ANSI_RESET);
-                }
-                System.out.println();
+            for (Subject subject : studentList.get(enteredStudentId).getSubjects()) {
+                MY_LOGGER.info(ANSI_GREEN + "Предмет: " + ANSI_YELLOW + subject.getSubjectName() + " | "
+                        + ANSI_GREEN + "Оценка " + ANSI_YELLOW + subject.getGrade() + ANSI_RESET);
             }
+            System.out.println();
+
+        } else {
+            MY_LOGGER.info(ANSI_RED + "Студент отсутствует в базе данных!" + ANSI_RESET);
         }
 
         return foundStudent;
@@ -94,6 +102,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public String takeExam() {
+        createAllSubjects();
+
         Scanner scanner = new Scanner(System.in);
         int enteredStudentId;
         int enteredSubjectId;

@@ -85,7 +85,7 @@ public class StudentRepositoryDaoImpl implements StudentRepository {
         Student student = new Student();
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(FIND_STUDENT_BY_ID)) {
-            MY_LOGGER.info(ANSI_GREEN + "Введите ID студента" + ANSI_RESET);
+            MY_LOGGER.info(ANSI_GREEN + "Введите ID студента:" + ANSI_RESET);
 
             if (scanner.hasNextInt()) {
                 enteredStudentId = scanner.nextInt();
