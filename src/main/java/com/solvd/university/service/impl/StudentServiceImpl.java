@@ -38,7 +38,6 @@ public class StudentServiceImpl implements StudentService {
         List<Student> allStudentsWithSubjects = createAllSubjects();
 
         for (Student student : allStudentsWithSubjects) {
-
             MY_LOGGER.info(student.getStudentId() + " | " + student.getFirstName() + " "
                     + student.getLastName() + " " + student.getSubjects().toString());
         }
@@ -66,7 +65,6 @@ public class StudentServiceImpl implements StudentService {
                 MY_LOGGER.info(ANSI_YELLOW + subject.getSubjectName() + ANSI_RESET);
             }
             System.out.println();
-
 
         } else {
             MY_LOGGER.info(ANSI_RED + "Студент отсутствует в базе данных!" + ANSI_RESET);
@@ -105,52 +103,53 @@ public class StudentServiceImpl implements StudentService {
         createAllSubjects();
 
         Scanner scanner = new Scanner(System.in);
-        int enteredStudentId;
-        int enteredSubjectId;
+        Student foundStudent = new StudentRepositoryDaoImpl().findById();
+        int enteredStudentId = Math.toIntExact(foundStudent.getStudentId() - 1);
+
+        int enteredSubjectId = 0;
         String examResult = "";
 
-        MY_LOGGER.info(ANSI_GREEN + "Для сдачи экзамена введите ID студента:" + ANSI_RESET);
-        if (scanner.hasNextInt()) {
-            enteredStudentId = scanner.nextInt();
+        if (foundStudent.getStudentId().equals(studentList.get(enteredStudentId).getStudentId())) {
+            MY_LOGGER.info(ANSI_GREEN + "Студент: " + ANSI_YELLOW +
+                    studentList.get(enteredStudentId).getStudentId() + " | " +
+                    studentList.get(enteredStudentId).getFirstName() + " " +
+                    studentList.get(enteredStudentId).getLastName() + ANSI_RESET);
 
-            MY_LOGGER.info(ANSI_GREEN + "Список доступных для сдачи предметов:" + ANSI_RESET);
-            for (Subject subject : subjectList) {
+            MY_LOGGER.info(ANSI_GREEN + "Список доступных для сдачи предметов: " + ANSI_RESET);
+            for (Subject subject : studentList.get(enteredStudentId).getSubjects()) {
                 MY_LOGGER.info(subject.getSubjectId() + " | " + ANSI_YELLOW + subject.getSubjectName() + ANSI_RESET);
             }
 
             MY_LOGGER.info(ANSI_GREEN + "Введите ID предмета:" + ANSI_RESET);
             if (scanner.hasNextInt()) {
                 enteredSubjectId = scanner.nextInt();
+            }
 
-                if (enteredSubjectId >= 1 && enteredSubjectId <= subjectList.size()) {
+            for (Subject subject : studentList.get(enteredStudentId).getSubjects()) {
+                if (enteredSubjectId == subject.getSubjectId()) {
                     Random randomMark = new Random();
                     int randomSubjectMark = randomMark.nextInt(10) + 1;
-                    subjectList.get(enteredSubjectId).setGrade(0);
-                    subjectList.get(enteredSubjectId).setGrade(randomSubjectMark);
+                    subject.setGrade(0);
+                    subject.setGrade(randomSubjectMark);
 
                     if (randomizeExamTake(studentList, enteredStudentId, randomSubjectMark)) {
                         MY_LOGGER.info(
                                 ANSI_GREEN + studentList.get(enteredStudentId).getFirstName() + " "
                                         + studentList.get(enteredStudentId).getLastName() + " сдал(ла) " +
-                                        ANSI_YELLOW + subjectList.get(enteredStudentId).getSubjectName() +
-                                        " оценка " + subjectList.get(enteredStudentId).getGrade() + ANSI_RESET);
+                                        ANSI_YELLOW + subject.getSubjectName() +
+                                        " оценка " + subject.getGrade() + ANSI_RESET);
                     } else {
                         MY_LOGGER.info(
                                 ANSI_GREEN + studentList.get(enteredStudentId).getFirstName() + " "
                                         + studentList.get(enteredStudentId).getLastName() + " не сдал(ла) " +
-                                        ANSI_YELLOW + subjectList.get(enteredStudentId).getSubjectName() +
-                                        " оценка " + subjectList.get(enteredStudentId).getGrade() + ANSI_RESET);
+                                        ANSI_YELLOW + subject.getSubjectName() +
+                                        " оценка " + subject.getGrade() + ANSI_RESET);
                     }
-                } else {
-                    MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
-                }
-            } else {
-                MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
-            }
-        } else {
-            MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
-        }
 
+                }
+            }
+            System.out.println();
+        }
         return examResult;
     }
 
