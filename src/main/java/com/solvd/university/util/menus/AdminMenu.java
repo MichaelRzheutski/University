@@ -1,6 +1,5 @@
 package com.solvd.university.util.menus;
 
-import com.solvd.university.domain.Admin;
 import com.solvd.university.service.impl.jdbc.AdminServiceJdbcImpl;
 import com.solvd.university.service.impl.jdbc.StudentContactServiceJdbcImpl;
 import com.solvd.university.service.impl.jdbc.StudentServiceJdbcImpl;
@@ -17,17 +16,15 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class AdminMenu {
-    private static final Admin ADMIN = new Admin();
-
     public void showAdminMenu(Scanner scanner, String dbType) throws NotNumberException {
         int option;
         boolean isExit = false;
 
         try {
             if (dbType.equals("MySQL")) {
-                new AdminServiceJdbcImpl().setAdminCredentials(ADMIN);
+                new AdminServiceJdbcImpl().getAdminAccess();
             } else {
-                new AdminServiceMybatisImpl().setAdminCredentials(ADMIN);
+                new AdminServiceMybatisImpl().getAdminAccess();
             }
 
             while (!isExit) {
@@ -48,7 +45,7 @@ public class AdminMenu {
                     if (dbType.equals("MySQL")) {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new AdminServiceJdbcImpl().printAllStudents();
+                            case 1 -> new AdminServiceJdbcImpl().printWholeStudentInfo();
                             case 2 -> new StudentContactServiceJdbcImpl().createStudentContact();
                             case 3 -> new StudentServiceJdbcImpl().enrollStudent();
                             case 4 -> new StudentServiceJdbcImpl().findStudent();
@@ -64,7 +61,7 @@ public class AdminMenu {
                     } else {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new AdminServiceMybatisImpl().printAllStudents();
+                            case 1 -> new AdminServiceMybatisImpl().printWholeStudentInfo();
                             case 2 -> new StudentContactServiceMybatisImpl().createStudentContact();
                             case 3 -> new StudentServiceMybatisImpl().enrollStudent();
                             case 4 -> new StudentServiceMybatisImpl().findStudent();
