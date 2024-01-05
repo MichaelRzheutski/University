@@ -2,7 +2,7 @@ package com.solvd.university.util.menus;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.Subject;
-import com.solvd.university.service.impl.StudentServiceImpl;
+import com.solvd.university.service.impl.jdbc.StudentServiceJdbcImpl;
 import com.solvd.university.util.exceptions.NotNumberException;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
 import com.solvd.university.util.menus.menuenums.StudentMenuItems;
@@ -16,7 +16,7 @@ public final class StudentMenu {
     private static Subject subject;
     private static Student student;
 
-    public void showStudentMenu(Scanner scanner) throws NotNumberException {
+    public void showStudentMenu(Scanner scanner, String dbType) throws NotNumberException {
         int option;
         boolean isExit = false;
 
@@ -33,17 +33,32 @@ public final class StudentMenu {
                 if (scanner.hasNextInt()) {
                     option = scanner.nextInt();
 
-                    switch (option) {
-                        case 0 -> System.exit(0);
-                        case 1 -> new StudentServiceImpl().printAllSubjects();
-                        case 2 -> new StudentServiceImpl().getStudentAllSubjects();
-                        case 3 -> new StudentServiceImpl().showStudentPerformance();
-                        case 4 -> new StudentServiceImpl().takeExam();
-                        case 5 -> isExit = true;
-                        default -> MY_LOGGER.info(
-                                String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
-                                        ANSI_RED, ANSI_RESET)
-                        );
+                    if (dbType.equals("MySQL")) {
+                        switch (option) {
+                            case 0 -> System.exit(0);
+                            case 1 -> new StudentServiceJdbcImpl().printAllSubjects();
+                            case 2 -> new StudentServiceJdbcImpl().getStudentAllSubjects();
+                            case 3 -> new StudentServiceJdbcImpl().showStudentPerformance();
+                            case 4 -> new StudentServiceJdbcImpl().takeExam();
+                            case 5 -> isExit = true;
+                            default -> MY_LOGGER.info(
+                                    String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
+                                            ANSI_RED, ANSI_RESET)
+                            );
+                        }
+                    } else {
+//                        switch (option) {
+//                            case 0 -> System.exit(0);
+//                            case 1 -> new StudentServiceImpl().printAllSubjects();
+//                            case 2 -> new StudentServiceImpl().getStudentAllSubjects();
+//                            case 3 -> new StudentServiceImpl().showStudentPerformance();
+//                            case 4 -> new StudentServiceImpl().takeExam();
+//                            case 5 -> isExit = true;
+//                            default -> MY_LOGGER.info(
+//                                    String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
+//                                            ANSI_RED, ANSI_RESET)
+//                            );
+//                        }
                     }
                 } else {
                     throw new NotNumberException(

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.university.persistence.StudentRepository">
+    <insert id="create" keyColumn="student_id" keyProperty="studentId" useGeneratedKeys="true">
+        INSERT
+        INTO students (first_name, last_name, date_of_birth, student_contact_id)
+        VALUES (#{student.first_name}, #{student.last_name}, #{student.date_of_birth}, #{student.student_contact_id})
+    </insert>
+
+    <select id="findById">
+        SELECT *
+        FROM students
+        WHERE student_id = #{student.student_id}
+    </select>
+
+    <update id="update">
+        UPDATE
+        students SET first_name = #{student.first_name}
+        WHERE student_id = #{student.student_id}
+    </update>
+
+    <select id="findAll" resultMap="AllStudentsResultMap">
+        SELECT
+        students.student_id AS `ID Студента`,
+        students.first_name AS `Имя`,
+        students.last_name AS `Фамилия`,
+        students.date_of_birth AS `Дата рождения`,
+        enrollments.grade AS `Средний балл`
+        FROM students
+        LEFT JOIN enrollments ON students.student_id = enrollments.student_id
+    </select>
+
+    <delete id="deleteById">
+        DELETE
+        FROM students
+        WHERE student_id = #{student_id}
+    </delete>
+
+    <select id="countOfEntries" resultMap="CountOfEntriesStudentResultMap">
+        SELECT
+        COUNT(*) AS students_count
+        FROM students
+    </select>
+
+    <resultMap id="AllStudentsResultMap" type="com.solvd.university.domain.Student" autoMapping="false">
+        <id column="student_id" property="studentId"/>
+        <result column="students.first_name" property="firstName"/>
+        <result column="students.last_name" property="lastName"/>
+        <result column="students.date_of_birth" property="dateOfBirth"/>
+        <result column="students.student_contact_id" property="studentContactId"/>
+        <result column="enrollments.grade" property="averageScore"/>
+    </resultMap>
+
+    <resultMap id="CountOfEntriesStudentResultMap" type="Long" autoMapping="false">
+        <result column="students_count" property="id"/>
+    </resultMap>
+</mapper>

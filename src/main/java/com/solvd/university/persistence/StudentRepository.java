@@ -1,19 +1,20 @@
 package com.solvd.university.persistence;
 
 import com.solvd.university.domain.Student;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
 public interface StudentRepository {
-    void create(Student student);
+    void create(@Param("student") Student student);
 
-    Student findById();
+    Student findById(@Param("student") Student student);
 
     List<Student> findAll();
 
-    void update(Student student);
+    void update(@Param("student") Student student);
 
-    void deleteById();
+    void deleteById(Long id);
 
     Long countOfEntries();
 }

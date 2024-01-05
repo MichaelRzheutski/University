@@ -30,8 +30,8 @@ public class UniversityMenu {
 
                     switch (option) {
                         case 0 -> System.exit(0);
-                        case 1 -> STUDENT_MENU.showStudentMenu(scanner);
-                        case 2 -> ADMIN_MENU.showAdminMenu(scanner);
+                        case 1 -> STUDENT_MENU.showStudentMenu(scanner, dbType);
+                        case 2 -> ADMIN_MENU.showAdminMenu(scanner, dbType);
                         case 3 -> isExit = true;
                         default -> MY_LOGGER.info(
                                 String.format("%sНеверная операция, попробуйте ещё раз!%s\n",

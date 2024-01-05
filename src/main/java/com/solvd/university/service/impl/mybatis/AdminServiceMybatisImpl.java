@@ -1,17 +1,20 @@
-package com.solvd.university.persistence.impl;
+package com.solvd.university.service.impl.mybatis;
 
 import com.solvd.university.domain.Admin;
-import com.solvd.university.persistence.AdminRepository;
+import com.solvd.university.domain.Student;
+import com.solvd.university.persistence.impl.mybatis.StudentRepositoryMybatisImpl;
+import com.solvd.university.service.AdminService;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class AdminRepositoryDaoImpl implements AdminRepository {
+public class AdminServiceMybatisImpl implements AdminService {
     public void setAdminCredentials(Admin admin) {
         Properties property = new Properties();
         try (FileInputStream fis = new FileInputStream("src/main/resources/admin_credentials.properties")) {
@@ -24,11 +27,11 @@ public class AdminRepositoryDaoImpl implements AdminRepository {
             throw new RuntimeException("Невозможно прочитать property файл!", e);
         }
 
-        authorizeAdmin(admin);
+        authorize(admin);
     }
 
     @Override
-    public void authorizeAdmin(Admin admin) {
+    public void authorize(Admin admin) {
         Scanner scanner = new Scanner(System.in);
         String enteredAdminLogin = "";
         String enteredAdminPassword = "";
@@ -55,5 +58,18 @@ public class AdminRepositoryDaoImpl implements AdminRepository {
                 MY_LOGGER.info(ANSI_RED + "Логин и пароль не совпадают, попробуйте ещё раз!\n" + ANSI_RESET);
             }
         }
+    }
+
+    @Override
+    public void printAllStudents() {
+        List<Student> studentList = new StudentRepositoryMybatisImpl().findAll();
+
+        for (Student student : studentList) {
+            MY_LOGGER.info(student.getStudentId() + " | " + ANSI_YELLOW + student.getFirstName() + " | "
+                    + student.getLastName() + " | " + student.getDateOfBirth() + " | "
+                    + student.getAverageScore() + ANSI_RESET
+            );
+        }
+        System.out.println();
     }
 }

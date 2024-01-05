@@ -1,9 +1,9 @@
 package com.solvd.university.service;
 
-import com.solvd.university.domain.Student;
-
-import java.util.List;
+import com.solvd.university.domain.Admin;
 
 public interface AdminService {
-    public List<Student> getAllStudents();
+    void authorize(Admin admin);
+
+    void printAllStudents();
 }
