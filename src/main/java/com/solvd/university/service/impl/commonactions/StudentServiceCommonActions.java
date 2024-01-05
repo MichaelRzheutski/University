@@ -8,7 +8,7 @@ import java.util.Scanner;
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class StudentCommonActions {
+public class StudentServiceCommonActions {
     protected Student addStudent() {
         Scanner scanner = new Scanner(System.in);
         Student student = new Student();

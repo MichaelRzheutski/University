@@ -1,6 +1,6 @@
 package com.solvd.university.util.menus;
 
-import com.solvd.university.service.impl.jdbc.AdminServiceJdbcImpl;
+import com.solvd.university.service.impl.jdbc.AdminServiceServiceJdbcImpl;
 import com.solvd.university.service.impl.jdbc.StudentContactServiceJdbcImpl;
 import com.solvd.university.service.impl.jdbc.StudentServiceJdbcImpl;
 import com.solvd.university.service.impl.mybatis.AdminServiceMybatisImpl;
@@ -22,7 +22,7 @@ public class AdminMenu {
 
         try {
             if (controllerType.equals("MySQL")) {
-                new AdminServiceJdbcImpl().getAdminAccess();
+                new AdminServiceServiceJdbcImpl().getAdminAccess();
             } else {
                 new AdminServiceMybatisImpl().getAdminAccess();
             }
@@ -45,7 +45,7 @@ public class AdminMenu {
                     if (controllerType.equals("MySQL")) {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new AdminServiceJdbcImpl().printWholeStudentInfo();
+                            case 1 -> new AdminServiceServiceJdbcImpl().printWholeStudentInfo();
                             case 2 -> new StudentContactServiceJdbcImpl().createStudentContact();
                             case 3 -> new StudentServiceJdbcImpl().enrollStudent();
                             case 4 -> new StudentServiceJdbcImpl().findStudent();

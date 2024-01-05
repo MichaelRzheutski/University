@@ -1,12 +1,12 @@
-package com.solvd.university.service.impl.mybatis;
+package com.solvd.university.service.impl.jdbc;
 
 import com.solvd.university.service.AdminService;
 import com.solvd.university.service.impl.commonactions.AdminServiceCommonActions;
 
-public class AdminServiceMybatisImpl extends AdminServiceCommonActions implements AdminService {
+public class AdminServiceServiceJdbcImpl extends AdminServiceCommonActions implements AdminService {
     @Override
     public void authorizeAdmin() {
-        new AdminServiceMybatisImpl().getAdminAccess();
+        new AdminServiceServiceJdbcImpl().getAdminAccess();
     }
 
     @Override

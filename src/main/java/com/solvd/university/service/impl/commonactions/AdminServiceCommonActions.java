@@ -11,10 +11,9 @@ import java.util.Properties;
 import java.util.Scanner;
 
 import static com.solvd.university.util.ConsoleColors.*;
-import static com.solvd.university.util.ConsoleColors.ANSI_RESET;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class AdminCommonActions {
+public class AdminServiceCommonActions {
     private void setAdminCredentials() {
         Properties property = new Properties();
         Admin admin = new Admin();
@@ -52,7 +51,8 @@ public class AdminCommonActions {
                 MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
             }
 
-            if (enteredAdminLogin.equals(admin.getLogin()) && enteredAdminPassword.equals(admin.getPassword())) {
+            if (enteredAdminLogin.equals(admin.getLogin())
+                    && enteredAdminPassword.equals(admin.getPassword())) {
                 MY_LOGGER.info(ANSI_GREEN + "Авторизация выполнена успешно\n" + ANSI_RESET);
                 break;
             } else {
@@ -69,9 +69,11 @@ public class AdminCommonActions {
         List<Student> studentList = new StudentRepositoryJdbcImpl().findAll();
 
         for (Student student : studentList) {
-            MY_LOGGER.info(student.getStudentId() + " | " + ANSI_YELLOW + student.getFirstName() + " | "
-                    + student.getLastName() + " | " + student.getDateOfBirth() + " | "
-                    + student.getAverageScore() + ANSI_RESET
+            MY_LOGGER.info(student.getStudentId() + " | " + ANSI_YELLOW +
+                    student.getFirstName() + " | " +
+                    student.getLastName() + " | " +
+                    student.getDateOfBirth() + " | " +
+                    student.getAverageScore() + ANSI_RESET
             );
         }
         System.out.println();
