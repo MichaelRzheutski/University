@@ -16,13 +16,13 @@ public final class StudentMenu {
     private static Subject subject;
     private static Student student;
 
-    public void showStudentMenu(Scanner scanner, String dbType) throws NotNumberException {
+    public void showStudentMenu(Scanner scanner, String controllerType) throws NotNumberException {
         int option;
         boolean isExit = false;
 
         try {
             while (!isExit) {
-                MY_LOGGER.info(ANSI_GREEN + "Меню студента: " + ANSI_RESET);
+                MY_LOGGER.info(ANSI_GREEN + "Меню студента: " + controllerType + ANSI_RESET);
                 MY_LOGGER.info("[1]. " + StudentMenuItems.STUDENT_SHOW_ALL_STUDENT_SUBJECTS);
                 MY_LOGGER.info("[2]. " + StudentMenuItems.STUDENT_SHOW_STUDENT_SUBJECTS);
                 MY_LOGGER.info("[3]. " + StudentMenuItems.STUDENT_SHOW_GRADES);
@@ -33,7 +33,7 @@ public final class StudentMenu {
                 if (scanner.hasNextInt()) {
                     option = scanner.nextInt();
 
-                    if (dbType.equals("MySQL")) {
+                    if (controllerType.equals("MySQL")) {
                         switch (option) {
                             case 0 -> System.exit(0);
                             case 1 -> new StudentServiceJdbcImpl().printAllSubjects();

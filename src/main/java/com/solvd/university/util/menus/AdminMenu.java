@@ -16,19 +16,19 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class AdminMenu {
-    public void showAdminMenu(Scanner scanner, String dbType) throws NotNumberException {
+    public void showAdminMenu(Scanner scanner, String controllerType) throws NotNumberException {
         int option;
         boolean isExit = false;
 
         try {
-            if (dbType.equals("MySQL")) {
+            if (controllerType.equals("MySQL")) {
                 new AdminServiceJdbcImpl().getAdminAccess();
             } else {
                 new AdminServiceMybatisImpl().getAdminAccess();
             }
 
             while (!isExit) {
-                MY_LOGGER.info(ANSI_GREEN + "Меню администратора: " + ANSI_RESET);
+                MY_LOGGER.info(ANSI_GREEN + "Меню администратора: " + controllerType + ANSI_RESET);
                 MY_LOGGER.info("[1]. " + AdminMenuItems.ADMIN_SHOW_ALL_STUDENTS);
                 MY_LOGGER.info("[2]. " + AdminMenuItems.ADMIN_ADD_STUDENT_CONTACT);
                 MY_LOGGER.info("[3]. " + AdminMenuItems.ADMIN_ADD_STUDENT);
@@ -42,7 +42,7 @@ public class AdminMenu {
                 if (scanner.hasNextInt()) {
                     option = scanner.nextInt();
 
-                    if (dbType.equals("MySQL")) {
+                    if (controllerType.equals("MySQL")) {
                         switch (option) {
                             case 0 -> System.exit(0);
                             case 1 -> new AdminServiceJdbcImpl().printWholeStudentInfo();
