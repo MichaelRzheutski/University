@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.university.persistence.StudentRepository">
+    <sql id="selectAllStudents">
+        SELECT * FROM students s
+    </sql>
+
     <select id="findAll" resultMap="AllStudentsResultMap">
-        SELECT * FROM students
-        LEFT JOIN enrollments ON students.student_id = enrollments.student_id
+        <include refid="selectAllStudents"/>
+        LEFT JOIN enrollments e ON s.student_id = e.student_id
     </select>
 
     <insert id="create" keyColumn="student_id" keyProperty="studentId" useGeneratedKeys="true">
@@ -13,8 +17,7 @@
     </insert>
 
     <select id="findById" resultMap="findByIdResultMap">
-        SELECT *
-        FROM students
+        <include refid="selectAllStudents"/>
         WHERE student_id = #{studentId}
     </select>
 
@@ -42,6 +45,10 @@
         <result column="last_name" property="lastName"/>
         <result column="date_of_birth" property="dateOfBirth"/>
         <result column="grade" property="averageScore"/>
+        <collection property="subjects"
+                    resultMap="com.solvd.university.persistence.SubjectRepository.allSubjectsResultMap">
+
+        </collection>
     </resultMap>
 
     <resultMap id="findByIdResultMap" type="com.solvd.university.domain.Student" autoMapping="false">

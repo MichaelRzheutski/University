@@ -16,8 +16,8 @@ public class StudentRepositoryJdbcImpl implements StudentRepository {
     private static final String UPDATE_STUDENT_INFO = "UPDATE students SET first_name = ? WHERE student_id = ?;";
     private static final String DELETE_FROM_BUILDINGS = "DELETE FROM students WHERE student_id = ?;";
     private static final String COUNT_STUDENT_ENTRIES = "SELECT COUNT(*) AS students_count FROM students;";
-    private static final String GET_ALL_STUDENTS = "SELECT * FROM students " +
-            "LEFT JOIN enrollments ON students.student_id = enrollments.student_id";
+    private static final String GET_ALL_STUDENTS = "SELECT * FROM students s " +
+            "LEFT JOIN enrollments e ON s.student_id = e.student_id";
 
     @Override
     public List<Student> findAll() {
