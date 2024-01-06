@@ -13,13 +13,13 @@ public class UniversityMenu {
     private static final StudentMenu STUDENT_MENU = new StudentMenu();
     private static final AdminMenu ADMIN_MENU = new AdminMenu();
 
-    public void showUniversityMenu(Scanner scanner, String dbType) throws NotNumberException {
+    public void showUniversityMenu(Scanner scanner, String controllerType) throws NotNumberException {
         int option;
         boolean isExit = false;
 
         try {
             while (!isExit) {
-                MY_LOGGER.info(ANSI_GREEN + "Меню университета: " + ANSI_RESET);
+                MY_LOGGER.info(ANSI_GREEN + "Меню университета: " + controllerType + ANSI_RESET);
                 MY_LOGGER.info("[1]. " + UniversityMenuItems.UNIVERSITY_STUDENT_OPERATIONS);
                 MY_LOGGER.info("[2]. " + UniversityMenuItems.UNIVERSITY_ADMIN_OPERATIONS);
                 MY_LOGGER.info("[3]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);
@@ -30,8 +30,8 @@ public class UniversityMenu {
 
                     switch (option) {
                         case 0 -> System.exit(0);
-                        case 1 -> STUDENT_MENU.showStudentMenu(scanner);
-                        case 2 -> ADMIN_MENU.showAdminMenu(scanner);
+                        case 1 -> STUDENT_MENU.showStudentMenu(scanner, controllerType);
+                        case 2 -> ADMIN_MENU.showAdminMenu(scanner, controllerType);
                         case 3 -> isExit = true;
                         default -> MY_LOGGER.info(
                                 String.format("%sНеверная операция, попробуйте ещё раз!%s\n",

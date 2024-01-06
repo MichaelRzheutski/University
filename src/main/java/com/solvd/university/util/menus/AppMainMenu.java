@@ -3,6 +3,7 @@ package com.solvd.university.util.menus;
 import com.solvd.university.util.exceptions.NotNumberException;
 import com.solvd.university.util.menus.menuenums.AppMainMenuItems;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
+import org.apache.log4j.BasicConfigurator;
 
 import java.util.Scanner;
 
@@ -13,9 +14,10 @@ public final class AppMainMenu {
     private final Scanner scanner = new Scanner(System.in);
     private static final UniversityMenu UNIVERSITY_MENU = new UniversityMenu();
     private static final String USE_MYSQL = "MySQL";
-    private static final String USE_JSON = "JSON";
+    private static final String USE_MYBATIS = "Mybatis";
 
     public void mainMenu() {
+        BasicConfigurator.configure();
         int option;
 
         try (scanner) {
@@ -31,7 +33,7 @@ public final class AppMainMenu {
                     switch (option) {
                         case 0 -> System.exit(0);
                         case 1 -> UNIVERSITY_MENU.showUniversityMenu(scanner, USE_MYSQL);
-                        case 2 -> UNIVERSITY_MENU.showUniversityMenu(scanner, USE_JSON);
+                        case 2 -> UNIVERSITY_MENU.showUniversityMenu(scanner, USE_MYBATIS);
                         default -> MY_LOGGER.debug(
                                 ANSI_RED + "Неверная операция, " +
                                         "попробуйте ещё раз!\n" + ANSI_RESET

@@ -1,7 +1,7 @@
 package com.solvd.university.util.menus.menuenums;
 
 public enum AdminMenuItems {
-    ADMIN_SHOW_ALL_STUDENTS("Показать всех студентов"),
+    ADMIN_SHOW_ALL_STUDENTS("Показать полную информацию о студентах"),
     ADMIN_ADD_STUDENT_CONTACT("Добавить контакт студента"),
     ADMIN_ADD_STUDENT("Добавить студента"),
     ADMIN_FIND_STUDENT_BY_ID("Найти студента по ID"),
