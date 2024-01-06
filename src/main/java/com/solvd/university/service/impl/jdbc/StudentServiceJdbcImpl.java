@@ -5,10 +5,17 @@ import com.solvd.university.persistence.impl.jdbc.StudentRepositoryJdbcImpl;
 import com.solvd.university.service.StudentService;
 import com.solvd.university.service.impl.commonactions.StudentServiceCommonActions;
 
+import java.util.List;
+
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class StudentServiceJdbcImpl extends StudentServiceCommonActions implements StudentService {
+    @Override
+    public void printFullStudentInfo() {
+        List<Student> studentList = new StudentRepositoryJdbcImpl().findAll();
+        printWholeStudentInfo(studentList);
+    }
 
     @Override
     public void enrollStudent() {

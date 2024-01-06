@@ -5,10 +5,18 @@ import com.solvd.university.persistence.impl.mybatis.StudentRepositoryMybatisImp
 import com.solvd.university.service.StudentService;
 import com.solvd.university.service.impl.commonactions.StudentServiceCommonActions;
 
+import java.util.List;
+
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class StudentServiceMybatisImpl extends StudentServiceCommonActions implements StudentService {
+    @Override
+    public void printFullStudentInfo() {
+        List<Student> students = new StudentRepositoryMybatisImpl().findAll();
+        printWholeStudentInfo(students);
+    }
+
     @Override
     public void enrollStudent() {
         Student studentToCreate = addStudent();
@@ -19,12 +27,12 @@ public class StudentServiceMybatisImpl extends StudentServiceCommonActions imple
 
     @Override
     public Student findStudent() {
-        Student foundByIdStudent = getStudentById();
-        new StudentRepositoryMybatisImpl().findById(foundByIdStudent);
-        MY_LOGGER.info(ANSI_GREEN + "Найден студент: " + ANSI_YELLOW + foundByIdStudent.getStudentId() + " | " +
-                foundByIdStudent.getFirstName() + " " + foundByIdStudent.getLastName() + ANSI_RESET + "\n");
+        Student studentToFound = getStudentById();
+        Student foundStudent = new StudentRepositoryMybatisImpl().findById(studentToFound);
+        MY_LOGGER.info(ANSI_GREEN + "Найден студент: " + ANSI_YELLOW + foundStudent.getStudentId() + " | " +
+                foundStudent.getFirstName() + " " + foundStudent.getLastName() + ANSI_RESET + "\n");
 
-        return foundByIdStudent;
+        return foundStudent;
     }
 
     @Override

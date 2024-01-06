@@ -16,10 +16,23 @@ public class StudentRepositoryJdbcImpl implements StudentRepository {
     private static final String UPDATE_STUDENT_INFO = "UPDATE students SET first_name = ? WHERE student_id = ?;";
     private static final String DELETE_FROM_BUILDINGS = "DELETE FROM students WHERE student_id = ?;";
     private static final String COUNT_STUDENT_ENTRIES = "SELECT COUNT(*) AS students_count FROM students;";
-    private static final String GET_ALL_STUDENTS = "SELECT students.student_id AS `ID Студента`," +
-            "students.first_name AS `Имя`, students.last_name AS `Фамилия`," +
-            "students.date_of_birth AS `Дата рождения`," + "enrollments.grade AS `Средний балл`" +
-            "FROM students LEFT JOIN enrollments ON students.student_id = enrollments.student_id;";
+    private static final String GET_ALL_STUDENTS = "SELECT * FROM students " +
+            "LEFT JOIN enrollments ON students.student_id = enrollments.student_id";
+
+    @Override
+    public List<Student> findAll() {
+        List<Student> students;
+        Connection connection = CONNECTION_POOL.getConnection();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_STUDENTS)) {
+            ResultSet resultSet = preparedStatement.executeQuery();
+            students = mapStudents(resultSet);
+        } catch (SQLException e) {
+            throw new RuntimeException("Не удалось найти всех студентов!", e);
+        } finally {
+            CONNECTION_POOL.releaseConnection(connection);
+        }
+        return students;
+    }
 
     @Override
     public void create(Student student) {
@@ -54,20 +67,6 @@ public class StudentRepositoryJdbcImpl implements StudentRepository {
         }
 
         return student;
-    }
-
-    public List<Student> findAll() {
-        List<Student> students;
-        Connection connection = CONNECTION_POOL.getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_STUDENTS)) {
-            ResultSet resultSet = preparedStatement.executeQuery();
-            students = mapStudents(resultSet);
-        } catch (SQLException e) {
-            throw new RuntimeException("Не удалось найти всех студентов!", e);
-        } finally {
-            CONNECTION_POOL.releaseConnection(connection);
-        }
-        return students;
     }
 
     @Override

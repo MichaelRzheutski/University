@@ -21,11 +21,11 @@ public class AdminMenu {
         boolean isExit = false;
 
         try {
-//            if (controllerType.equals("MySQL")) {
-//                new AdminServiceServiceJdbcImpl().getAdminAccess();
-//            } else {
-//                new AdminServiceMybatisImpl().getAdminAccess();
-//            }
+            if (controllerType.equals("MySQL")) {
+                new AdminServiceServiceJdbcImpl().getAdminAccess();
+            } else {
+                new AdminServiceMybatisImpl().getAdminAccess();
+            }
 
             while (!isExit) {
                 MY_LOGGER.info(ANSI_GREEN + "Меню администратора: " + controllerType + ANSI_RESET);
@@ -45,7 +45,7 @@ public class AdminMenu {
                     if (controllerType.equals("MySQL")) {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new AdminServiceServiceJdbcImpl().printFullStudentInfo();
+                            case 1 -> new StudentServiceJdbcImpl().printFullStudentInfo();
                             case 2 -> new StudentContactServiceJdbcImpl().createStudentContact();
                             case 3 -> new StudentServiceJdbcImpl().enrollStudent();
                             case 4 -> new StudentServiceJdbcImpl().findStudent();
@@ -61,7 +61,7 @@ public class AdminMenu {
                     } else {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new AdminServiceMybatisImpl().printFullStudentInfo();
+                            case 1 -> new StudentServiceMybatisImpl().printFullStudentInfo();
                             case 2 -> new StudentContactServiceMybatisImpl().createStudentContact();
                             case 3 -> new StudentServiceMybatisImpl().enrollStudent();
                             case 4 -> new StudentServiceMybatisImpl().findStudent();

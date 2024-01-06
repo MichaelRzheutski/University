@@ -1,11 +1,9 @@
 package com.solvd.university.service.impl.commonactions;
 
 import com.solvd.university.domain.Admin;
-import com.solvd.university.domain.Student;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -62,17 +60,5 @@ public class AdminServiceCommonActions {
 
     public void getAdminAccess() {
         setAdminCredentials();
-    }
-
-    public void printWholeStudentInfo(List<Student> studentList) {
-        for (Student student : studentList) {
-            MY_LOGGER.info(student.getStudentId() + " | " + ANSI_YELLOW +
-                    student.getFirstName() + " | " +
-                    student.getLastName() + " | " +
-                    student.getDateOfBirth() + " | " +
-                    student.getAverageScore() + ANSI_RESET
-            );
-        }
-        System.out.println();
     }
 }

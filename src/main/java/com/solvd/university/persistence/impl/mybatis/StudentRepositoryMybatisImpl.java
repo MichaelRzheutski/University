@@ -9,6 +9,14 @@ import java.util.List;
 
 public class StudentRepositoryMybatisImpl implements StudentRepository {
     @Override
+    public List<Student> findAll() {
+        try (SqlSession sqlSession = PersistenceConfig.getSessionFactory().openSession(true)) {
+            StudentRepository studentRepository = sqlSession.getMapper(StudentRepository.class);
+            return studentRepository.findAll();
+        }
+    }
+
+    @Override
     public void create(Student student) {
         try (SqlSession sqlSession = PersistenceConfig.getSessionFactory().openSession(true)) {
             StudentRepository studentRepository = sqlSession.getMapper(StudentRepository.class);
@@ -21,14 +29,6 @@ public class StudentRepositoryMybatisImpl implements StudentRepository {
         try (SqlSession sqlSession = PersistenceConfig.getSessionFactory().openSession(true)) {
             StudentRepository studentRepository = sqlSession.getMapper(StudentRepository.class);
             return studentRepository.findById(student);
-        }
-    }
-
-    @Override
-    public List<Student> findAll() {
-        try (SqlSession sqlSession = PersistenceConfig.getSessionFactory().openSession(true)) {
-            StudentRepository studentRepository = sqlSession.getMapper(StudentRepository.class);
-            return studentRepository.findAll();
         }
     }
 

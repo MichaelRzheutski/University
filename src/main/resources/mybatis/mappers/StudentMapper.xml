@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.solvd.university.persistence.StudentRepository">
+    <select id="findAll" resultMap="AllStudentsResultMap">
+        SELECT * FROM students
+        LEFT JOIN enrollments ON students.student_id = enrollments.student_id
+    </select>
+
     <insert id="create" keyColumn="student_id" keyProperty="studentId" useGeneratedKeys="true">
         INSERT
         INTO students (first_name, last_name, date_of_birth, student_contact_id)
@@ -19,17 +24,6 @@
         WHERE student_id = #{studentId}
     </update>
 
-    <select id="findAll" resultMap="AllStudentsResultMap">
-        SELECT
-        students.student_id AS `ID Студента`,
-        students.first_name AS `Имя`,
-        students.last_name AS `Фамилия`,
-        students.date_of_birth AS `Дата рождения`,
-        enrollments.grade AS `Средний балл`
-        FROM students
-        LEFT JOIN enrollments ON students.student_id = enrollments.student_id
-    </select>
-
     <delete id="deleteById">
         DELETE
         FROM students
@@ -42,19 +36,18 @@
         FROM students
     </select>
 
+    <resultMap id="AllStudentsResultMap" type="com.solvd.university.domain.Student" autoMapping="false">
+        <id column="student_id" property="studentId"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <result column="date_of_birth" property="dateOfBirth"/>
+        <result column="grade" property="averageScore"/>
+    </resultMap>
+
     <resultMap id="findByIdResultMap" type="com.solvd.university.domain.Student" autoMapping="false">
         <id column="student_id" property="studentId"/>
         <result column="first_name" property="firstName"/>
         <result column="last_name" property="lastName"/>
-    </resultMap>
-
-    <resultMap id="AllStudentsResultMap" type="com.solvd.university.domain.Student" autoMapping="false">
-        <id column="student_id" property="studentId"/>
-        <result column="students.first_name" property="firstName"/>
-        <result column="students.last_name" property="lastName"/>
-        <result column="students.date_of_birth" property="dateOfBirth"/>
-        <result column="students.student_contact_id" property="studentContactId"/>
-        <result column="enrollments.grade" property="averageScore"/>
     </resultMap>
 
     <resultMap id="CountOfEntriesStudentResultMap" type="Long" autoMapping="false">
