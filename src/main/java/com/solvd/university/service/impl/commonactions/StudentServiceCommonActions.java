@@ -37,8 +37,6 @@ public class StudentServiceCommonActions {
         MY_LOGGER.info(ANSI_GREEN + "Введите ID контакта:" + ANSI_RESET);
         if (scanner.hasNextLong()) {
             student.setStudentContactId(scanner.nextLong());
-            MY_LOGGER.info(ANSI_GREEN + "Студент был добавлен в базу: " + ANSI_YELLOW
-                    + student.getFirstName() + " " + student.getLastName() + ANSI_RESET + "\n");
         } else {
             MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
         }
@@ -77,9 +75,6 @@ public class StudentServiceCommonActions {
             MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
         }
 
-        MY_LOGGER.info(ANSI_GREEN + "Обновлено имя у студента с ID: " + ANSI_YELLOW
-                + student.getStudentId() + ANSI_RESET + "\n");
-
         return student;
     }
 
@@ -93,9 +88,6 @@ public class StudentServiceCommonActions {
         } else {
             MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
         }
-
-        MY_LOGGER.info(ANSI_GREEN + "Удалён студент с ID: " + ANSI_YELLOW
-                + enteredStudentId + ANSI_RESET + "\n");
 
         return enteredStudentId;
     }

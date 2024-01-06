@@ -4,19 +4,19 @@
     <insert id="create" keyColumn="student_id" keyProperty="studentId" useGeneratedKeys="true">
         INSERT
         INTO students (first_name, last_name, date_of_birth, student_contact_id)
-        VALUES (#{student.first_name}, #{student.last_name}, #{student.date_of_birth}, #{student.student_contact_id})
+        VALUES (#{firstName}, #{lastName}, #{dateOfBirth}, #{studentContactId})
     </insert>
 
-    <select id="findById">
+    <select id="findById" resultMap="findByIdResultMap">
         SELECT *
         FROM students
-        WHERE student_id = #{student.student_id}
+        WHERE student_id = #{studentId}
     </select>
 
     <update id="update">
-        UPDATE
-        students SET first_name = #{student.first_name}
-        WHERE student_id = #{student.student_id}
+        UPDATE students
+        SET first_name = #{firstName}
+        WHERE student_id = #{studentId}
     </update>
 
     <select id="findAll" resultMap="AllStudentsResultMap">
@@ -41,6 +41,12 @@
         COUNT(*) AS students_count
         FROM students
     </select>
+
+    <resultMap id="findByIdResultMap" type="com.solvd.university.domain.Student" autoMapping="false">
+        <id column="student_id" property="studentId"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+    </resultMap>
 
     <resultMap id="AllStudentsResultMap" type="com.solvd.university.domain.Student" autoMapping="false">
         <id column="student_id" property="studentId"/>

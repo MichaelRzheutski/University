@@ -2,7 +2,6 @@ package com.solvd.university.service.impl.commonactions;
 
 import com.solvd.university.domain.Admin;
 import com.solvd.university.domain.Student;
-import com.solvd.university.persistence.impl.jdbc.StudentRepositoryJdbcImpl;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -65,9 +64,7 @@ public class AdminServiceCommonActions {
         setAdminCredentials();
     }
 
-    public void printWholeStudentInfo() {
-        List<Student> studentList = new StudentRepositoryJdbcImpl().findAll();
-
+    public void printWholeStudentInfo(List<Student> studentList) {
         for (Student student : studentList) {
             MY_LOGGER.info(student.getStudentId() + " | " + ANSI_YELLOW +
                     student.getFirstName() + " | " +

@@ -26,9 +26,6 @@ public class StudentContactServiceCommonActions {
             MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
         }
 
-        MY_LOGGER.info(ANSI_GREEN + "Контакт был добавлен в базу: " + ANSI_YELLOW
-                + studentContact.getPhone() + " " + studentContact.getEmail() + ANSI_RESET + "\n");
-
         return studentContact;
     }
 }

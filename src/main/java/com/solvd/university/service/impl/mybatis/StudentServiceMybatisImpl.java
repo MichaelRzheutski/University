@@ -11,26 +11,36 @@ import static com.solvd.university.util.MyLogger.MY_LOGGER;
 public class StudentServiceMybatisImpl extends StudentServiceCommonActions implements StudentService {
     @Override
     public void enrollStudent() {
-        new StudentRepositoryMybatisImpl().create(addStudent());
+        Student studentToCreate = addStudent();
+        new StudentRepositoryMybatisImpl().create(studentToCreate);
+        MY_LOGGER.info(ANSI_GREEN + "Студент был добавлен в базу: " + ANSI_YELLOW
+                + studentToCreate.getFirstName() + " " + studentToCreate.getLastName() + ANSI_RESET + "\n");
     }
 
     @Override
     public Student findStudent() {
-        Student student = new StudentRepositoryMybatisImpl().findById(getStudentById());
-        MY_LOGGER.info(ANSI_GREEN + "Найден студент: " + ANSI_YELLOW + student.getStudentId() + " | " +
-                student.getFirstName() + " " + student.getLastName() + ANSI_RESET);
+        Student foundByIdStudent = getStudentById();
+        new StudentRepositoryMybatisImpl().findById(foundByIdStudent);
+        MY_LOGGER.info(ANSI_GREEN + "Найден студент: " + ANSI_YELLOW + foundByIdStudent.getStudentId() + " | " +
+                foundByIdStudent.getFirstName() + " " + foundByIdStudent.getLastName() + ANSI_RESET + "\n");
 
-        return student;
+        return foundByIdStudent;
     }
 
     @Override
     public void editStudentInfo() {
-        new StudentRepositoryMybatisImpl().update(editInfo());
+        Student studentToUpdateInfo = editInfo();
+        new StudentRepositoryMybatisImpl().update(studentToUpdateInfo);
+        MY_LOGGER.info(ANSI_GREEN + "Обновлено имя у студента с ID: " + ANSI_YELLOW
+                + studentToUpdateInfo.getStudentId() + ANSI_RESET + "\n");
     }
 
     @Override
     public void expelStudentById() {
-        new StudentRepositoryMybatisImpl().deleteById(deleteStudent());
+        Long studentToDelete = deleteStudent();
+        new StudentRepositoryMybatisImpl().deleteById(studentToDelete);
+        MY_LOGGER.info(ANSI_GREEN + "Удалён студент с ID: " + ANSI_YELLOW
+                + studentToDelete + ANSI_RESET + "\n");
     }
 
     @Override
