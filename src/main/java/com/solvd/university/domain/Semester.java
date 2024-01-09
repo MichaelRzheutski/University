@@ -3,13 +3,11 @@ package com.solvd.university.domain;
 public class Semester {
     private Long semesterId;
     private String semesterName;
-    private Course courseId;
     private Subject subjectId;
 
-    public Semester(Long semesterId, String semesterName, Course courseId, Subject subjectId) {
+    public Semester(Long semesterId, String semesterName, Subject subjectId) {
         this.semesterId = semesterId;
         this.semesterName = semesterName;
-        this.courseId = courseId;
         this.subjectId = subjectId;
     }
 
@@ -27,14 +25,6 @@ public class Semester {
 
     public void setSemesterName(String semesterName) {
         this.semesterName = semesterName;
-    }
-
-    public Course getCourseId() {
-        return courseId;
-    }
-
-    public void setCourseId(Course courseId) {
-        this.courseId = courseId;
     }
 
     public Subject getSubjectId() {

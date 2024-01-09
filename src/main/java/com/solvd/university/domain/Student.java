@@ -1,23 +1,33 @@
 package com.solvd.university.domain;
 
+import com.solvd.university.util.parsers.XmlDateAdapter;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
+@XmlRootElement(name = "student")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Student {
     private Long studentId;
     private String firstName;
     private String lastName;
+    @XmlJavaTypeAdapter(XmlDateAdapter.class)
     private LocalDate dateOfBirth;
     private Long studentContactId;
     private Set<Subject> subjects;
     private Double averageScore;
+    private Department department;
 
     public Student() {
     }
 
     public Student(Long studentId, String firstName, String lastName, LocalDate dateOfBirth,
-                   Long studentContactId, Set<Subject> subjects, Double averageScore) {
+                   Long studentContactId, Set<Subject> subjects, Double averageScore, Department department) {
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -25,6 +35,7 @@ public class Student {
         this.studentContactId = studentContactId;
         this.subjects = subjects;
         this.averageScore = averageScore;
+        this.department = department;
     }
 
     public Long getStudentId() {
@@ -83,23 +94,24 @@ public class Student {
         this.averageScore = averageScore;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Student student = (Student) o;
-        return Objects.equals(studentId, student.studentId)
-                && Objects.equals(firstName, student.firstName)
-                && Objects.equals(lastName, student.lastName)
-                && Objects.equals(dateOfBirth, student.dateOfBirth)
-                && Objects.equals(studentContactId, student.studentContactId)
-                && Objects.equals(subjects, student.subjects)
-                && Objects.equals(averageScore, student.averageScore);
+        return Objects.equals(studentId, student.studentId) && Objects.equals(firstName, student.firstName) && Objects.equals(lastName, student.lastName) && Objects.equals(dateOfBirth, student.dateOfBirth) && Objects.equals(studentContactId, student.studentContactId) && Objects.equals(subjects, student.subjects) && Objects.equals(averageScore, student.averageScore) && Objects.equals(department, student.department);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(studentId, firstName, lastName, dateOfBirth,
-                studentContactId, subjects, averageScore);
+        return Objects.hash(studentId, firstName, lastName, dateOfBirth, studentContactId, subjects, averageScore, department);
     }
 }

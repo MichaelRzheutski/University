@@ -20,6 +20,7 @@
     <mappers>
         <mapper resource="mybatis/mappers/StudentContactMapper.xml"/>
         <mapper resource="mybatis/mappers/StudentMapper.xml"/>
+        <mapper resource="mybatis/mappers/DepartmentMapper.xml"/>
         <mapper resource="mybatis/mappers/SubjectMapper.xml"/>
     </mappers>
 </configuration>

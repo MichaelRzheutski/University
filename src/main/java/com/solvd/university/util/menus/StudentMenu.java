@@ -12,7 +12,7 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public final class StudentMenu {
-    public void showStudentMenu(Scanner scanner, String controllerType) throws NotNumberException {
+    public void showStudentMenu(Scanner scanner, String controllerType, String xmlConsoleSelector) throws NotNumberException {
         int option;
         boolean isExit = false;
 

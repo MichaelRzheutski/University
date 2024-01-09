@@ -16,7 +16,7 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class AdminMenu {
-    public void showAdminMenu(Scanner scanner, String controllerType) throws NotNumberException {
+    public void showAdminMenu(Scanner scanner, String controllerType, String xmlConsoleSelector) throws NotNumberException {
         int option;
         boolean isExit = false;
 
@@ -28,21 +28,32 @@ public class AdminMenu {
             }
 
             while (!isExit) {
-                MY_LOGGER.info(ANSI_GREEN + "Меню администратора: " + controllerType + ANSI_RESET);
-                MY_LOGGER.info("[1]. " + AdminMenuItems.ADMIN_SHOW_ALL_STUDENTS);
-                MY_LOGGER.info("[2]. " + AdminMenuItems.ADMIN_ADD_STUDENT_CONTACT);
-                MY_LOGGER.info("[3]. " + AdminMenuItems.ADMIN_ADD_STUDENT);
-                MY_LOGGER.info("[4]. " + AdminMenuItems.ADMIN_FIND_STUDENT_BY_ID);
-                MY_LOGGER.info("[5]. " + AdminMenuItems.ADMIN_UPDATE_STUDENT_INFO);
-                MY_LOGGER.info("[6]. " + AdminMenuItems.ADMIN_DELETE_STUDENT);
-                MY_LOGGER.info("[7]. " + AdminMenuItems.ADMIN_COUNT_STUDENTS);
-                MY_LOGGER.info("[8]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);
-                MY_LOGGER.info("[0]. " + GeneralMenuItems.UNIVERSITY_EXIT);
-
+                if (controllerType.equals("MySQL") && xmlConsoleSelector.equals("Console")
+                        || controllerType.equals("Mybatis") && xmlConsoleSelector.equals("Console")) {
+                    MY_LOGGER.info(ANSI_GREEN + "Меню администратора: "
+                            + controllerType + " + " + xmlConsoleSelector + ANSI_RESET);
+                    MY_LOGGER.info("[1]. " + AdminMenuItems.ADMIN_SHOW_ALL_STUDENTS);
+                    MY_LOGGER.info("[2]. " + AdminMenuItems.ADMIN_ADD_STUDENT_CONTACT);
+                    MY_LOGGER.info("[3]. " + AdminMenuItems.ADMIN_ADD_STUDENT);
+                    MY_LOGGER.info("[4]. " + AdminMenuItems.ADMIN_FIND_STUDENT_BY_ID);
+                    MY_LOGGER.info("[5]. " + AdminMenuItems.ADMIN_UPDATE_STUDENT_INFO);
+                    MY_LOGGER.info("[6]. " + AdminMenuItems.ADMIN_DELETE_STUDENT);
+                    MY_LOGGER.info("[7]. " + AdminMenuItems.ADMIN_COUNT_STUDENTS);
+                    MY_LOGGER.info("[8]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);
+                    MY_LOGGER.info("[0]. " + GeneralMenuItems.UNIVERSITY_EXIT);
+                } else {
+                    MY_LOGGER.info(ANSI_GREEN + "Меню администратора: "
+                            + controllerType + " + " + xmlConsoleSelector + ANSI_RESET);
+                    MY_LOGGER.info("[1]. " + AdminMenuItems.ADMIN_SHOW_ALL_STUDENTS);
+                    MY_LOGGER.info("[2]. " + AdminMenuItems.ADMIN_ADD_STUDENT_CONTACT);
+                    MY_LOGGER.info("[3]. " + AdminMenuItems.ADMIN_ADD_STUDENT);
+                    MY_LOGGER.info("[8]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);
+                    MY_LOGGER.info("[0]. " + GeneralMenuItems.UNIVERSITY_EXIT);
+                }
                 if (scanner.hasNextInt()) {
                     option = scanner.nextInt();
 
-                    if (controllerType.equals("MySQL")) {
+                    if (controllerType.equals("MySQL") && xmlConsoleSelector.equals("Console")) {
                         switch (option) {
                             case 0 -> System.exit(0);
                             case 1 -> new StudentServiceJdbcImpl().printFullStudentInfo();
@@ -52,6 +63,54 @@ public class AdminMenu {
                             case 5 -> new StudentServiceJdbcImpl().editStudentInfo();
                             case 6 -> new StudentServiceJdbcImpl().expelStudentById();
                             case 7 -> new StudentServiceJdbcImpl().printNumberOfEntries();
+                            case 8 -> isExit = true;
+                            default -> MY_LOGGER.info(
+                                    String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
+                                            ANSI_RED, ANSI_RESET)
+                            );
+                        }
+                    } else if (controllerType.equals("MySQL") && xmlConsoleSelector.equals("XML")) {
+                        switch (option) {
+                            case 0 -> System.exit(0);
+                            case 1 -> new StudentServiceJdbcImpl().printFullStudentInfo();
+                            case 2 -> new StudentContactServiceJdbcImpl().createStudentContactStax();
+                            case 3 -> new StudentServiceJdbcImpl().enrollStudentStax();
+                            case 8 -> isExit = true;
+                            default -> MY_LOGGER.info(
+                                    String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
+                                            ANSI_RED, ANSI_RESET)
+                            );
+                        }
+                    } else if (controllerType.equals("MySQL") && xmlConsoleSelector.equals("JAXB")) {
+                        switch (option) {
+                            case 0 -> System.exit(0);
+                            case 1 -> new StudentServiceJdbcImpl().printFullStudentInfo();
+                            case 2 -> new StudentContactServiceJdbcImpl().createStudentContactJaxb();
+                            case 3 -> new StudentServiceJdbcImpl().enrollStudentJaxb();
+                            case 8 -> isExit = true;
+                            default -> MY_LOGGER.info(
+                                    String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
+                                            ANSI_RED, ANSI_RESET)
+                            );
+                        }
+                    } else if (controllerType.equals("Mybatis") && xmlConsoleSelector.equals("XML")) {
+                        switch (option) {
+                            case 0 -> System.exit(0);
+                            case 1 -> new StudentServiceMybatisImpl().printFullStudentInfo();
+                            case 2 -> new StudentContactServiceMybatisImpl().createStudentContactStax();
+                            case 3 -> new StudentServiceMybatisImpl().enrollStudentStax();
+                            case 8 -> isExit = true;
+                            default -> MY_LOGGER.info(
+                                    String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
+                                            ANSI_RED, ANSI_RESET)
+                            );
+                        }
+                    } else if (controllerType.equals("Mybatis") && xmlConsoleSelector.equals("JAXB")) {
+                        switch (option) {
+                            case 0 -> System.exit(0);
+                            case 1 -> new StudentServiceMybatisImpl().printFullStudentInfo();
+                            case 2 -> new StudentContactServiceMybatisImpl().createStudentContactStax();
+                            case 3 -> new StudentServiceMybatisImpl().enrollStudentStax();
                             case 8 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:complexType name="departmentType">
+        <xs:all>
+            <xs:element name="departmentName" type="xs:string"/>
+            <xs:element name="course" type="xs:int"/>
+        </xs:all>
+        <xs:attribute name="id" type="xs:long" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="subjectType">
+        <xs:sequence>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="grade" type="xs:int"/>
+        </xs:sequence>
+        <xs:attribute name="id" type="xs:long" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="subjectsType">
+        <xs:sequence>
+            <xs:element name="subject" type="subjectType" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="studentType">
+        <xs:all>
+            <xs:element name="firstName" type="xs:string"/>
+            <xs:element name="lastName" type="xs:string"/>
+            <xs:element name="dateOfBirth" type="xs:date"/>
+            <xs:element name="studentContactId" type="xs:long"/>
+            <xs:element name="subjects" type="subjectsType"/>
+            <xs:element name="averageScore" type="xs:double"/>
+            <xs:element name="department" type="departmentType"/>
+        </xs:all>
+        <xs:attribute name="id" type="xs:long" use="required"/>
+    </xs:complexType>
+    <xs:element name="student" type="studentType"/>
+</xs:schema>

@@ -11,13 +11,16 @@ import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class StudentServiceCommonActions {
     public void printWholeStudentInfo(List<Student> studentList) {
-        MY_LOGGER.info(ANSI_GREEN + "Id" + " | " + "Имя" + " | " + "Фамилия" + " | " +
-                "Дата рождения" + " | " + "Средний балл" + ANSI_RESET);
+        MY_LOGGER.info("\n" + ANSI_GREEN +
+                "Id" + " | " + "Имя и Фамилия" + " | " + "Дата рождения" + " | " +
+                "Кафедра" + " | " + "Курс" + " | " + "Средний балл" + ANSI_RESET);
         for (Student student : studentList) {
-            MY_LOGGER.info(student.getStudentId() + " | " + ANSI_YELLOW +
-                    student.getFirstName() + " | " +
+            MY_LOGGER.info("\n" + student.getStudentId() + " | " + ANSI_YELLOW +
+                    student.getFirstName() + " " +
                     student.getLastName() + " | " +
                     student.getDateOfBirth() + " | " +
+                    student.getDepartment().getDepartmentName() + " | " +
+                    student.getDepartment().getCourse() + " курс | " +
                     student.getAverageScore() + ANSI_RESET
             );
         }

@@ -45,6 +45,8 @@
         <result column="last_name" property="lastName"/>
         <result column="date_of_birth" property="dateOfBirth"/>
         <result column="grade" property="averageScore"/>
+        <association property="department"
+                     resultMap="com.solvd.university.persistence.DepartmentRepository.departmentResultMap"/>
         <collection property="subjects"
                     resultMap="com.solvd.university.persistence.SubjectRepository.allSubjectsResultMap">
 
