@@ -1,5 +1,11 @@
 package com.solvd.university.domain;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "semester")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Semester {
     private Long semesterId;
     private String semesterName;
