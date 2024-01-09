@@ -1,4 +1,4 @@
-package com.solvd.university.persistence.impl;
+package com.solvd.university.persistence.impl.jdbc;
 
 import com.solvd.university.domain.Subject;
 import com.solvd.university.persistence.ConnectionPool;
@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubjectRepositoryDaoImpl implements SubjectRepository {
+public class SubjectRepositoryJdbcImpl implements SubjectRepository {
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
     private static final String GET_ALL_SUBJECTS = "SELECT * FROM subjects";
 

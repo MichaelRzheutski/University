@@ -1,0 +1,5 @@
+<department id="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="department.xsd">
+    <departmentName>Кафедра прикладных наук</departmentName>
+    <course>1</course>
+</department>

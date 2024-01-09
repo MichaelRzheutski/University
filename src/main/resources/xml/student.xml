@@ -1,0 +1,26 @@
+<student id="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="student.xsd">
+    <firstName>Владислав</firstName>
+    <lastName>Никонов</lastName>
+    <dateOfBirth>2000-03-03</dateOfBirth>
+    <studentContactId>11</studentContactId>
+    <subjects>
+        <subject id="1">
+            <title>Английский язык</title>
+            <grade>9</grade>
+        </subject>
+        <subject id="3">
+            <title>Информатика</title>
+            <grade>10</grade>
+        </subject>
+        <subject id="7">
+            <title>Философия</title>
+            <grade>8</grade>
+        </subject>
+    </subjects>
+    <averageScore>8.0</averageScore>
+    <department id="1">
+        <departmentName>Кафедра перевода</departmentName>
+        <course>1</course>
+    </department>
+</student>

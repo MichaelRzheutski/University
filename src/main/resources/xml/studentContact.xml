@@ -1,0 +1,5 @@
+<studentContact id="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:noNamespaceSchemaLocation="studentContact.xsd">
+    <phone>+375(25)823-32-43</phone>
+    <email>xml.email@mail.com</email>
+</studentContact>
