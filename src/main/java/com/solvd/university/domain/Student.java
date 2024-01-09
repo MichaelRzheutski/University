@@ -1,9 +1,7 @@
 package com.solvd.university.domain;
 
 import com.solvd.university.util.parsers.XmlDateAdapter;
-import jakarta.xml.bind.annotation.XmlAccessType;
-import jakarta.xml.bind.annotation.XmlAccessorType;
-import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.*;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import java.time.LocalDate;
@@ -19,6 +17,8 @@ public class Student {
     @XmlJavaTypeAdapter(XmlDateAdapter.class)
     private LocalDate dateOfBirth;
     private Long studentContactId;
+    @XmlElementWrapper(name = "subjects")
+    @XmlElement(name = "subject")
     private Set<Subject> subjects;
     private Double averageScore;
     private Department department;
