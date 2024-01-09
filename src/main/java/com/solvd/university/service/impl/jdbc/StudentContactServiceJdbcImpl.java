@@ -16,8 +16,8 @@ public class StudentContactServiceJdbcImpl extends StudentContactServiceCommonAc
         StudentContact studentContact = addContact();
         new StudentContactRepositoryJdbcImpl().create(studentContact);
 
-        MY_LOGGER.info(ANSI_GREEN + "Контакт был добавлен в базу: " + ANSI_YELLOW
-                + studentContact.getPhone() + " " + studentContact.getEmail() + ANSI_RESET + "\n");
+        MY_LOGGER.info(ANSI_GREEN + "Контакт был добавлен в базу: \n" + ANSI_YELLOW
+                + studentContact.getPhone() + " \n" + studentContact.getEmail() + ANSI_RESET + "\n");
     }
 
     @Override

@@ -97,8 +97,8 @@ public class AdminMenu {
                         switch (option) {
                             case 0 -> System.exit(0);
                             case 1 -> new StudentServiceMybatisImpl().printFullStudentInfo();
-                            case 2 -> new StudentContactServiceMybatisImpl().createStudentContactStax();
-                            case 3 -> new StudentServiceMybatisImpl().enrollStudentStax();
+                            case 2 -> new StudentContactServiceMybatisImpl().createStudentContactJaxb();
+                            case 3 -> new StudentServiceMybatisImpl().enrollStudentJaxb();
                             case 8 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
@@ -109,8 +109,8 @@ public class AdminMenu {
                         switch (option) {
                             case 0 -> System.exit(0);
                             case 1 -> new StudentServiceMybatisImpl().printFullStudentInfo();
-                            case 2 -> new StudentContactServiceMybatisImpl().createStudentContactStax();
-                            case 3 -> new StudentServiceMybatisImpl().enrollStudentStax();
+                            case 2 -> new StudentContactServiceMybatisImpl().createStudentContactJaxb();
+                            case 3 -> new StudentServiceMybatisImpl().enrollStudentJaxb();
                             case 8 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
