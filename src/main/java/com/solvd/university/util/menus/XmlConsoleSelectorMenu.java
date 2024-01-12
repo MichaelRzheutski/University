@@ -14,6 +14,7 @@ public class XmlConsoleSelectorMenu {
     private static final String USE_CONSOLE = "Console";
     private static final String USE_XML = "XML";
     private static final String USE_JAXB = "JAXB";
+    private static final String USE_JACKSON = "Jackson";
 
     public void xmlConsoleSelectorMenu(Scanner scanner, String controllerType) {
         int option;
@@ -25,7 +26,8 @@ public class XmlConsoleSelectorMenu {
                 MY_LOGGER.info("[1]. " + XmlConsoleSelectorMenuItems.DATA_PROVIDER_CONSOLE);
                 MY_LOGGER.info("[2]. " + XmlConsoleSelectorMenuItems.DATA_PROVIDER_XML);
                 MY_LOGGER.info("[3]. " + XmlConsoleSelectorMenuItems.DATA_PROVIDER_XML_JAXB);
-                MY_LOGGER.info("[4]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);
+                MY_LOGGER.info("[4]. " + XmlConsoleSelectorMenuItems.DATA_PROVIDER_JACKSON);
+                MY_LOGGER.info("[5]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);
                 MY_LOGGER.info("[0]. " + GeneralMenuItems.UNIVERSITY_EXIT);
 
                 if (scanner.hasNextInt()) {
@@ -36,7 +38,8 @@ public class XmlConsoleSelectorMenu {
                         case 1 -> UNIVERSITY_MENU.showUniversityMenu(scanner, controllerType, USE_CONSOLE);
                         case 2 -> UNIVERSITY_MENU.showUniversityMenu(scanner, controllerType, USE_XML);
                         case 3 -> UNIVERSITY_MENU.showUniversityMenu(scanner, controllerType, USE_JAXB);
-                        case 4 -> isExit = true;
+                        case 4 -> UNIVERSITY_MENU.showUniversityMenu(scanner, controllerType, USE_JACKSON);
+                        case 5 -> isExit = true;
                         default -> MY_LOGGER.debug(
                                 ANSI_RED + "Неверная операция, " +
                                         "попробуйте ещё раз!\n" + ANSI_RESET

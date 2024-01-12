@@ -11,10 +11,10 @@ import java.util.List;
 public class StudentRepositoryJdbcImpl implements StudentRepository {
     private static final ConnectionPool CONNECTION_POOL = ConnectionPool.getInstance();
     private static final String INSERT_INTO_STUDENTS =
-            "INSERT INTO students (first_name, last_name, date_of_birth, student_contact_id) VALUES (?, ?, ?, ?);";
+            "INSERT INTO students (first_name, last_name, date_of_birth) VALUES (?, ?, ?);";
     private static final String FIND_STUDENT_BY_ID = "SELECT * FROM students WHERE student_id = ?;";
     private static final String UPDATE_STUDENT_INFO = "UPDATE students SET first_name = ? WHERE student_id = ?;";
-    private static final String DELETE_FROM_BUILDINGS = "DELETE FROM students WHERE student_id = ?;";
+    private static final String DELETE_FROM_STUDENTS = "DELETE FROM students WHERE student_id = ?;";
     private static final String COUNT_STUDENT_ENTRIES = "SELECT COUNT(*) AS students_count FROM students;";
     private static final String GET_ALL_STUDENTS = "SELECT * FROM students s " +
             "LEFT JOIN enrollments e ON s.student_id = e.student_id";
@@ -42,8 +42,11 @@ public class StudentRepositoryJdbcImpl implements StudentRepository {
             preparedStatement.setString(1, student.getFirstName());
             preparedStatement.setString(2, student.getLastName());
             preparedStatement.setDate(3, Date.valueOf(student.getDateOfBirth()));
-            preparedStatement.setLong(4, student.getStudentContactId());
             preparedStatement.executeUpdate();
+            ResultSet resultSet = preparedStatement.getGeneratedKeys();
+            while (resultSet.next()) {
+                student.setStudentId(resultSet.getLong(1));
+            }
         } catch (SQLException e) {
             throw new RuntimeException("Невозможно создать студента!", e);
         } finally {
@@ -84,10 +87,10 @@ public class StudentRepositoryJdbcImpl implements StudentRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(Student student) {
         Connection connection = CONNECTION_POOL.getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_FROM_BUILDINGS)) {
-            preparedStatement.setLong(1, id);
+        try (PreparedStatement preparedStatement = connection.prepareStatement(DELETE_FROM_STUDENTS)) {
+            preparedStatement.setLong(1, student.getStudentId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException("Не удалось удалить студента!", e);

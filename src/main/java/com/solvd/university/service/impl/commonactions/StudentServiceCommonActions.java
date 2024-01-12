@@ -52,13 +52,6 @@ public class StudentServiceCommonActions {
             MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
         }
 
-        MY_LOGGER.info(ANSI_GREEN + "Введите ID контакта:" + ANSI_RESET);
-        if (scanner.hasNextLong()) {
-            student.setStudentContactId(scanner.nextLong());
-        } else {
-            MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
-        }
-
         return student;
     }
 
@@ -94,19 +87,5 @@ public class StudentServiceCommonActions {
         }
 
         return student;
-    }
-
-    protected Long deleteStudent() {
-        Scanner scanner = new Scanner(System.in);
-        long enteredStudentId = 0;
-
-        MY_LOGGER.info(ANSI_GREEN + "Введите ID студента:" + ANSI_RESET);
-        if (scanner.hasNextLong()) {
-            enteredStudentId = scanner.nextLong();
-        } else {
-            MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
-        }
-
-        return enteredStudentId;
     }
 }

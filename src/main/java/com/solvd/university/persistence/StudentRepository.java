@@ -13,7 +13,7 @@ public interface StudentRepository {
 
     void update(Student student);
 
-    void deleteById(Long id);
+    void deleteById(Student student);
 
     Long countOfEntries();
 }

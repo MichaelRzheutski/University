@@ -41,10 +41,10 @@ public class StudentRepositoryMybatisImpl implements StudentRepository {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(Student student) {
         try (SqlSession sqlSession = PersistenceConfig.getSessionFactory().openSession(true)) {
             StudentRepository studentRepository = sqlSession.getMapper(StudentRepository.class);
-            studentRepository.deleteById(id);
+            studentRepository.deleteById(student);
         }
     }
 

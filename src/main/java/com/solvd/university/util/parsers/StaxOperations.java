@@ -39,9 +39,6 @@ public class StaxOperations {
                             LocalDate date = LocalDate.parse(reader.nextEvent().toString());
                             student.setDateOfBirth(date);
                             break;
-                        case "studentContactId":
-                            student.setStudentContactId(Long.parseLong(reader.nextEvent().toString()));
-                            break;
                     }
                 }
             }

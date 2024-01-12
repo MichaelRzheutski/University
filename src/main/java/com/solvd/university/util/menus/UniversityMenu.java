@@ -19,7 +19,8 @@ public class UniversityMenu {
 
         try {
             while (!isExit) {
-                MY_LOGGER.info(ANSI_GREEN + "Меню университета: " + controllerType + ANSI_RESET);
+                MY_LOGGER.info(ANSI_GREEN + "Меню университета: " +
+                        controllerType + " + " + xmlConsoleSelector + ANSI_RESET);
                 MY_LOGGER.info("[1]. " + UniversityMenuItems.UNIVERSITY_STUDENT_OPERATIONS);
                 MY_LOGGER.info("[2]. " + UniversityMenuItems.UNIVERSITY_ADMIN_OPERATIONS);
                 MY_LOGGER.info("[3]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);

@@ -11,6 +11,8 @@ public interface StudentService {
 
     void enrollStudentJaxb();
 
+    void enrollStudentJackson();
+
     Student findStudent();
 
     void editStudentInfo();

@@ -12,8 +12,8 @@
 
     <insert id="create" keyColumn="student_id" keyProperty="studentId" useGeneratedKeys="true">
         INSERT
-        INTO students (first_name, last_name, date_of_birth, student_contact_id)
-        VALUES (#{firstName}, #{lastName}, #{dateOfBirth}, #{studentContactId})
+        INTO students (first_name, last_name, date_of_birth)
+        VALUES (#{firstName}, #{lastName}, #{dateOfBirth})
     </insert>
 
     <select id="findById" resultMap="findByIdResultMap">
@@ -30,7 +30,7 @@
     <delete id="deleteById">
         DELETE
         FROM students
-        WHERE student_id = #{student_id}
+        WHERE student_id = #{studentId}
     </delete>
 
     <select id="countOfEntries" resultMap="CountOfEntriesStudentResultMap">
