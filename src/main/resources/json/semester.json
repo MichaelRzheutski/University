@@ -1,0 +1,14 @@
+{
+  "semester": [
+    {
+      "semesterName": "1 семестр",
+      "subjectId": 1
+    }
+  ],
+  "subject": [
+    {
+      "semesterName": "1 семестр",
+      "subjectId": 2
+    }
+  ]
+}
