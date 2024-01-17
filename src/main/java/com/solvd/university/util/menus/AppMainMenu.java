@@ -9,12 +9,12 @@ import java.util.Scanner;
 
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
+import static com.solvd.university.util.menus.enums.ControllerTypes.JDBC;
+import static com.solvd.university.util.menus.enums.ControllerTypes.MYBATIS;
 
 public final class AppMainMenu {
     private final Scanner scanner = new Scanner(System.in);
     private static final XmlConsoleSelectorMenu XML_CONSOLE_SELECTOR_MENU = new XmlConsoleSelectorMenu();
-    private static final String USE_MYSQL = "MySQL";
-    private static final String USE_MYBATIS = "Mybatis";
 
     public void mainMenu() {
         BasicConfigurator.configure();
@@ -23,7 +23,7 @@ public final class AppMainMenu {
         try (scanner) {
             while (true) {
                 MY_LOGGER.info(ANSI_GREEN + "Выберите: " + ANSI_RESET);
-                MY_LOGGER.info("[1]. " + AppMainMenuItems.UNIVERSITY_MYSQL);
+                MY_LOGGER.info("[1]. " + AppMainMenuItems.UNIVERSITY_JDBC);
                 MY_LOGGER.info("[2]. " + AppMainMenuItems.UNIVERSITY_MYBATIS);
                 MY_LOGGER.info("[0]. " + GeneralMenuItems.UNIVERSITY_EXIT);
 
@@ -32,8 +32,8 @@ public final class AppMainMenu {
 
                     switch (option) {
                         case 0 -> System.exit(0);
-                        case 1 -> XML_CONSOLE_SELECTOR_MENU.xmlConsoleSelectorMenu(scanner, USE_MYSQL);
-                        case 2 -> XML_CONSOLE_SELECTOR_MENU.xmlConsoleSelectorMenu(scanner, USE_MYBATIS);
+                        case 1 -> XML_CONSOLE_SELECTOR_MENU.xmlConsoleSelectorMenu(scanner, JDBC);
+                        case 2 -> XML_CONSOLE_SELECTOR_MENU.xmlConsoleSelectorMenu(scanner, MYBATIS);
                         default -> MY_LOGGER.debug(
                                 ANSI_RED + "Неверная операция, " +
                                         "попробуйте ещё раз!\n" + ANSI_RESET

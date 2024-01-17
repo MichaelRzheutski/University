@@ -1,9 +1,12 @@
 package com.solvd.university.service.impl.mybatis;
 
 import com.solvd.university.domain.Student;
+import com.solvd.university.domain.StudentContact;
+import com.solvd.university.persistence.impl.mybatis.StudentContactRepositoryMybatisImpl;
 import com.solvd.university.persistence.impl.mybatis.StudentRepositoryMybatisImpl;
 import com.solvd.university.service.StudentService;
 import com.solvd.university.service.impl.commonactions.StudentServiceCommonActions;
+import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
 import com.solvd.university.util.parsers.JacksonOperations;
 import com.solvd.university.util.parsers.JaxbOperations;
 import com.solvd.university.util.parsers.StaxOperations;
@@ -17,56 +20,28 @@ public class StudentServiceMybatisImpl extends StudentServiceCommonActions imple
     @Override
     public void printFullStudentInfo() {
         List<Student> studentList = new DepartmentServiceMybatisImpl().getStudentsWithDepartments();
-        printWholeStudentInfo(studentList);
+        List<StudentContact> contactList = new StudentContactRepositoryMybatisImpl().getAllStudentContacts();
+        printWholeStudentInfo(studentList, contactList);
     }
 
     @Override
-    public void enrollStudent() {
-        Student studentToCreate = addStudent();
-        new StudentRepositoryMybatisImpl().create(studentToCreate);
-        new StudentContactServiceMybatisImpl().createStudentContact(studentToCreate);
-        MY_LOGGER.info(ANSI_GREEN + "\n" + "Студент был добавлен в базу:" + "\n" +
-                "Имя и фамилия" + " | " +
-                "Дата рождения" + " | " + ANSI_YELLOW + "\n" +
-                studentToCreate.getFirstName() + " " +
-                studentToCreate.getLastName() + " | " +
-                studentToCreate.getDateOfBirth() + ANSI_RESET + "\n"
-        );
-    }
+    public void enrollStudent(XmlConsoleSelectors xmlConsoleSelector) {
+        Student studentToCreate = new Student();
+        switch (xmlConsoleSelector) {
+            case CONSOLE -> studentToCreate = addStudent();
+            case STAX -> studentToCreate = new StaxOperations().readStudentFromXml();
+            case JAXB -> studentToCreate = new JaxbOperations().readStudentFromJaxb();
+            case JACKSON -> studentToCreate = new JacksonOperations().readStudentFromJackson();
+        }
 
-    @Override
-    public void enrollStudentStax() {
-        Student studentToCreate = new StaxOperations().readStudentFromXml();
         new StudentRepositoryMybatisImpl().create(studentToCreate);
-        MY_LOGGER.info(ANSI_GREEN + "\n" + "Студент был добавлен в базу:" + "\n" +
-                "Имя и фамилия" + " | " +
-                "Дата рождения" + " | " + ANSI_YELLOW + "\n" +
-                studentToCreate.getFirstName() + " " +
-                studentToCreate.getLastName() + " | " +
-                studentToCreate.getDateOfBirth() + ANSI_RESET + "\n"
-        );
-    }
+        new StudentContactServiceMybatisImpl().createStudentContact(studentToCreate, xmlConsoleSelector);
 
-    @Override
-    public void enrollStudentJaxb() {
-        Student studentToCreate = new JaxbOperations().readStudentFromJaxb();
-        new StudentRepositoryMybatisImpl().create(studentToCreate);
         MY_LOGGER.info(ANSI_GREEN + "\n" + "Студент был добавлен в базу:" + "\n" +
+                "Id" + " | " +
                 "Имя и фамилия" + " | " +
                 "Дата рождения" + " | " + ANSI_YELLOW + "\n" +
-                studentToCreate.getFirstName() + " " +
-                studentToCreate.getLastName() + " | " +
-                studentToCreate.getDateOfBirth() + ANSI_RESET + "\n"
-        );
-    }
-
-    @Override
-    public void enrollStudentJackson() {
-        Student studentToCreate = new JacksonOperations().readStudentFromJackson();
-        new StudentRepositoryMybatisImpl().create(studentToCreate);
-        MY_LOGGER.info(ANSI_GREEN + "\n" + "Студент был добавлен в базу:" + "\n" +
-                "Имя и фамилия" + " | " +
-                "Дата рождения" + " | " + ANSI_YELLOW + "\n" +
+                studentToCreate.getStudentId() + " | " +
                 studentToCreate.getFirstName() + " " +
                 studentToCreate.getLastName() + " | " +
                 studentToCreate.getDateOfBirth() + ANSI_RESET + "\n"
@@ -90,7 +65,7 @@ public class StudentServiceMybatisImpl extends StudentServiceCommonActions imple
     public void editStudentInfo() {
         Student studentToUpdateInfo = editInfo();
         new StudentRepositoryMybatisImpl().update(studentToUpdateInfo);
-        MY_LOGGER.info(ANSI_GREEN + "Обновлено имя у студента с ID: " + ANSI_YELLOW
+        MY_LOGGER.info(ANSI_GREEN + "Обновлена информация у студента с ID: " + ANSI_YELLOW
                 + studentToUpdateInfo.getStudentId() + ANSI_RESET + "\n");
     }
 

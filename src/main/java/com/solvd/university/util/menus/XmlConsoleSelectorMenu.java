@@ -1,6 +1,7 @@
 package com.solvd.university.util.menus;
 
 import com.solvd.university.util.exceptions.NotNumberException;
+import com.solvd.university.util.menus.enums.ControllerTypes;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
 import com.solvd.university.util.menus.menuenums.XmlConsoleSelectorMenuItems;
 
@@ -8,15 +9,12 @@ import java.util.Scanner;
 
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
+import static com.solvd.university.util.menus.enums.XmlConsoleSelectors.*;
 
 public class XmlConsoleSelectorMenu {
     private static final UniversityMenu UNIVERSITY_MENU = new UniversityMenu();
-    private static final String USE_CONSOLE = "Console";
-    private static final String USE_XML = "XML";
-    private static final String USE_JAXB = "JAXB";
-    private static final String USE_JACKSON = "Jackson";
 
-    public void xmlConsoleSelectorMenu(Scanner scanner, String controllerType) {
+    public void xmlConsoleSelectorMenu(Scanner scanner, ControllerTypes controllerType) {
         int option;
         boolean isExit = false;
 
@@ -35,10 +33,10 @@ public class XmlConsoleSelectorMenu {
 
                     switch (option) {
                         case 0 -> System.exit(0);
-                        case 1 -> UNIVERSITY_MENU.showUniversityMenu(scanner, controllerType, USE_CONSOLE);
-                        case 2 -> UNIVERSITY_MENU.showUniversityMenu(scanner, controllerType, USE_XML);
-                        case 3 -> UNIVERSITY_MENU.showUniversityMenu(scanner, controllerType, USE_JAXB);
-                        case 4 -> UNIVERSITY_MENU.showUniversityMenu(scanner, controllerType, USE_JACKSON);
+                        case 1 -> UNIVERSITY_MENU.showUniversityMenu(scanner, controllerType, CONSOLE);
+                        case 2 -> UNIVERSITY_MENU.showUniversityMenu(scanner, controllerType, STAX);
+                        case 3 -> UNIVERSITY_MENU.showUniversityMenu(scanner, controllerType, JAXB);
+                        case 4 -> UNIVERSITY_MENU.showUniversityMenu(scanner, controllerType, JACKSON);
                         case 5 -> isExit = true;
                         default -> MY_LOGGER.debug(
                                 ANSI_RED + "Неверная операция, " +

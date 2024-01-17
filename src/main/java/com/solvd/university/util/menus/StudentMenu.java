@@ -3,6 +3,8 @@ package com.solvd.university.util.menus;
 import com.solvd.university.service.impl.jdbc.SubjectServiceJdbcImpl;
 import com.solvd.university.service.impl.mybatis.SubjectServiceMybatisImpl;
 import com.solvd.university.util.exceptions.NotNumberException;
+import com.solvd.university.util.menus.enums.ControllerTypes;
+import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
 import com.solvd.university.util.menus.menuenums.StudentMenuItems;
 
@@ -12,7 +14,9 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public final class StudentMenu {
-    public void showStudentMenu(Scanner scanner, String controllerType, String xmlConsoleSelector) throws NotNumberException {
+    public void showStudentMenu(
+            Scanner scanner, ControllerTypes controllerType,
+            XmlConsoleSelectors xmlConsoleSelector) throws NotNumberException {
         int option;
         boolean isExit = false;
 
@@ -29,7 +33,7 @@ public final class StudentMenu {
                 if (scanner.hasNextInt()) {
                     option = scanner.nextInt();
 
-                    if (controllerType.equals("MySQL")) {
+                    if (controllerType.getControllerType().equals("JDBC")) {
                         switch (option) {
                             case 0 -> System.exit(0);
                             case 1 -> new SubjectServiceJdbcImpl().printAllSubjects();

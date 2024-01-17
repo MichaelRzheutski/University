@@ -1,7 +1,5 @@
 package com.solvd.university.domain;
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter;
-import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.solvd.university.util.parsers.JsonDateAdapter;
 import com.solvd.university.util.parsers.XmlDateAdapter;
@@ -29,6 +27,11 @@ public class Student {
     private Department department;
 
     public Student() {
+    }
+
+    public Student(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public Student(Long studentId, String firstName,
@@ -81,7 +84,7 @@ public class Student {
         return studentContact;
     }
 
-    public void setStudentContactId(StudentContact studentContact) {
+    public void setStudentContact(StudentContact studentContact) {
         this.studentContact = studentContact;
     }
 

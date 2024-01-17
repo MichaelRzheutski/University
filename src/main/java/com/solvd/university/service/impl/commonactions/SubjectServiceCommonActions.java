@@ -13,9 +13,9 @@ public class SubjectServiceCommonActions {
         for (Student student : studentList) {
             Set<Subject> tempSubjects = new HashSet<>();
             int randomSubjectQuantity = new Random().nextInt(
-                    studentList.size() - 1) % studentList.size() + 1;
+                    10 - 1) % studentList.size() + 1;
             int randomGrade = new Random().nextInt(
-                    studentList.size() - 1) % studentList.size() + 1;
+                    10 - 1) % studentList.size() + 1;
 
             for (int i = 0; i < randomSubjectQuantity; i++) {
                 Random randomIndex = new Random();

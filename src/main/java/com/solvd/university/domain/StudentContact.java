@@ -7,6 +7,7 @@ import jakarta.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "studentContact")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class StudentContact {
+    private Long studentContactId;
     private String phone;
     private String email;
     private Long studentId;
@@ -14,10 +15,19 @@ public class StudentContact {
     public StudentContact() {
     }
 
-    public StudentContact(String phone, String email, Long studentId) {
+    public StudentContact(Long studentContactId, String phone, String email, Long studentId) {
+        this.studentContactId = studentContactId;
         this.phone = phone;
         this.email = email;
         this.studentId = studentId;
+    }
+
+    public Long getStudentContactId() {
+        return studentContactId;
+    }
+
+    public void setStudentContactId(Long studentContactId) {
+        this.studentContactId = studentContactId;
     }
 
     public String getPhone() {

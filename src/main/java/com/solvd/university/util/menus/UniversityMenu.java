@@ -1,6 +1,8 @@
 package com.solvd.university.util.menus;
 
 import com.solvd.university.util.exceptions.NotNumberException;
+import com.solvd.university.util.menus.enums.ControllerTypes;
+import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
 import com.solvd.university.util.menus.menuenums.UniversityMenuItems;
 
@@ -13,7 +15,9 @@ public class UniversityMenu {
     private static final StudentMenu STUDENT_MENU = new StudentMenu();
     private static final AdminMenu ADMIN_MENU = new AdminMenu();
 
-    public void showUniversityMenu(Scanner scanner, String controllerType, String xmlConsoleSelector) throws NotNumberException {
+    public void showUniversityMenu(
+            Scanner scanner, ControllerTypes controllerType,
+            XmlConsoleSelectors xmlConsoleSelector) throws NotNumberException {
         int option;
         boolean isExit = false;
 
