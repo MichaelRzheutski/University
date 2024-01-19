@@ -9,15 +9,23 @@ import com.solvd.university.persistence.impl.jdbc.SubjectRepositoryJdbcImpl;
 import com.solvd.university.service.StudentService;
 import com.solvd.university.service.SubjectService;
 import com.solvd.university.service.impl.commonactions.SubjectServiceCommonActions;
+import com.solvd.university.service.impl.proxy.AllSubjectsProxy;
+import com.solvd.university.util.parsers.JacksonServiceOperations;
+import com.solvd.university.util.parsers.JaxbOperations;
+import com.solvd.university.util.parsers.StaxServiceOperations;
 
 import java.util.List;
 
-public class SubjectServiceJdbcImpl extends SubjectServiceCommonActions implements SubjectService {
+public class SubjectServiceJdbcImpl extends SubjectServiceCommonActions implements SubjectService, AllSubjectsProxy {
     private final StudentRepository studentRepository = new StudentRepositoryJdbcImpl();
     private final SubjectRepository subjectRepository = new SubjectRepositoryJdbcImpl();
-    private final StudentService studentService = new StudentServiceJdbcImpl();
+    private final StudentService studentService = new StudentServiceJdbcImpl(
+            new StaxServiceOperations(),
+            new JaxbOperations(),
+            new JacksonServiceOperations()
+    );
 
-    private List<Student> getStudentsWithSubjects() {
+    public List<Student> getStudentsWithSubjects() {
         List<Student> students = studentRepository.findAll();
         List<Subject> subjects = subjectRepository.getAllSubjects();
         return new SubjectServiceCommonActions().setSubjectsToStudents(students, subjects);

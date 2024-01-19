@@ -4,11 +4,11 @@ import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
 import com.solvd.university.persistence.StudentContactRepository;
 import com.solvd.university.persistence.StudentRepository;
+import com.solvd.university.persistence.impl.mybatis.DepartmentRepositoryMybatisImpl;
 import com.solvd.university.persistence.impl.mybatis.StudentContactRepositoryMybatisImpl;
 import com.solvd.university.persistence.impl.mybatis.StudentRepositoryMybatisImpl;
-import com.solvd.university.service.DepartmentService;
-import com.solvd.university.service.StudentContactService;
-import com.solvd.university.service.StudentService;
+import com.solvd.university.service.*;
+import com.solvd.university.service.impl.commonactions.DepartmentCommonActionsService;
 import com.solvd.university.service.impl.commonactions.StudentServiceCommonActions;
 import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
 
@@ -18,10 +18,19 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class StudentServiceMybatisImpl extends StudentServiceCommonActions implements StudentService {
-    private final DepartmentService departmentService = new DepartmentMybatisImplService();
+    private final DepartmentService departmentService = new DepartmentMybatisImplService(
+            new StudentRepositoryMybatisImpl(), new DepartmentRepositoryMybatisImpl(), new DepartmentCommonActionsService()
+    );
     private final StudentContactRepository studentContactRepository = new StudentContactRepositoryMybatisImpl();
     private final StudentRepository studentRepository = new StudentRepositoryMybatisImpl();
     private final StudentContactService studentContactService = new StudentContactServiceMybatisImpl();
+
+    public StudentServiceMybatisImpl(
+            StaxService staxService,
+            JaxBService jaxBService,
+            JacksonService jacksonService) {
+        super(staxService, jaxBService, jacksonService);
+    }
 
     private List<Student> getStudentsWithContacts() {
         List<Student> studentList = departmentService.getStudentsWithDepartments();

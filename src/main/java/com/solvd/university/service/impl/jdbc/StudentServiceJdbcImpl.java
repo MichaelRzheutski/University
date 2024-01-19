@@ -4,13 +4,16 @@ import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
 import com.solvd.university.persistence.StudentContactRepository;
 import com.solvd.university.persistence.StudentRepository;
+import com.solvd.university.persistence.impl.jdbc.DepartmentRepositoryJdbcImpl;
 import com.solvd.university.persistence.impl.jdbc.StudentContactRepositoryJdbcImpl;
 import com.solvd.university.persistence.impl.jdbc.StudentRepositoryJdbcImpl;
-import com.solvd.university.service.DepartmentService;
-import com.solvd.university.service.StudentContactService;
-import com.solvd.university.service.StudentService;
+import com.solvd.university.service.*;
+import com.solvd.university.service.impl.commonactions.DepartmentCommonActionsService;
 import com.solvd.university.service.impl.commonactions.StudentServiceCommonActions;
 import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
+import com.solvd.university.util.parsers.JacksonServiceOperations;
+import com.solvd.university.util.parsers.JaxbOperations;
+import com.solvd.university.util.parsers.StaxServiceOperations;
 
 import java.util.List;
 
@@ -18,10 +21,26 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class StudentServiceJdbcImpl extends StudentServiceCommonActions implements StudentService {
-    private final DepartmentService departmentService = new DepartmentJdbcImplService();
+    private final DepartmentService departmentService = new DepartmentJdbcImplService(
+            new StudentRepositoryJdbcImpl(),
+            new DepartmentRepositoryJdbcImpl(),
+            new DepartmentCommonActionsService()
+    );
     private final StudentContactRepository studentContactRepository = new StudentContactRepositoryJdbcImpl();
     private final StudentRepository studentRepository = new StudentRepositoryJdbcImpl();
-    private final StudentContactService studentContactService = new StudentContactServiceJdbcImpl();
+    private final StudentContactService studentContactService = new StudentContactServiceJdbcImpl(
+            new StaxServiceOperations(),
+            new JaxbOperations(),
+            new JacksonServiceOperations(),
+            new StudentContactRepositoryJdbcImpl()
+    );
+
+    public StudentServiceJdbcImpl(
+            StaxService staxService,
+            JaxBService jaxBService,
+            JacksonService jacksonService) {
+        super(staxService, jaxBService, jacksonService);
+    }
 
     private List<Student> getStudentsWithContacts() {
         List<Student> studentList = departmentService.getStudentsWithDepartments();

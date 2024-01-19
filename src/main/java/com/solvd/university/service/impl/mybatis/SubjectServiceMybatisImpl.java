@@ -9,15 +9,21 @@ import com.solvd.university.persistence.impl.mybatis.SubjectRepositoryMybatisImp
 import com.solvd.university.service.StudentService;
 import com.solvd.university.service.SubjectService;
 import com.solvd.university.service.impl.commonactions.SubjectServiceCommonActions;
+import com.solvd.university.service.impl.proxy.AllSubjectsProxy;
+import com.solvd.university.util.parsers.JacksonServiceOperations;
+import com.solvd.university.util.parsers.JaxbOperations;
+import com.solvd.university.util.parsers.StaxServiceOperations;
 
 import java.util.List;
 
-public class SubjectServiceMybatisImpl extends SubjectServiceCommonActions implements SubjectService {
+public class SubjectServiceMybatisImpl extends SubjectServiceCommonActions implements SubjectService, AllSubjectsProxy {
     private final StudentRepository studentRepository = new StudentRepositoryMybatisImpl();
     private final SubjectRepository subjectRepository = new SubjectRepositoryMybatisImpl();
-    private final StudentService studentService = new StudentServiceMybatisImpl();
+    private final StudentService studentService = new StudentServiceMybatisImpl(
+            new StaxServiceOperations(), new JaxbOperations(), new JacksonServiceOperations()
+    );
 
-    private List<Student> getStudentsWithSubjects() {
+    public List<Student> getStudentsWithSubjects() {
         List<Student> students = studentRepository.findAll();
         List<Subject> subjects = subjectRepository.getAllSubjects();
         return new SubjectServiceCommonActions().setSubjectsToStudents(students, subjects);
@@ -31,7 +37,7 @@ public class SubjectServiceMybatisImpl extends SubjectServiceCommonActions imple
 
     @Override
     public void getStudentAllSubjects() {
-        Student foundStudent = new StudentServiceMybatisImpl().findStudent();
+        Student foundStudent = studentService.findStudent();
         List<Student> studentsWithSubjects = getStudentsWithSubjects();
         showStudentAllSubjects(studentsWithSubjects, foundStudent);
     }

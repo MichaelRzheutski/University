@@ -6,9 +6,6 @@ import com.solvd.university.service.JacksonService;
 import com.solvd.university.service.JaxBService;
 import com.solvd.university.service.StaxService;
 import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
-import com.solvd.university.util.parsers.JacksonServiceOperations;
-import com.solvd.university.util.parsers.JaxbOperations;
-import com.solvd.university.util.parsers.StaxServiceOperations;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -18,9 +15,19 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class StudentServiceCommonActions {
-    private final StaxService staxService = new StaxServiceOperations();
-    private final JaxBService jaxBService = new JaxbOperations();
-    private final JacksonService jacksonService = new JacksonServiceOperations();
+    private final StaxService staxService;
+    private final JaxBService jaxBService;
+    private final JacksonService jacksonService;
+
+    public StudentServiceCommonActions(
+            StaxService staxService,
+            JaxBService jaxBService,
+            JacksonService jacksonService
+    ) {
+        this.staxService = staxService;
+        this.jaxBService = jaxBService;
+        this.jacksonService = jacksonService;
+    }
 
     protected void printWholeStudentInfo(List<Student> studentsWithContacts) {
         MY_LOGGER.info("\n" + ANSI_GREEN +

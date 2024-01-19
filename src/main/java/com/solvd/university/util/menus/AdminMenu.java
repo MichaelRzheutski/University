@@ -1,10 +1,7 @@
 package com.solvd.university.util.menus;
 
 import com.solvd.university.service.AdminService;
-import com.solvd.university.service.impl.jdbc.AdminServiceJdbcImpl;
-import com.solvd.university.service.impl.jdbc.StudentServiceJdbcImpl;
-import com.solvd.university.service.impl.mybatis.AdminServiceMybatisImpl;
-import com.solvd.university.service.impl.mybatis.StudentServiceMybatisImpl;
+import com.solvd.university.service.StudentService;
 import com.solvd.university.util.exceptions.NotNumberException;
 import com.solvd.university.util.menus.enums.ControllerTypes;
 import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
@@ -17,8 +14,20 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class AdminMenu {
-    private final AdminService authorizeAdminJDBC = new AdminServiceJdbcImpl();
-    private final AdminService authorizeAdminMybatis = new AdminServiceMybatisImpl();
+    AdminService authorizeAdminJDBC;
+    AdminService authorizeAdminMybatis;
+    StudentService studentServiceJDBC;
+    StudentService studentServiceMybatis;
+
+    public AdminMenu(AdminService authorizeAdminJDBC,
+                     AdminService authorizeAdminMybatis,
+                     StudentService studentServiceJDBC,
+                     StudentService studentServiceMybatis) {
+        this.authorizeAdminJDBC = authorizeAdminJDBC;
+        this.authorizeAdminMybatis = authorizeAdminMybatis;
+        this.studentServiceJDBC = studentServiceJDBC;
+        this.studentServiceMybatis = studentServiceMybatis;
+    }
 
     public void showAdminMenu(
             Scanner scanner, ControllerTypes controllerType,
@@ -63,12 +72,12 @@ public class AdminMenu {
                             && xmlConsoleSelector.getXmlConsoleSelector().equals("CONSOLE")) {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new StudentServiceJdbcImpl().printFullStudentInfo();
-                            case 2 -> new StudentServiceJdbcImpl().enrollStudent(xmlConsoleSelector);
-                            case 3 -> new StudentServiceJdbcImpl().findStudent();
-                            case 4 -> new StudentServiceJdbcImpl().editStudentInfo();
-                            case 5 -> new StudentServiceJdbcImpl().expelStudentById();
-                            case 6 -> new StudentServiceJdbcImpl().printNumberOfEntries();
+                            case 1 -> studentServiceJDBC.printFullStudentInfo();
+                            case 2 -> studentServiceJDBC.enrollStudent(xmlConsoleSelector);
+                            case 3 -> studentServiceJDBC.findStudent();
+                            case 4 -> studentServiceJDBC.editStudentInfo();
+                            case 5 -> studentServiceJDBC.expelStudentById();
+                            case 6 -> studentServiceJDBC.printNumberOfEntries();
                             case 7 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
@@ -79,8 +88,8 @@ public class AdminMenu {
                             && xmlConsoleSelector.getXmlConsoleSelector().equals("STAX")) {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new StudentServiceJdbcImpl().printFullStudentInfo();
-                            case 2 -> new StudentServiceJdbcImpl().enrollStudent(xmlConsoleSelector);
+                            case 1 -> studentServiceJDBC.printFullStudentInfo();
+                            case 2 -> studentServiceJDBC.enrollStudent(xmlConsoleSelector);
                             case 3 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
@@ -91,8 +100,8 @@ public class AdminMenu {
                             && xmlConsoleSelector.getXmlConsoleSelector().equals("JAXB")) {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new StudentServiceJdbcImpl().printFullStudentInfo();
-                            case 2 -> new StudentServiceJdbcImpl().enrollStudent(xmlConsoleSelector);
+                            case 1 -> studentServiceJDBC.printFullStudentInfo();
+                            case 2 -> studentServiceJDBC.enrollStudent(xmlConsoleSelector);
                             case 3 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
@@ -103,8 +112,8 @@ public class AdminMenu {
                             && xmlConsoleSelector.getXmlConsoleSelector().equals("JACKSON")) {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new StudentServiceJdbcImpl().printFullStudentInfo();
-                            case 2 -> new StudentServiceJdbcImpl().enrollStudent(xmlConsoleSelector);
+                            case 1 -> studentServiceJDBC.printFullStudentInfo();
+                            case 2 -> studentServiceJDBC.enrollStudent(xmlConsoleSelector);
                             case 3 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
@@ -115,8 +124,8 @@ public class AdminMenu {
                             && xmlConsoleSelector.getXmlConsoleSelector().equals("STAX")) {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new StudentServiceMybatisImpl().printFullStudentInfo();
-                            case 2 -> new StudentServiceMybatisImpl().enrollStudent(xmlConsoleSelector);
+                            case 1 -> studentServiceMybatis.printFullStudentInfo();
+                            case 2 -> studentServiceMybatis.enrollStudent(xmlConsoleSelector);
                             case 3 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
@@ -127,8 +136,8 @@ public class AdminMenu {
                             && xmlConsoleSelector.getXmlConsoleSelector().equals("JAXB")) {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new StudentServiceMybatisImpl().printFullStudentInfo();
-                            case 2 -> new StudentServiceMybatisImpl().enrollStudent(xmlConsoleSelector);
+                            case 1 -> studentServiceMybatis.printFullStudentInfo();
+                            case 2 -> studentServiceMybatis.enrollStudent(xmlConsoleSelector);
                             case 3 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
@@ -139,8 +148,8 @@ public class AdminMenu {
                             && xmlConsoleSelector.getXmlConsoleSelector().equals("JACKSON")) {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new StudentServiceMybatisImpl().printFullStudentInfo();
-                            case 2 -> new StudentServiceMybatisImpl().enrollStudent(xmlConsoleSelector);
+                            case 1 -> studentServiceMybatis.printFullStudentInfo();
+                            case 2 -> studentServiceMybatis.enrollStudent(xmlConsoleSelector);
                             case 3 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
@@ -150,12 +159,12 @@ public class AdminMenu {
                     } else {
                         switch (option) {
                             case 0 -> System.exit(0);
-                            case 1 -> new StudentServiceMybatisImpl().printFullStudentInfo();
-                            case 2 -> new StudentServiceMybatisImpl().enrollStudent(xmlConsoleSelector);
-                            case 3 -> new StudentServiceMybatisImpl().findStudent();
-                            case 4 -> new StudentServiceMybatisImpl().editStudentInfo();
-                            case 5 -> new StudentServiceMybatisImpl().expelStudentById();
-                            case 6 -> new StudentServiceMybatisImpl().printNumberOfEntries();
+                            case 1 -> studentServiceMybatis.printFullStudentInfo();
+                            case 2 -> studentServiceMybatis.enrollStudent(xmlConsoleSelector);
+                            case 3 -> studentServiceMybatis.findStudent();
+                            case 4 -> studentServiceMybatis.editStudentInfo();
+                            case 5 -> studentServiceMybatis.expelStudentById();
+                            case 6 -> studentServiceMybatis.printNumberOfEntries();
                             case 7 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
