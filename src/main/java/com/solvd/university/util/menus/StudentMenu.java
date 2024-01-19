@@ -1,6 +1,24 @@
 package com.solvd.university.util.menus;
 
+import com.solvd.university.persistence.impl.jdbc.DepartmentRepositoryJdbcImpl;
+import com.solvd.university.persistence.impl.jdbc.StudentContactRepositoryJdbcImpl;
+import com.solvd.university.persistence.impl.jdbc.StudentRepositoryJdbcImpl;
+import com.solvd.university.persistence.impl.jdbc.SubjectRepositoryJdbcImpl;
+import com.solvd.university.persistence.impl.mybatis.DepartmentRepositoryMybatisImpl;
+import com.solvd.university.persistence.impl.mybatis.StudentContactRepositoryMybatisImpl;
+import com.solvd.university.persistence.impl.mybatis.StudentRepositoryMybatisImpl;
+import com.solvd.university.persistence.impl.mybatis.SubjectRepositoryMybatisImpl;
 import com.solvd.university.service.SubjectService;
+import com.solvd.university.service.impl.commonactions.DepartmentCommonActionsService;
+import com.solvd.university.service.impl.commonactions.SubjectServiceCommonActions;
+import com.solvd.university.service.impl.jdbc.DepartmentJdbcImplService;
+import com.solvd.university.service.impl.jdbc.StudentContactServiceJdbcImpl;
+import com.solvd.university.service.impl.jdbc.StudentServiceJdbcImpl;
+import com.solvd.university.service.impl.jdbc.SubjectServiceJdbcImpl;
+import com.solvd.university.service.impl.mybatis.DepartmentMybatisImplService;
+import com.solvd.university.service.impl.mybatis.StudentContactServiceMybatisImpl;
+import com.solvd.university.service.impl.mybatis.StudentServiceMybatisImpl;
+import com.solvd.university.service.impl.mybatis.SubjectServiceMybatisImpl;
 import com.solvd.university.service.impl.proxy.AllSubjectsJdbcProxy;
 import com.solvd.university.service.impl.proxy.AllSubjectsMybatisProxy;
 import com.solvd.university.service.impl.proxy.AllSubjectsProxy;
@@ -9,6 +27,9 @@ import com.solvd.university.util.menus.enums.ControllerTypes;
 import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
 import com.solvd.university.util.menus.menuenums.StudentMenuItems;
+import com.solvd.university.util.parsers.JacksonServiceOperations;
+import com.solvd.university.util.parsers.JaxbOperations;
+import com.solvd.university.util.parsers.StaxServiceOperations;
 
 import java.util.Scanner;
 
@@ -16,8 +37,56 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public final class StudentMenu {
-    private final AllSubjectsProxy allSubjectsJdbcProxy = new AllSubjectsJdbcProxy();
-    private final AllSubjectsProxy allSubjectsMybatisProxy = new AllSubjectsMybatisProxy();
+    private final AllSubjectsProxy allSubjectsJdbcProxy = new AllSubjectsJdbcProxy(
+            new SubjectServiceJdbcImpl(
+                    new StudentRepositoryJdbcImpl(),
+                    new SubjectRepositoryJdbcImpl(),
+                    new StudentServiceJdbcImpl(
+                            new StaxServiceOperations(),
+                            new JaxbOperations(),
+                            new JacksonServiceOperations(),
+                            new DepartmentJdbcImplService(
+                                    new StudentRepositoryJdbcImpl(),
+                                    new DepartmentRepositoryJdbcImpl(),
+                                    new DepartmentCommonActionsService()
+                            ),
+                            new StudentContactRepositoryJdbcImpl(),
+                            new StudentRepositoryJdbcImpl(),
+                            new StudentContactServiceJdbcImpl(
+                                    new StaxServiceOperations(),
+                                    new JaxbOperations(),
+                                    new JacksonServiceOperations(),
+                                    new StudentContactRepositoryJdbcImpl()
+                            )
+                    ),
+                    new SubjectServiceCommonActions()
+            )
+    );
+    private final AllSubjectsProxy allSubjectsMybatisProxy = new AllSubjectsMybatisProxy(
+            new SubjectServiceMybatisImpl(
+                    new StudentRepositoryMybatisImpl(),
+                    new SubjectRepositoryMybatisImpl(),
+                    new StudentServiceMybatisImpl(
+                            new StaxServiceOperations(),
+                            new JaxbOperations(),
+                            new JacksonServiceOperations(),
+                            new DepartmentMybatisImplService(
+                                    new StudentRepositoryMybatisImpl(),
+                                    new DepartmentRepositoryMybatisImpl(),
+                                    new DepartmentCommonActionsService()
+                            ),
+                            new StudentContactRepositoryMybatisImpl(),
+                            new StudentRepositoryMybatisImpl(),
+                            new StudentContactServiceMybatisImpl(
+                                    new StaxServiceOperations(),
+                                    new JaxbOperations(),
+                                    new JacksonServiceOperations(),
+                                    new StudentContactRepositoryMybatisImpl()
+                            )
+                    ),
+                    new SubjectServiceCommonActions()
+            )
+    );
     private final SubjectService subjectServiceJDBC;
     private final SubjectService subjectServiceMybatis;
 

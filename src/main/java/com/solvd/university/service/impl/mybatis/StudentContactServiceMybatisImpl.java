@@ -3,22 +3,30 @@ package com.solvd.university.service.impl.mybatis;
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
 import com.solvd.university.persistence.StudentContactRepository;
-import com.solvd.university.persistence.impl.mybatis.StudentContactRepositoryMybatisImpl;
 import com.solvd.university.service.JacksonService;
 import com.solvd.university.service.JaxBService;
 import com.solvd.university.service.StaxService;
 import com.solvd.university.service.StudentContactService;
 import com.solvd.university.service.impl.commonactions.StudentContactServiceCommonActions;
 import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
-import com.solvd.university.util.parsers.JacksonServiceOperations;
-import com.solvd.university.util.parsers.JaxbOperations;
-import com.solvd.university.util.parsers.StaxServiceOperations;
 
 public class StudentContactServiceMybatisImpl extends StudentContactServiceCommonActions implements StudentContactService {
-    private final StaxService staxService = new StaxServiceOperations();
-    private final JaxBService jaxBService = new JaxbOperations();
-    private final JacksonService jacksonService = new JacksonServiceOperations();
-    private final StudentContactRepository studentContactRepository = new StudentContactRepositoryMybatisImpl();
+    private final StaxService staxService;
+    private final JaxBService jaxBService;
+    private final JacksonService jacksonService;
+    private final StudentContactRepository studentContactRepository;
+
+    public StudentContactServiceMybatisImpl(
+            StaxService staxService,
+            JaxBService jaxBService,
+            JacksonService jacksonService,
+            StudentContactRepository studentContactRepository
+    ) {
+        this.staxService = staxService;
+        this.jaxBService = jaxBService;
+        this.jacksonService = jacksonService;
+        this.studentContactRepository = studentContactRepository;
+    }
 
     @Override
     public void createStudentContact(Student student, XmlConsoleSelectors consoleSelector) {

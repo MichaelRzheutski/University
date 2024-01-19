@@ -13,16 +13,16 @@ import java.util.List;
 public class DepartmentJdbcImplService extends DepartmentCommonActionsService implements DepartmentService {
     private final StudentRepository studentRepository;
     private final DepartmentRepository departmentRepository;
-    private final DepartmentCAService commonActionable;
+    private final DepartmentCAService departmentCAService;
 
     public DepartmentJdbcImplService(
             StudentRepository studentRepository,
             DepartmentRepository departmentRepository,
-            DepartmentCAService commonActionable
+            DepartmentCAService departmentCAService
     ) {
         this.studentRepository = studentRepository;
         this.departmentRepository = departmentRepository;
-        this.commonActionable = commonActionable;
+        this.departmentCAService = departmentCAService;
     }
 
     @Override
@@ -30,6 +30,6 @@ public class DepartmentJdbcImplService extends DepartmentCommonActionsService im
         List<Student> students = studentRepository.findAll();
         List<Department> departments = departmentRepository.getAllDepartments();
 
-        return commonActionable.setDepartmentsToStudents(students, departments);
+        return departmentCAService.setDepartmentsToStudents(students, departments);
     }
 }

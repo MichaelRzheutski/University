@@ -2,13 +2,16 @@ package com.solvd.university.service.impl.proxy;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.service.impl.commonactions.SubjectServiceCommonActions;
-import com.solvd.university.service.impl.mybatis.SubjectServiceMybatisImpl;
 
 import java.util.List;
 
 public class AllSubjectsMybatisProxy extends SubjectServiceCommonActions implements AllSubjectsProxy {
-    private final AllSubjectsProxy allSubjectsProxy = new SubjectServiceMybatisImpl();
+    private final AllSubjectsProxy allSubjectsProxy;
     private List<Student> studentsWithSubjectsCache = null;
+
+    public AllSubjectsMybatisProxy(AllSubjectsProxy allSubjectsProxy) {
+        this.allSubjectsProxy = allSubjectsProxy;
+    }
 
     public List<Student> getStudentsWithSubjects() {
         if (studentsWithSubjectsCache == null) {

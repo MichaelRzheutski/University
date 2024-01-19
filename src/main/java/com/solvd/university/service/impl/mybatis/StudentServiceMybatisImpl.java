@@ -4,11 +4,7 @@ import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
 import com.solvd.university.persistence.StudentContactRepository;
 import com.solvd.university.persistence.StudentRepository;
-import com.solvd.university.persistence.impl.mybatis.DepartmentRepositoryMybatisImpl;
-import com.solvd.university.persistence.impl.mybatis.StudentContactRepositoryMybatisImpl;
-import com.solvd.university.persistence.impl.mybatis.StudentRepositoryMybatisImpl;
 import com.solvd.university.service.*;
-import com.solvd.university.service.impl.commonactions.DepartmentCommonActionsService;
 import com.solvd.university.service.impl.commonactions.StudentServiceCommonActions;
 import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
 
@@ -18,18 +14,25 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class StudentServiceMybatisImpl extends StudentServiceCommonActions implements StudentService {
-    private final DepartmentService departmentService = new DepartmentMybatisImplService(
-            new StudentRepositoryMybatisImpl(), new DepartmentRepositoryMybatisImpl(), new DepartmentCommonActionsService()
-    );
-    private final StudentContactRepository studentContactRepository = new StudentContactRepositoryMybatisImpl();
-    private final StudentRepository studentRepository = new StudentRepositoryMybatisImpl();
-    private final StudentContactService studentContactService = new StudentContactServiceMybatisImpl();
+    private final DepartmentService departmentService;
+    private final StudentContactRepository studentContactRepository;
+    private final StudentRepository studentRepository;
+    private final StudentContactService studentContactService;
 
     public StudentServiceMybatisImpl(
             StaxService staxService,
             JaxBService jaxBService,
-            JacksonService jacksonService) {
+            JacksonService jacksonService,
+            DepartmentService departmentService,
+            StudentContactRepository studentContactRepository,
+            StudentRepository studentRepository,
+            StudentContactService studentContactService
+    ) {
         super(staxService, jaxBService, jacksonService);
+        this.departmentService = departmentService;
+        this.studentContactRepository = studentContactRepository;
+        this.studentRepository = studentRepository;
+        this.studentContactService = studentContactService;
     }
 
     private List<Student> getStudentsWithContacts() {

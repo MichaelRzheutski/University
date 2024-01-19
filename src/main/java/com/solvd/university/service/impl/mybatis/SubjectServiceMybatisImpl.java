@@ -4,29 +4,36 @@ import com.solvd.university.domain.Student;
 import com.solvd.university.domain.Subject;
 import com.solvd.university.persistence.StudentRepository;
 import com.solvd.university.persistence.SubjectRepository;
-import com.solvd.university.persistence.impl.mybatis.StudentRepositoryMybatisImpl;
-import com.solvd.university.persistence.impl.mybatis.SubjectRepositoryMybatisImpl;
 import com.solvd.university.service.StudentService;
+import com.solvd.university.service.SubjectCAService;
 import com.solvd.university.service.SubjectService;
 import com.solvd.university.service.impl.commonactions.SubjectServiceCommonActions;
 import com.solvd.university.service.impl.proxy.AllSubjectsProxy;
-import com.solvd.university.util.parsers.JacksonServiceOperations;
-import com.solvd.university.util.parsers.JaxbOperations;
-import com.solvd.university.util.parsers.StaxServiceOperations;
 
 import java.util.List;
 
 public class SubjectServiceMybatisImpl extends SubjectServiceCommonActions implements SubjectService, AllSubjectsProxy {
-    private final StudentRepository studentRepository = new StudentRepositoryMybatisImpl();
-    private final SubjectRepository subjectRepository = new SubjectRepositoryMybatisImpl();
-    private final StudentService studentService = new StudentServiceMybatisImpl(
-            new StaxServiceOperations(), new JaxbOperations(), new JacksonServiceOperations()
-    );
+    private final StudentRepository studentRepository;
+    private final SubjectRepository subjectRepository;
+    private final StudentService studentService;
+    private final SubjectCAService subjectCAService;
+
+    public SubjectServiceMybatisImpl(
+            StudentRepository studentRepository,
+            SubjectRepository subjectRepository,
+            StudentService studentService,
+            SubjectCAService subjectCAService
+    ) {
+        this.studentRepository = studentRepository;
+        this.subjectRepository = subjectRepository;
+        this.studentService = studentService;
+        this.subjectCAService = subjectCAService;
+    }
 
     public List<Student> getStudentsWithSubjects() {
         List<Student> students = studentRepository.findAll();
         List<Subject> subjects = subjectRepository.getAllSubjects();
-        return new SubjectServiceCommonActions().setSubjectsToStudents(students, subjects);
+        return subjectCAService.setSubjectsToStudents(students, subjects);
     }
 
     @Override
