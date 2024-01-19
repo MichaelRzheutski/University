@@ -14,13 +14,6 @@ public class Department {
     public Department() {
     }
 
-    public Department(
-            Long departmentId, String departmentName, Integer course) {
-        this.departmentId = departmentId;
-        this.departmentName = departmentName;
-        this.course = course;
-    }
-
     public Long getDepartmentId() {
         return departmentId;
     }

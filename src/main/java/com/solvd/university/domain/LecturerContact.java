@@ -11,10 +11,7 @@ public class LecturerContact {
     private String phone;
     private String email;
 
-    public LecturerContact(Long lecturerContactId, String phone, String email) {
-        this.lecturerContactId = lecturerContactId;
-        this.phone = phone;
-        this.email = email;
+    public LecturerContact() {
     }
 
     public Long getLecturerContactId() {

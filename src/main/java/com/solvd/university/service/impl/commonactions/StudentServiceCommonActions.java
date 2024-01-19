@@ -2,6 +2,13 @@ package com.solvd.university.service.impl.commonactions;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
+import com.solvd.university.service.JacksonService;
+import com.solvd.university.service.JaxBService;
+import com.solvd.university.service.StaxService;
+import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
+import com.solvd.university.util.parsers.JacksonServiceOperations;
+import com.solvd.university.util.parsers.JaxbOperations;
+import com.solvd.university.util.parsers.StaxServiceOperations;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,7 +18,11 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class StudentServiceCommonActions {
-    public void printWholeStudentInfo(List<Student> studentList, List<StudentContact> contactList) {
+    private final StaxService staxService = new StaxServiceOperations();
+    private final JaxBService jaxBService = new JaxbOperations();
+    private final JacksonService jacksonService = new JacksonServiceOperations();
+
+    protected void printWholeStudentInfo(List<Student> studentsWithContacts) {
         MY_LOGGER.info("\n" + ANSI_GREEN +
                 "Id" + " | " +
                 "Имя и Фамилия" + " | " +
@@ -22,13 +33,7 @@ public class StudentServiceCommonActions {
                 "Телефон" + " | " +
                 "Email" + ANSI_RESET
         );
-        for (Student student : studentList) {
-            for (StudentContact studentContact : contactList) {
-                if (studentContact.getStudentId().equals(student.getStudentId())) {
-                    student.setStudentContact(studentContact);
-                }
-            }
-
+        for (Student student : studentsWithContacts) {
             if (student.getStudentContact() != null) {
                 MY_LOGGER.info("\n" + student.getStudentId() + " | " + ANSI_YELLOW +
                         student.getFirstName() + " " +
@@ -57,11 +62,27 @@ public class StudentServiceCommonActions {
         System.out.println();
     }
 
-    protected Student addStudent() {
-        Student student;
-        student = collectStudentData();
+    protected List<Student> setStudentContactData(List<Student> studentList, List<StudentContact> contactList) {
+        for (Student student : studentList) {
+            for (StudentContact studentContact : contactList) {
+                if (studentContact.getStudentId().equals(student.getStudentId())) {
+                    student.setStudentContact(studentContact);
+                }
+            }
+        }
 
-        return student;
+        return studentList;
+    }
+
+    protected Student addStudent(XmlConsoleSelectors xmlConsoleSelector) {
+        Student studentToCreate = new Student();
+        switch (xmlConsoleSelector) {
+            case CONSOLE -> studentToCreate = collectStudentData();
+            case STAX -> studentToCreate = staxService.readStudentFromXml();
+            case JAXB -> studentToCreate = jaxBService.readStudentFromJaxb();
+            case JACKSON -> studentToCreate = jacksonService.readStudentFromJackson();
+        }
+        return studentToCreate;
     }
 
     protected Student getStudentById() {

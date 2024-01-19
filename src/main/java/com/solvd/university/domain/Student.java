@@ -29,25 +29,6 @@ public class Student {
     public Student() {
     }
 
-    public Student(String firstName, String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-    public Student(Long studentId, String firstName,
-                   String lastName, LocalDate dateOfBirth,
-                   StudentContact studentContact, Set<Subject> subjects,
-                   Double averageScore, Department department) {
-        this.studentId = studentId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.studentContact = studentContact;
-        this.subjects = subjects;
-        this.averageScore = averageScore;
-        this.department = department;
-    }
-
     public Long getStudentId() {
         return studentId;
     }

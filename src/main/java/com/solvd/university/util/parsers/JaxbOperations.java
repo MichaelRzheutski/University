@@ -2,6 +2,7 @@ package com.solvd.university.util.parsers;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
+import com.solvd.university.service.JaxBService;
 import com.solvd.university.util.exceptions.NotValidXmlFileException;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
@@ -9,7 +10,8 @@ import jakarta.xml.bind.Unmarshaller;
 
 import java.io.File;
 
-public class JaxbOperations {
+public class JaxbOperations implements JaxBService {
+    @Override
     public Student readStudentFromJaxb() {
         File xmlFile = new File("src/main/resources/xml/student.xml");
         File xsdFile = new File("src/main/resources/xml/student.xsd");
@@ -28,6 +30,7 @@ public class JaxbOperations {
         return student;
     }
 
+    @Override
     public StudentContact readStudentContactFromJaxb() {
         File xmlFile = new File("src/main/resources/xml/studentContact.xml");
         File xsdFile = new File("src/main/resources/xml/studentContact.xsd");

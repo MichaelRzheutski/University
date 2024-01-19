@@ -21,14 +21,12 @@ public class DepartmentRepositoryJdbcImpl implements DepartmentRepository {
         Connection connection = CONNECTION_POOL.getConnection();
         try (PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_DEPARTMENTS)) {
             ResultSet resultSet = preparedStatement.executeQuery();
-
             while (resultSet.next()) {
                 Department department = new Department();
                 department.setDepartmentId(resultSet.getLong(1));
                 department.setDepartmentName(resultSet.getString(2));
                 departments.add(department);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException("Не удалось получить все кафедры!", e);
         } finally {

@@ -17,12 +17,6 @@ public class Subject {
     public Subject() {
     }
 
-    public Subject(Long subjectId, String subjectName, Integer grade) {
-        this.subjectId = subjectId;
-        this.subjectName = subjectName;
-        this.grade = grade;
-    }
-
     public Long getSubjectId() {
         return subjectId;
     }

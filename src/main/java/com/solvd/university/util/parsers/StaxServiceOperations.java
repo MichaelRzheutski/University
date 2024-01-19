@@ -2,6 +2,7 @@ package com.solvd.university.util.parsers;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
+import com.solvd.university.service.StaxService;
 import com.solvd.university.util.exceptions.NotValidXmlFileException;
 
 import javax.xml.stream.XMLEventReader;
@@ -14,7 +15,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 
-public class StaxOperations {
+public class StaxServiceOperations implements StaxService {
+    @Override
     public Student readStudentFromXml() {
         File xmlFile = new File("src/main/resources/xml/student.xml");
         File xsdFile = new File("src/main/resources/xml/student.xsd");
@@ -49,6 +51,7 @@ public class StaxOperations {
         return student;
     }
 
+    @Override
     public StudentContact readStudentContactFromXml() {
         File xmlFile = new File("src/main/resources/xml/studentContact.xml");
         File xsdFile = new File("src/main/resources/xml/studentContact.xsd");

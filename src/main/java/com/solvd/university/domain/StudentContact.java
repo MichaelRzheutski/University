@@ -15,13 +15,6 @@ public class StudentContact {
     public StudentContact() {
     }
 
-    public StudentContact(Long studentContactId, String phone, String email, Long studentId) {
-        this.studentContactId = studentContactId;
-        this.phone = phone;
-        this.email = email;
-        this.studentId = studentId;
-    }
-
     public Long getStudentContactId() {
         return studentContactId;
     }

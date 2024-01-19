@@ -14,15 +14,7 @@ public class Lecturer {
     private Subject subjectId;
     private LecturerContact lecturerContactId;
 
-    public Lecturer(
-            Long lecturerId, String firstName, String lastName,
-            Department departmentId, Subject subjectId, LecturerContact lecturerContactId) {
-        this.lecturerId = lecturerId;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.departmentId = departmentId;
-        this.subjectId = subjectId;
-        this.lecturerContactId = lecturerContactId;
+    public Lecturer() {
     }
 
     public Long getLecturerId() {

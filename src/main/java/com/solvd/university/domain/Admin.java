@@ -7,11 +7,6 @@ public class Admin {
     public Admin() {
     }
 
-    public Admin(String login, String password) {
-        this.login = login;
-        this.password = password;
-    }
-
     public String getLogin() {
         return login;
     }

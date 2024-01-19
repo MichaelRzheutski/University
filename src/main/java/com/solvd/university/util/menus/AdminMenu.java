@@ -1,6 +1,7 @@
 package com.solvd.university.util.menus;
 
-import com.solvd.university.service.impl.jdbc.AdminServiceServiceJdbcImpl;
+import com.solvd.university.service.AdminService;
+import com.solvd.university.service.impl.jdbc.AdminServiceJdbcImpl;
 import com.solvd.university.service.impl.jdbc.StudentServiceJdbcImpl;
 import com.solvd.university.service.impl.mybatis.AdminServiceMybatisImpl;
 import com.solvd.university.service.impl.mybatis.StudentServiceMybatisImpl;
@@ -16,6 +17,9 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class AdminMenu {
+    private final AdminService authorizeAdminJDBC = new AdminServiceJdbcImpl();
+    private final AdminService authorizeAdminMybatis = new AdminServiceMybatisImpl();
+
     public void showAdminMenu(
             Scanner scanner, ControllerTypes controllerType,
             XmlConsoleSelectors xmlConsoleSelector) throws NotNumberException {
@@ -24,9 +28,9 @@ public class AdminMenu {
 
         try {
             if (controllerType.getControllerType().equals("JDBC")) {
-                new AdminServiceServiceJdbcImpl().getAdminAccess();
+                authorizeAdminJDBC.authorizeAdmin();
             } else {
-                new AdminServiceMybatisImpl().getAdminAccess();
+                authorizeAdminMybatis.authorizeAdmin();
             }
 
             while (!isExit) {

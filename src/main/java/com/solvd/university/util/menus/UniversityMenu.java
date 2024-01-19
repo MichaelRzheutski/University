@@ -12,9 +12,9 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class UniversityMenu {
-    private static final StudentMenu STUDENT_MENU = new StudentMenu();
-    private static final AdminMenu ADMIN_MENU = new AdminMenu();
 
+    private static final StudentMenu STUDENT_MENU = new StudentMenu();
+    private final AdminMenu ADMIN_MENU = new AdminMenu();
     public void showUniversityMenu(
             Scanner scanner, ControllerTypes controllerType,
             XmlConsoleSelectors xmlConsoleSelector) throws NotNumberException {

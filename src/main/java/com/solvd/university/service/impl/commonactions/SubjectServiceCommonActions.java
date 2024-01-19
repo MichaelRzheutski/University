@@ -9,6 +9,7 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class SubjectServiceCommonActions {
+
     public List<Student> setSubjectsToStudents(List<Student> studentList, List<Subject> subjectList) {
         for (Student student : studentList) {
             Set<Subject> tempSubjects = new HashSet<>();
@@ -27,7 +28,6 @@ public class SubjectServiceCommonActions {
             }
 
         }
-
         return studentList;
     }
 
