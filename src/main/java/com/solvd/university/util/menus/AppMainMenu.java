@@ -14,7 +14,7 @@ import static com.solvd.university.util.menus.enums.ControllerTypes.MYBATIS;
 
 public final class AppMainMenu {
     private final Scanner scanner = new Scanner(System.in);
-    private static final XmlConsoleSelectorMenu XML_CONSOLE_SELECTOR_MENU = new XmlConsoleSelectorMenu();
+    private static final ParserSelectorMenu PARSER_SELECTOR_MENU = new ParserSelectorMenu();
 
     public void mainMenu() {
         BasicConfigurator.configure();
@@ -32,8 +32,8 @@ public final class AppMainMenu {
 
                     switch (option) {
                         case 0 -> System.exit(0);
-                        case 1 -> XML_CONSOLE_SELECTOR_MENU.xmlConsoleSelectorMenu(scanner, JDBC);
-                        case 2 -> XML_CONSOLE_SELECTOR_MENU.xmlConsoleSelectorMenu(scanner, MYBATIS);
+                        case 1 -> PARSER_SELECTOR_MENU.selectParser(scanner, JDBC);
+                        case 2 -> PARSER_SELECTOR_MENU.selectParser(scanner, MYBATIS);
                         default -> MY_LOGGER.debug(
                                 ANSI_RED + "Неверная операция, " +
                                         "попробуйте ещё раз!\n" + ANSI_RESET

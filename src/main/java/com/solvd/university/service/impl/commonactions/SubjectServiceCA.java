@@ -2,14 +2,14 @@ package com.solvd.university.service.impl.commonactions;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.Subject;
-import com.solvd.university.service.SubjectCAService;
+import com.solvd.university.service.SubjectServiceSetter;
 
 import java.util.*;
 
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class SubjectServiceCommonActions implements SubjectCAService {
+public class SubjectServiceCA implements SubjectServiceSetter {
     @Override
     public List<Student> setSubjectsToStudents(List<Student> studentList, List<Subject> subjectList) {
         for (Student student : studentList) {

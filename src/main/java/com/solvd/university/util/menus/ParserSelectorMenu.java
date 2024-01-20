@@ -3,28 +3,28 @@ package com.solvd.university.util.menus;
 import com.solvd.university.util.exceptions.NotNumberException;
 import com.solvd.university.util.menus.enums.ControllerTypes;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
-import com.solvd.university.util.menus.menuenums.XmlConsoleSelectorMenuItems;
+import com.solvd.university.util.menus.menuenums.ParserSelectorMenuItems;
 
 import java.util.Scanner;
 
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
-import static com.solvd.university.util.menus.enums.XmlConsoleSelectors.*;
+import static com.solvd.university.util.menus.enums.ParserSelectors.*;
 
-public class XmlConsoleSelectorMenu {
+public class ParserSelectorMenu {
     private static final UniversityMenu UNIVERSITY_MENU = new UniversityMenu();
 
-    public void xmlConsoleSelectorMenu(Scanner scanner, ControllerTypes controllerType) {
+    public void selectParser(Scanner scanner, ControllerTypes controllerType) {
         int option;
         boolean isExit = false;
 
         try {
             while (!isExit) {
                 MY_LOGGER.info(ANSI_GREEN + "Выберите парсер: " + ANSI_RESET);
-                MY_LOGGER.info("[1]. " + XmlConsoleSelectorMenuItems.DATA_PROVIDER_CONSOLE);
-                MY_LOGGER.info("[2]. " + XmlConsoleSelectorMenuItems.DATA_PROVIDER_XML);
-                MY_LOGGER.info("[3]. " + XmlConsoleSelectorMenuItems.DATA_PROVIDER_XML_JAXB);
-                MY_LOGGER.info("[4]. " + XmlConsoleSelectorMenuItems.DATA_PROVIDER_JACKSON);
+                MY_LOGGER.info("[1]. " + ParserSelectorMenuItems.DATA_PROVIDER_CONSOLE);
+                MY_LOGGER.info("[2]. " + ParserSelectorMenuItems.DATA_PROVIDER_XML);
+                MY_LOGGER.info("[3]. " + ParserSelectorMenuItems.DATA_PROVIDER_XML_JAXB);
+                MY_LOGGER.info("[4]. " + ParserSelectorMenuItems.DATA_PROVIDER_JACKSON);
                 MY_LOGGER.info("[5]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);
                 MY_LOGGER.info("[0]. " + GeneralMenuItems.UNIVERSITY_EXIT);
 

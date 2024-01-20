@@ -4,13 +4,13 @@ import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
 import com.solvd.university.persistence.StudentContactRepository;
 import com.solvd.university.service.StudentContactService;
-import com.solvd.university.service.impl.commonactions.StudentContactServiceCommonActions;
+import com.solvd.university.service.impl.commonactions.StudentContactServiceCA;
 import com.solvd.university.service.impl.parsers.JacksonStudent;
 import com.solvd.university.service.impl.parsers.JaxbStudent;
 import com.solvd.university.service.impl.parsers.StaxStudent;
-import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
+import com.solvd.university.util.menus.enums.ParserSelectors;
 
-public class StudentContactServiceJdbcImpl extends StudentContactServiceCommonActions implements StudentContactService {
+public class StudentContactServiceJdbcImpl extends StudentContactServiceCA implements StudentContactService {
     private final StaxStudent staxStudent;
     private final JaxbStudent jaxBStudent;
     private final JacksonStudent jacksonStudent;
@@ -29,7 +29,7 @@ public class StudentContactServiceJdbcImpl extends StudentContactServiceCommonAc
     }
 
     @Override
-    public void createStudentContact(Student student, XmlConsoleSelectors consoleSelector) {
+    public void createStudentContact(Student student, ParserSelectors consoleSelector) {
         StudentContact studentContact = new StudentContact();
         switch (consoleSelector) {
             case CONSOLE -> studentContact = addContact();

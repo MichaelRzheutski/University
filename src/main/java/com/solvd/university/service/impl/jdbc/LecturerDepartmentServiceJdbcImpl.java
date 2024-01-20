@@ -4,25 +4,25 @@ import com.solvd.university.domain.Department;
 import com.solvd.university.domain.Lecturer;
 import com.solvd.university.persistence.DepartmentRepository;
 import com.solvd.university.persistence.LecturerRepository;
-import com.solvd.university.service.LecturerDepartmentCAService;
 import com.solvd.university.service.LecturerDepartmentService;
-import com.solvd.university.service.impl.commonactions.StudentDepartmentServiceCommonActions;
+import com.solvd.university.service.LecturerDepartmentServiceSetter;
+import com.solvd.university.service.impl.commonactions.StudentDepartmentServiceCA;
 
 import java.util.List;
 
-public class LecturerDepartmentServiceJdbcImpl extends StudentDepartmentServiceCommonActions implements LecturerDepartmentService {
+public class LecturerDepartmentServiceJdbcImpl extends StudentDepartmentServiceCA implements LecturerDepartmentService {
     private final LecturerRepository lecturerRepository;
     private final DepartmentRepository departmentRepository;
-    private final LecturerDepartmentCAService lecturerDepartmentCAService;
+    private final LecturerDepartmentServiceSetter lecturerDepartmentServiceSetter;
 
     public LecturerDepartmentServiceJdbcImpl(
             LecturerRepository lecturerRepository,
             DepartmentRepository departmentRepository,
-            LecturerDepartmentCAService lecturerDepartmentCAService
+            LecturerDepartmentServiceSetter lecturerDepartmentServiceSetter
     ) {
         this.lecturerRepository = lecturerRepository;
         this.departmentRepository = departmentRepository;
-        this.lecturerDepartmentCAService = lecturerDepartmentCAService;
+        this.lecturerDepartmentServiceSetter = lecturerDepartmentServiceSetter;
     }
 
     @Override
@@ -30,6 +30,6 @@ public class LecturerDepartmentServiceJdbcImpl extends StudentDepartmentServiceC
         List<Lecturer> lecturers = lecturerRepository.findAll();
         List<Department> departments = departmentRepository.getAllDepartments();
 
-        return lecturerDepartmentCAService.setDepartmentsToLecturers(lecturers, departments);
+        return lecturerDepartmentServiceSetter.setDepartmentsToLecturers(lecturers, departments);
     }
 }

@@ -5,7 +5,7 @@ import com.solvd.university.domain.LecturerContact;
 import com.solvd.university.service.impl.parsers.JacksonLecturer;
 import com.solvd.university.service.impl.parsers.JaxbLecturer;
 import com.solvd.university.service.impl.parsers.StaxLecturer;
-import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
+import com.solvd.university.util.menus.enums.ParserSelectors;
 
 import java.util.List;
 import java.util.Scanner;
@@ -13,12 +13,12 @@ import java.util.Scanner;
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class LecturerServiceCommonActions {
+public class LecturerServiceCA {
     private final StaxLecturer staxLecturer;
     private final JaxbLecturer jaxbLecturer;
     private final JacksonLecturer jacksonLecturer;
 
-    public LecturerServiceCommonActions(
+    public LecturerServiceCA(
             StaxLecturer staxLecturer,
             JaxbLecturer jaxbLecturer,
             JacksonLecturer jacksonLecturer
@@ -68,7 +68,7 @@ public class LecturerServiceCommonActions {
         return lecturerList;
     }
 
-    protected Lecturer addLecturer(XmlConsoleSelectors xmlConsoleSelector) {
+    protected Lecturer addLecturer(ParserSelectors xmlConsoleSelector) {
         Lecturer lecturerToCreate = new Lecturer();
         switch (xmlConsoleSelector) {
             case CONSOLE -> lecturerToCreate = collectLecturerData();

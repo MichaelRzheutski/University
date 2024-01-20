@@ -4,25 +4,25 @@ import com.solvd.university.domain.Department;
 import com.solvd.university.domain.Student;
 import com.solvd.university.persistence.DepartmentRepository;
 import com.solvd.university.persistence.StudentRepository;
-import com.solvd.university.service.StudentDepartmentCAService;
 import com.solvd.university.service.StudentDepartmentService;
-import com.solvd.university.service.impl.commonactions.StudentDepartmentServiceCommonActions;
+import com.solvd.university.service.StudentDepartmentServiceSetter;
+import com.solvd.university.service.impl.commonactions.StudentDepartmentServiceCA;
 
 import java.util.List;
 
-public class StudentDepartmentServiceJdbcImpl extends StudentDepartmentServiceCommonActions implements StudentDepartmentService {
+public class StudentDepartmentServiceJdbcImpl extends StudentDepartmentServiceCA implements StudentDepartmentService {
     private final StudentRepository studentRepository;
     private final DepartmentRepository departmentRepository;
-    private final StudentDepartmentCAService studentDepartmentCAService;
+    private final StudentDepartmentServiceSetter studentDepartmentServiceSetter;
 
     public StudentDepartmentServiceJdbcImpl(
             StudentRepository studentRepository,
             DepartmentRepository departmentRepository,
-            StudentDepartmentCAService studentDepartmentCAService
+            StudentDepartmentServiceSetter studentDepartmentServiceSetter
     ) {
         this.studentRepository = studentRepository;
         this.departmentRepository = departmentRepository;
-        this.studentDepartmentCAService = studentDepartmentCAService;
+        this.studentDepartmentServiceSetter = studentDepartmentServiceSetter;
     }
 
     @Override
@@ -30,6 +30,6 @@ public class StudentDepartmentServiceJdbcImpl extends StudentDepartmentServiceCo
         List<Student> students = studentRepository.findAll();
         List<Department> departments = departmentRepository.getAllDepartments();
 
-        return studentDepartmentCAService.setDepartmentsToStudents(students, departments);
+        return studentDepartmentServiceSetter.setDepartmentsToStudents(students, departments);
     }
 }

@@ -5,35 +5,35 @@ import com.solvd.university.domain.Subject;
 import com.solvd.university.persistence.StudentRepository;
 import com.solvd.university.persistence.SubjectRepository;
 import com.solvd.university.service.StudentService;
-import com.solvd.university.service.SubjectCAService;
 import com.solvd.university.service.SubjectService;
-import com.solvd.university.service.impl.commonactions.SubjectServiceCommonActions;
+import com.solvd.university.service.SubjectServiceSetter;
+import com.solvd.university.service.impl.commonactions.SubjectServiceCA;
 import com.solvd.university.service.impl.proxy.AllSubjectsProxy;
 
 import java.util.List;
 
-public class SubjectServiceMybatisImpl extends SubjectServiceCommonActions implements SubjectService, AllSubjectsProxy {
+public class SubjectServiceMybatisImpl extends SubjectServiceCA implements SubjectService, AllSubjectsProxy {
     private final StudentRepository studentRepository;
     private final SubjectRepository subjectRepository;
     private final StudentService studentService;
-    private final SubjectCAService subjectCAService;
+    private final SubjectServiceSetter subjectServiceSetter;
 
     public SubjectServiceMybatisImpl(
             StudentRepository studentRepository,
             SubjectRepository subjectRepository,
             StudentService studentService,
-            SubjectCAService subjectCAService
+            SubjectServiceSetter subjectServiceSetter
     ) {
         this.studentRepository = studentRepository;
         this.subjectRepository = subjectRepository;
         this.studentService = studentService;
-        this.subjectCAService = subjectCAService;
+        this.subjectServiceSetter = subjectServiceSetter;
     }
 
     public List<Student> getStudentsWithSubjects() {
         List<Student> students = studentRepository.findAll();
         List<Subject> subjects = subjectRepository.getAllSubjects();
-        return subjectCAService.setSubjectsToStudents(students, subjects);
+        return subjectServiceSetter.setSubjectsToStudents(students, subjects);
     }
 
     @Override

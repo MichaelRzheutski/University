@@ -43,6 +43,6 @@ public class Subject {
 
     @Override
     public String toString() {
-        return ANSI_YELLOW + subjectName + ANSI_RESET;
+        return ANSI_YELLOW + subjectName + " " + grade + ANSI_RESET;
     }
 }

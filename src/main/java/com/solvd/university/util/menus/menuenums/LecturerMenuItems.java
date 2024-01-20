@@ -1,7 +1,7 @@
 package com.solvd.university.util.menus.menuenums;
 
 public enum LecturerMenuItems {
-    LECTURER_SHOW_GRADE_BOOK("Показать журнал успеваемости");
+    LECTURER_SHOW_GRADE_BOOK("Показать журнал успеваемости студентов");
 
     private final String lecturerMenuItem;
 

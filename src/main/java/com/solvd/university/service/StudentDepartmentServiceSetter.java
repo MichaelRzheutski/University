@@ -5,6 +5,6 @@ import com.solvd.university.domain.Student;
 
 import java.util.List;
 
-public interface StudentDepartmentCAService {
+public interface StudentDepartmentServiceSetter {
     List<Student> setDepartmentsToStudents(List<Student> studentList, List<Department> departmentList);
 }

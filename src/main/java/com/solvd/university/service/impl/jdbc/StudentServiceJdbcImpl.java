@@ -7,18 +7,18 @@ import com.solvd.university.persistence.StudentRepository;
 import com.solvd.university.service.StudentContactService;
 import com.solvd.university.service.StudentDepartmentService;
 import com.solvd.university.service.StudentService;
-import com.solvd.university.service.impl.commonactions.StudentServiceCommonActions;
+import com.solvd.university.service.impl.commonactions.StudentServiceCA;
 import com.solvd.university.service.impl.parsers.JacksonStudent;
 import com.solvd.university.service.impl.parsers.JaxbStudent;
 import com.solvd.university.service.impl.parsers.StaxStudent;
-import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
+import com.solvd.university.util.menus.enums.ParserSelectors;
 
 import java.util.List;
 
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class StudentServiceJdbcImpl extends StudentServiceCommonActions implements StudentService {
+public class StudentServiceJdbcImpl extends StudentServiceCA implements StudentService {
     private final StudentDepartmentService studentDepartmentService;
     private final StudentContactRepository studentContactRepository;
     private final StudentRepository studentRepository;
@@ -54,7 +54,7 @@ public class StudentServiceJdbcImpl extends StudentServiceCommonActions implemen
     }
 
     @Override
-    public void enrollStudent(XmlConsoleSelectors xmlConsoleSelector) {
+    public void enrollStudent(ParserSelectors xmlConsoleSelector) {
         Student studentToEnroll = addStudent(xmlConsoleSelector);
         studentRepository.create(studentToEnroll);
         studentContactService.createStudentContact(studentToEnroll, xmlConsoleSelector);

@@ -9,15 +9,15 @@ import com.solvd.university.persistence.impl.mybatis.StudentContactRepositoryMyb
 import com.solvd.university.persistence.impl.mybatis.StudentRepositoryMybatisImpl;
 import com.solvd.university.persistence.impl.mybatis.SubjectRepositoryMybatisImpl;
 import com.solvd.university.service.SubjectService;
-import com.solvd.university.service.impl.commonactions.StudentDepartmentServiceCommonActions;
-import com.solvd.university.service.impl.commonactions.SubjectServiceCommonActions;
+import com.solvd.university.service.impl.commonactions.StudentDepartmentServiceCA;
+import com.solvd.university.service.impl.commonactions.SubjectServiceCA;
 import com.solvd.university.service.impl.jdbc.StudentContactServiceJdbcImpl;
 import com.solvd.university.service.impl.jdbc.StudentDepartmentServiceJdbcImpl;
 import com.solvd.university.service.impl.jdbc.StudentServiceJdbcImpl;
 import com.solvd.university.service.impl.jdbc.SubjectServiceJdbcImpl;
 import com.solvd.university.service.impl.mybatis.StudentContactServiceMybatisImpl;
 import com.solvd.university.service.impl.mybatis.StudentServiceMybatisImpl;
-import com.solvd.university.service.impl.mybatis.StudentStudentDepartmentServiceMybatisImpl;
+import com.solvd.university.service.impl.mybatis.StudentDepartmentServiceMybatisImpl;
 import com.solvd.university.service.impl.mybatis.SubjectServiceMybatisImpl;
 import com.solvd.university.service.impl.parsers.impl.JacksonOperationsStudent;
 import com.solvd.university.service.impl.parsers.impl.JaxbOperationsStudent;
@@ -27,7 +27,7 @@ import com.solvd.university.service.impl.proxy.AllSubjectsMybatisProxy;
 import com.solvd.university.service.impl.proxy.AllSubjectsProxy;
 import com.solvd.university.util.exceptions.NotNumberException;
 import com.solvd.university.util.menus.enums.ControllerTypes;
-import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
+import com.solvd.university.util.menus.enums.ParserSelectors;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
 import com.solvd.university.util.menus.menuenums.StudentMenuItems;
 
@@ -48,7 +48,7 @@ public final class StudentMenu {
                             new StudentDepartmentServiceJdbcImpl(
                                     new StudentRepositoryJdbcImpl(),
                                     new DepartmentRepositoryJdbcImpl(),
-                                    new StudentDepartmentServiceCommonActions()
+                                    new StudentDepartmentServiceCA()
                             ),
                             new StudentContactRepositoryJdbcImpl(),
                             new StudentRepositoryJdbcImpl(),
@@ -59,7 +59,7 @@ public final class StudentMenu {
                                     new StudentContactRepositoryJdbcImpl()
                             )
                     ),
-                    new SubjectServiceCommonActions()
+                    new SubjectServiceCA()
             )
     );
     private final AllSubjectsProxy allSubjectsMybatisProxy = new AllSubjectsMybatisProxy(
@@ -70,10 +70,10 @@ public final class StudentMenu {
                             new StaxOperationsStudent(),
                             new JaxbOperationsStudent(),
                             new JacksonOperationsStudent(),
-                            new StudentStudentDepartmentServiceMybatisImpl(
+                            new StudentDepartmentServiceMybatisImpl(
                                     new StudentRepositoryMybatisImpl(),
                                     new DepartmentRepositoryMybatisImpl(),
-                                    new StudentDepartmentServiceCommonActions()
+                                    new StudentDepartmentServiceCA()
                             ),
                             new StudentContactRepositoryMybatisImpl(),
                             new StudentRepositoryMybatisImpl(),
@@ -84,7 +84,7 @@ public final class StudentMenu {
                                     new StudentContactRepositoryMybatisImpl()
                             )
                     ),
-                    new SubjectServiceCommonActions()
+                    new SubjectServiceCA()
             )
     );
     private final SubjectService subjectServiceJDBC;
@@ -97,7 +97,7 @@ public final class StudentMenu {
 
     public void showStudentMenu(
             Scanner scanner, ControllerTypes controllerType,
-            XmlConsoleSelectors xmlConsoleSelector) throws NotNumberException {
+            ParserSelectors parserSelector) throws NotNumberException {
         int option;
         boolean isExit = false;
 

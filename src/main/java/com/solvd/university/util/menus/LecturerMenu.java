@@ -1,9 +1,9 @@
 package com.solvd.university.util.menus;
 
-import com.solvd.university.service.SubjectService;
+import com.solvd.university.service.GradeBookService;
 import com.solvd.university.util.exceptions.NotNumberException;
 import com.solvd.university.util.menus.enums.ControllerTypes;
-import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
+import com.solvd.university.util.menus.enums.ParserSelectors;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
 import com.solvd.university.util.menus.menuenums.LecturerMenuItems;
 
@@ -14,12 +14,17 @@ import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class LecturerMenu {
 
-//    private final GradeBookService gradeBookServiceJDBC;
-//    private final GradeBookService gradeBookServiceMybatis;
+    private final GradeBookService gradeBookServiceJDBC;
+    private final GradeBookService gradeBookServiceMybatis;
+
+    public LecturerMenu(GradeBookService gradeBookServiceJDBC, GradeBookService gradeBookServiceMybatis) {
+        this.gradeBookServiceJDBC = gradeBookServiceJDBC;
+        this.gradeBookServiceMybatis = gradeBookServiceMybatis;
+    }
 
     public void showLecturerMenu(
             Scanner scanner, ControllerTypes controllerType,
-            XmlConsoleSelectors xmlConsoleSelector) throws NotNumberException {
+            ParserSelectors parserSelector) throws NotNumberException {
         int option;
         boolean isExit = false;
 
@@ -36,7 +41,7 @@ public class LecturerMenu {
                     if (controllerType.getControllerType().equals("JDBC")) {
                         switch (option) {
                             case 0 -> System.exit(0);
-//                            case 1 -> gradeBookServiceJDBC.printGradeBook();
+                            case 1 -> gradeBookServiceJDBC.printGradeBook();
                             case 2 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",
@@ -46,7 +51,7 @@ public class LecturerMenu {
                     } else {
                         switch (option) {
                             case 0 -> System.exit(0);
-//                            case 1 -> gradeBookServiceMybatis.printGradeBook();
+                            case 1 -> gradeBookServiceMybatis.printGradeBook();
                             case 2 -> isExit = true;
                             default -> MY_LOGGER.info(
                                     String.format("%sНеверная операция, попробуйте ещё раз!%s\n",

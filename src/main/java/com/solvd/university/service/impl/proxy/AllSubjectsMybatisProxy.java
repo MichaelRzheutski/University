@@ -1,11 +1,11 @@
 package com.solvd.university.service.impl.proxy;
 
 import com.solvd.university.domain.Student;
-import com.solvd.university.service.impl.commonactions.SubjectServiceCommonActions;
+import com.solvd.university.service.impl.commonactions.SubjectServiceCA;
 
 import java.util.List;
 
-public class AllSubjectsMybatisProxy extends SubjectServiceCommonActions implements AllSubjectsProxy {
+public class AllSubjectsMybatisProxy extends SubjectServiceCA implements AllSubjectsProxy {
     private final AllSubjectsProxy allSubjectsProxy;
     private List<Student> studentsWithSubjectsCache = null;
 

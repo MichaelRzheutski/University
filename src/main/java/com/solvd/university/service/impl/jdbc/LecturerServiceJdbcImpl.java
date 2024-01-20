@@ -7,18 +7,18 @@ import com.solvd.university.persistence.LecturerRepository;
 import com.solvd.university.service.LecturerContactService;
 import com.solvd.university.service.LecturerDepartmentService;
 import com.solvd.university.service.LecturerService;
-import com.solvd.university.service.impl.commonactions.LecturerServiceCommonActions;
+import com.solvd.university.service.impl.commonactions.LecturerServiceCA;
 import com.solvd.university.service.impl.parsers.JacksonLecturer;
 import com.solvd.university.service.impl.parsers.JaxbLecturer;
 import com.solvd.university.service.impl.parsers.StaxLecturer;
-import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
+import com.solvd.university.util.menus.enums.ParserSelectors;
 
 import java.util.List;
 
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class LecturerServiceJdbcImpl extends LecturerServiceCommonActions implements LecturerService {
+public class LecturerServiceJdbcImpl extends LecturerServiceCA implements LecturerService {
     private final LecturerDepartmentService lecturerDepartmentService;
     private final LecturerContactRepository lecturerContactRepository;
     private final LecturerRepository lecturerRepository;
@@ -54,7 +54,7 @@ public class LecturerServiceJdbcImpl extends LecturerServiceCommonActions implem
     }
 
     @Override
-    public void employLecturer(XmlConsoleSelectors xmlConsoleSelector) {
+    public void employLecturer(ParserSelectors xmlConsoleSelector) {
         Lecturer lecturerToEmploy = addLecturer(xmlConsoleSelector);
         lecturerRepository.create(lecturerToEmploy);
         lecturerContactService.createLecturerContact(lecturerToEmploy, xmlConsoleSelector);

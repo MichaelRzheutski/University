@@ -10,7 +10,7 @@ import java.util.Scanner;
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class AdminServiceCommonActions {
+public class AdminServiceCA {
     protected void setAdminCredentials() {
         Properties property = new Properties();
         Admin admin = new Admin();

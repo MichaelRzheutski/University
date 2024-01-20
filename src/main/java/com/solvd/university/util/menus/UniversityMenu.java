@@ -2,19 +2,16 @@ package com.solvd.university.util.menus;
 
 import com.solvd.university.persistence.impl.jdbc.*;
 import com.solvd.university.persistence.impl.mybatis.*;
-import com.solvd.university.service.AdminService;
-import com.solvd.university.service.LecturerService;
-import com.solvd.university.service.StudentService;
-import com.solvd.university.service.SubjectService;
-import com.solvd.university.service.impl.commonactions.LecturerDepartmentServiceCommonActions;
-import com.solvd.university.service.impl.commonactions.StudentDepartmentServiceCommonActions;
-import com.solvd.university.service.impl.commonactions.SubjectServiceCommonActions;
+import com.solvd.university.service.*;
+import com.solvd.university.service.impl.commonactions.LecturerDepartmentServiceCA;
+import com.solvd.university.service.impl.commonactions.StudentDepartmentServiceCA;
+import com.solvd.university.service.impl.commonactions.SubjectServiceCA;
 import com.solvd.university.service.impl.jdbc.*;
 import com.solvd.university.service.impl.mybatis.*;
 import com.solvd.university.service.impl.parsers.impl.*;
 import com.solvd.university.util.exceptions.NotNumberException;
 import com.solvd.university.util.menus.enums.ControllerTypes;
-import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
+import com.solvd.university.util.menus.enums.ParserSelectors;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
 import com.solvd.university.util.menus.menuenums.UniversityMenuItems;
 
@@ -34,7 +31,7 @@ public class UniversityMenu {
                     new StudentDepartmentServiceJdbcImpl(
                             new StudentRepositoryJdbcImpl(),
                             new DepartmentRepositoryJdbcImpl(),
-                            new StudentDepartmentServiceCommonActions()
+                            new StudentDepartmentServiceCA()
                     ),
                     new StudentContactRepositoryJdbcImpl(),
                     new StudentRepositoryJdbcImpl(),
@@ -45,7 +42,7 @@ public class UniversityMenu {
                             new StudentContactRepositoryJdbcImpl()
                     )
             ),
-            new SubjectServiceCommonActions()
+            new SubjectServiceCA()
     );
     private final SubjectService subjectServiceMybatis = new SubjectServiceMybatisImpl(
             new StudentRepositoryMybatisImpl(),
@@ -54,10 +51,10 @@ public class UniversityMenu {
                     new StaxOperationsStudent(),
                     new JaxbOperationsStudent(),
                     new JacksonOperationsStudent(),
-                    new StudentStudentDepartmentServiceMybatisImpl(
+                    new StudentDepartmentServiceMybatisImpl(
                             new StudentRepositoryMybatisImpl(),
                             new DepartmentRepositoryMybatisImpl(),
-                            new StudentDepartmentServiceCommonActions()
+                            new StudentDepartmentServiceCA()
                     ),
                     new StudentContactRepositoryMybatisImpl(),
                     new StudentRepositoryMybatisImpl(),
@@ -68,7 +65,7 @@ public class UniversityMenu {
                             new StudentContactRepositoryMybatisImpl()
                     )
             ),
-            new SubjectServiceCommonActions()
+            new SubjectServiceCA()
     );
     private final AdminService authorizeAdminJDBC = new AdminServiceJdbcImpl();
     private final AdminService authorizeAdminMybatis = new AdminServiceMybatisImpl();
@@ -79,7 +76,7 @@ public class UniversityMenu {
             new StudentDepartmentServiceJdbcImpl(
                     new StudentRepositoryJdbcImpl(),
                     new DepartmentRepositoryJdbcImpl(),
-                    new StudentDepartmentServiceCommonActions()
+                    new StudentDepartmentServiceCA()
             ),
             new StudentContactRepositoryJdbcImpl(),
             new StudentRepositoryJdbcImpl(),
@@ -94,10 +91,10 @@ public class UniversityMenu {
             new StaxOperationsStudent(),
             new JaxbOperationsStudent(),
             new JacksonOperationsStudent(),
-            new StudentStudentDepartmentServiceMybatisImpl(
+            new StudentDepartmentServiceMybatisImpl(
                     new StudentRepositoryMybatisImpl(),
                     new DepartmentRepositoryMybatisImpl(),
-                    new StudentDepartmentServiceCommonActions()
+                    new StudentDepartmentServiceCA()
             ),
             new StudentContactRepositoryMybatisImpl(),
             new StudentRepositoryMybatisImpl(),
@@ -116,7 +113,7 @@ public class UniversityMenu {
             new LecturerDepartmentServiceJdbcImpl(
                     new LecturerRepositoryJdbcImpl(),
                     new DepartmentRepositoryJdbcImpl(),
-                    new LecturerDepartmentServiceCommonActions()
+                    new LecturerDepartmentServiceCA()
             ),
             new LecturerContactRepositoryJdbcImpl(),
             new LecturerRepositoryJdbcImpl(),
@@ -131,10 +128,10 @@ public class UniversityMenu {
             new StaxOperationsLecturer(),
             new JaxbOperationsLecturer(),
             new JacksonOperationsLecturer(),
-            new LecturerStudentDepartmentServiceMybatisImpl(
+            new LecturerDepartmentServiceMybatisImpl(
                     new LecturerRepositoryMybatisImpl(),
                     new DepartmentRepositoryMybatisImpl(),
-                    new LecturerDepartmentServiceCommonActions()
+                    new LecturerDepartmentServiceCA()
             ),
             new LecturerContactRepositoryJdbcImpl(),
             new LecturerRepositoryMybatisImpl(),
@@ -144,6 +141,17 @@ public class UniversityMenu {
                     new JacksonOperationsLecturer(),
                     new LecturerContactRepositoryMybatisImpl()
             )
+    );
+
+    private final GradeBookService gradeBookJDBC = new GradeBookServiceJdbcImpl(
+            new StudentRepositoryJdbcImpl(),
+            new SubjectRepositoryJdbcImpl(),
+            new SubjectServiceCA()
+    );
+    private final GradeBookService gradeBookMybatis = new GradeBookServiceMybatisImpl(
+            new StudentRepositoryMybatisImpl(),
+            new SubjectRepositoryMybatisImpl(),
+            new SubjectServiceCA()
     );
 
     private final StudentMenu studentMenu = new StudentMenu(
@@ -159,21 +167,24 @@ public class UniversityMenu {
             lecturerServiceMybatis
     );
 
-    private final LecturerMenu lecturerMenu = new LecturerMenu();
+    private final LecturerMenu lecturerMenu = new LecturerMenu(
+            gradeBookJDBC,
+            gradeBookMybatis
+    );
 
     public void showUniversityMenu(
             Scanner scanner, ControllerTypes controllerType,
-            XmlConsoleSelectors xmlConsoleSelector) throws NotNumberException {
+            ParserSelectors parserSelector) throws NotNumberException {
         int option;
         boolean isExit = false;
 
         try {
             while (!isExit) {
                 MY_LOGGER.info(ANSI_GREEN + "Меню университета: " +
-                        controllerType + " + " + xmlConsoleSelector + ANSI_RESET);
+                        controllerType + " + " + parserSelector + ANSI_RESET);
                 MY_LOGGER.info("[1]. " + UniversityMenuItems.UNIVERSITY_STUDENT_OPERATIONS);
-                MY_LOGGER.info("[2]. " + UniversityMenuItems.UNIVERSITY_ADMIN_OPERATIONS);
-                MY_LOGGER.info("[3]. " + UniversityMenuItems.UNIVERSITY_LECTURER_OPERATIONS);
+                MY_LOGGER.info("[2]. " + UniversityMenuItems.UNIVERSITY_LECTURER_OPERATIONS);
+                MY_LOGGER.info("[3]. " + UniversityMenuItems.UNIVERSITY_ADMIN_OPERATIONS);
                 MY_LOGGER.info("[4]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);
                 MY_LOGGER.info("[0]. " + GeneralMenuItems.UNIVERSITY_EXIT);
 
@@ -182,9 +193,9 @@ public class UniversityMenu {
 
                     switch (option) {
                         case 0 -> System.exit(0);
-                        case 1 -> studentMenu.showStudentMenu(scanner, controllerType, xmlConsoleSelector);
-                        case 2 -> adminMenu.showAdminMenu(scanner, controllerType, xmlConsoleSelector);
-                        case 3 -> lecturerMenu.showLecturerMenu(scanner, controllerType, xmlConsoleSelector);
+                        case 1 -> studentMenu.showStudentMenu(scanner, controllerType, parserSelector);
+                        case 2 -> lecturerMenu.showLecturerMenu(scanner, controllerType, parserSelector);
+                        case 3 -> adminMenu.showAdminMenu(scanner, controllerType, parserSelector);
                         case 4 -> isExit = true;
                         default -> MY_LOGGER.info(
                                 String.format("%sНеверная операция, попробуйте ещё раз!%s\n",

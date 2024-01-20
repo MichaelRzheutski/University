@@ -5,7 +5,7 @@ import com.solvd.university.domain.StudentContact;
 import com.solvd.university.service.impl.parsers.JacksonStudent;
 import com.solvd.university.service.impl.parsers.JaxbStudent;
 import com.solvd.university.service.impl.parsers.StaxStudent;
-import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
+import com.solvd.university.util.menus.enums.ParserSelectors;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,12 +14,12 @@ import java.util.Scanner;
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class StudentServiceCommonActions {
+public class StudentServiceCA {
     private final StaxStudent staxStudent;
     private final JaxbStudent jaxBStudent;
     private final JacksonStudent jacksonStudent;
 
-    public StudentServiceCommonActions(
+    public StudentServiceCA(
             StaxStudent staxStudent,
             JaxbStudent jaxBStudent,
             JacksonStudent jacksonStudent
@@ -81,7 +81,7 @@ public class StudentServiceCommonActions {
         return studentList;
     }
 
-    protected Student addStudent(XmlConsoleSelectors xmlConsoleSelector) {
+    protected Student addStudent(ParserSelectors xmlConsoleSelector) {
         Student studentToCreate = new Student();
         switch (xmlConsoleSelector) {
             case CONSOLE -> studentToCreate = collectStudentData();

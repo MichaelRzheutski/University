@@ -5,6 +5,6 @@ import com.solvd.university.domain.Subject;
 
 import java.util.List;
 
-public interface SubjectCAService {
+public interface SubjectServiceSetter {
     List<Student> setSubjectsToStudents(List<Student> studentList, List<Subject> subjectList);
 }

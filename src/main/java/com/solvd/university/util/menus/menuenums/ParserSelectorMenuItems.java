@@ -1,6 +1,6 @@
 package com.solvd.university.util.menus.menuenums;
 
-public enum XmlConsoleSelectorMenuItems {
+public enum ParserSelectorMenuItems {
     DATA_PROVIDER_CONSOLE("Получать данные из Консоли"),
     DATA_PROVIDER_XML("Получать данные из XML-файла используя STAX"),
     DATA_PROVIDER_XML_JAXB("Получать данные из XML-файла используя JAXB"),
@@ -8,7 +8,7 @@ public enum XmlConsoleSelectorMenuItems {
 
     private final String XmlConsoleSelectorMenuItem;
 
-    XmlConsoleSelectorMenuItems(String XmlConsoleSelectorMenuItem) {
+    ParserSelectorMenuItems(String XmlConsoleSelectorMenuItem) {
         this.XmlConsoleSelectorMenuItem = XmlConsoleSelectorMenuItem;
     }
 
