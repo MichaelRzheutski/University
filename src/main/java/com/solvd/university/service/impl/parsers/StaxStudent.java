@@ -1,9 +1,9 @@
-package com.solvd.university.service;
+package com.solvd.university.service.impl.parsers;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
 
-public interface StaxService {
+public interface StaxStudent {
     Student readStudentFromXml();
 
     StudentContact readStudentContactFromXml();

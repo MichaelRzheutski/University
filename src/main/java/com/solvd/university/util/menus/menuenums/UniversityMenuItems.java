@@ -2,6 +2,7 @@ package com.solvd.university.util.menus.menuenums;
 
 public enum UniversityMenuItems {
     UNIVERSITY_STUDENT_OPERATIONS("Показать список операций для студента"),
+    UNIVERSITY_LECTURER_OPERATIONS("Показать список операций для преподавателя"),
     UNIVERSITY_ADMIN_OPERATIONS("Показать список операций для администратора");
 
     private final String universityMenuItem;

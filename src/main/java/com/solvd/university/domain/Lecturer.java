@@ -10,9 +10,9 @@ public class Lecturer {
     private Long lecturerId;
     private String firstName;
     private String lastName;
-    private Department departmentId;
     private Subject subjectId;
-    private LecturerContact lecturerContactId;
+    private LecturerContact lecturerContact;
+    private Department department;
 
     public Lecturer() {
     }
@@ -41,14 +41,6 @@ public class Lecturer {
         this.lastName = lastName;
     }
 
-    public Department getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(Department departmentId) {
-        this.departmentId = departmentId;
-    }
-
     public Subject getSubjectId() {
         return subjectId;
     }
@@ -57,11 +49,19 @@ public class Lecturer {
         this.subjectId = subjectId;
     }
 
-    public LecturerContact getLecturerContactId() {
-        return lecturerContactId;
+    public LecturerContact getLecturerContact() {
+        return lecturerContact;
     }
 
-    public void setLecturerContactId(LecturerContact lecturerContactId) {
-        this.lecturerContactId = lecturerContactId;
+    public void setLecturerContact(LecturerContact lecturerContact) {
+        this.lecturerContact = lecturerContact;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

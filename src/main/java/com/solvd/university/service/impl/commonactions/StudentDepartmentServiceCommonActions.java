@@ -2,12 +2,12 @@ package com.solvd.university.service.impl.commonactions;
 
 import com.solvd.university.domain.Department;
 import com.solvd.university.domain.Student;
-import com.solvd.university.service.DepartmentCAService;
+import com.solvd.university.service.StudentDepartmentCAService;
 
 import java.util.List;
 import java.util.Random;
 
-public class DepartmentCommonActionsService implements DepartmentCAService {
+public class StudentDepartmentServiceCommonActions implements StudentDepartmentCAService {
     @Override
     public List<Student> setDepartmentsToStudents(List<Student> studentList, List<Department> departmentList) {
         for (Student student : studentList) {

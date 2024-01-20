@@ -9,16 +9,19 @@ import com.solvd.university.persistence.impl.mybatis.StudentContactRepositoryMyb
 import com.solvd.university.persistence.impl.mybatis.StudentRepositoryMybatisImpl;
 import com.solvd.university.persistence.impl.mybatis.SubjectRepositoryMybatisImpl;
 import com.solvd.university.service.SubjectService;
-import com.solvd.university.service.impl.commonactions.DepartmentCommonActionsService;
+import com.solvd.university.service.impl.commonactions.StudentDepartmentServiceCommonActions;
 import com.solvd.university.service.impl.commonactions.SubjectServiceCommonActions;
-import com.solvd.university.service.impl.jdbc.DepartmentJdbcImplService;
 import com.solvd.university.service.impl.jdbc.StudentContactServiceJdbcImpl;
+import com.solvd.university.service.impl.jdbc.StudentDepartmentServiceJdbcImpl;
 import com.solvd.university.service.impl.jdbc.StudentServiceJdbcImpl;
 import com.solvd.university.service.impl.jdbc.SubjectServiceJdbcImpl;
-import com.solvd.university.service.impl.mybatis.DepartmentMybatisImplService;
 import com.solvd.university.service.impl.mybatis.StudentContactServiceMybatisImpl;
 import com.solvd.university.service.impl.mybatis.StudentServiceMybatisImpl;
+import com.solvd.university.service.impl.mybatis.StudentStudentDepartmentServiceMybatisImpl;
 import com.solvd.university.service.impl.mybatis.SubjectServiceMybatisImpl;
+import com.solvd.university.service.impl.parsers.impl.JacksonOperationsStudent;
+import com.solvd.university.service.impl.parsers.impl.JaxbOperationsStudent;
+import com.solvd.university.service.impl.parsers.impl.StaxOperationsStudent;
 import com.solvd.university.service.impl.proxy.AllSubjectsJdbcProxy;
 import com.solvd.university.service.impl.proxy.AllSubjectsMybatisProxy;
 import com.solvd.university.service.impl.proxy.AllSubjectsProxy;
@@ -27,9 +30,6 @@ import com.solvd.university.util.menus.enums.ControllerTypes;
 import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
 import com.solvd.university.util.menus.menuenums.GeneralMenuItems;
 import com.solvd.university.util.menus.menuenums.StudentMenuItems;
-import com.solvd.university.util.parsers.JacksonServiceOperations;
-import com.solvd.university.util.parsers.JaxbOperations;
-import com.solvd.university.util.parsers.StaxServiceOperations;
 
 import java.util.Scanner;
 
@@ -42,20 +42,20 @@ public final class StudentMenu {
                     new StudentRepositoryJdbcImpl(),
                     new SubjectRepositoryJdbcImpl(),
                     new StudentServiceJdbcImpl(
-                            new StaxServiceOperations(),
-                            new JaxbOperations(),
-                            new JacksonServiceOperations(),
-                            new DepartmentJdbcImplService(
+                            new StaxOperationsStudent(),
+                            new JaxbOperationsStudent(),
+                            new JacksonOperationsStudent(),
+                            new StudentDepartmentServiceJdbcImpl(
                                     new StudentRepositoryJdbcImpl(),
                                     new DepartmentRepositoryJdbcImpl(),
-                                    new DepartmentCommonActionsService()
+                                    new StudentDepartmentServiceCommonActions()
                             ),
                             new StudentContactRepositoryJdbcImpl(),
                             new StudentRepositoryJdbcImpl(),
                             new StudentContactServiceJdbcImpl(
-                                    new StaxServiceOperations(),
-                                    new JaxbOperations(),
-                                    new JacksonServiceOperations(),
+                                    new StaxOperationsStudent(),
+                                    new JaxbOperationsStudent(),
+                                    new JacksonOperationsStudent(),
                                     new StudentContactRepositoryJdbcImpl()
                             )
                     ),
@@ -67,20 +67,20 @@ public final class StudentMenu {
                     new StudentRepositoryMybatisImpl(),
                     new SubjectRepositoryMybatisImpl(),
                     new StudentServiceMybatisImpl(
-                            new StaxServiceOperations(),
-                            new JaxbOperations(),
-                            new JacksonServiceOperations(),
-                            new DepartmentMybatisImplService(
+                            new StaxOperationsStudent(),
+                            new JaxbOperationsStudent(),
+                            new JacksonOperationsStudent(),
+                            new StudentStudentDepartmentServiceMybatisImpl(
                                     new StudentRepositoryMybatisImpl(),
                                     new DepartmentRepositoryMybatisImpl(),
-                                    new DepartmentCommonActionsService()
+                                    new StudentDepartmentServiceCommonActions()
                             ),
                             new StudentContactRepositoryMybatisImpl(),
                             new StudentRepositoryMybatisImpl(),
                             new StudentContactServiceMybatisImpl(
-                                    new StaxServiceOperations(),
-                                    new JaxbOperations(),
-                                    new JacksonServiceOperations(),
+                                    new StaxOperationsStudent(),
+                                    new JaxbOperationsStudent(),
+                                    new JacksonOperationsStudent(),
                                     new StudentContactRepositoryMybatisImpl()
                             )
                     ),

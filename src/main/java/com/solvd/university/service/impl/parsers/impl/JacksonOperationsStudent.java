@@ -1,15 +1,15 @@
-package com.solvd.university.util.parsers;
+package com.solvd.university.service.impl.parsers.impl;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
-import com.solvd.university.service.JacksonService;
+import com.solvd.university.service.impl.parsers.JacksonStudent;
 
 import java.io.File;
 import java.io.IOException;
 
-public class JacksonServiceOperations implements JacksonService {
+public class JacksonOperationsStudent implements JacksonStudent {
     @Override
     public Student readStudentFromJackson() {
         File jsonFile = new File("src/main/resources/json/student.json");

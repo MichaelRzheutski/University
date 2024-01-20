@@ -3,28 +3,28 @@ package com.solvd.university.service.impl.jdbc;
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
 import com.solvd.university.persistence.StudentContactRepository;
-import com.solvd.university.service.JacksonService;
-import com.solvd.university.service.JaxBService;
-import com.solvd.university.service.StaxService;
 import com.solvd.university.service.StudentContactService;
 import com.solvd.university.service.impl.commonactions.StudentContactServiceCommonActions;
+import com.solvd.university.service.impl.parsers.JacksonStudent;
+import com.solvd.university.service.impl.parsers.JaxbStudent;
+import com.solvd.university.service.impl.parsers.StaxStudent;
 import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
 
 public class StudentContactServiceJdbcImpl extends StudentContactServiceCommonActions implements StudentContactService {
-    private final StaxService staxService;
-    private final JaxBService jaxBService;
-    private final JacksonService jacksonService;
+    private final StaxStudent staxStudent;
+    private final JaxbStudent jaxBStudent;
+    private final JacksonStudent jacksonStudent;
     private final StudentContactRepository studentContactRepository;
 
     public StudentContactServiceJdbcImpl(
-            StaxService staxService,
-            JaxBService jaxBService,
-            JacksonService jacksonService,
+            StaxStudent staxStudent,
+            JaxbStudent jaxBStudent,
+            JacksonStudent jacksonStudent,
             StudentContactRepository studentContactRepository
     ) {
-        this.staxService = staxService;
-        this.jaxBService = jaxBService;
-        this.jacksonService = jacksonService;
+        this.staxStudent = staxStudent;
+        this.jaxBStudent = jaxBStudent;
+        this.jacksonStudent = jacksonStudent;
         this.studentContactRepository = studentContactRepository;
     }
 
@@ -33,9 +33,9 @@ public class StudentContactServiceJdbcImpl extends StudentContactServiceCommonAc
         StudentContact studentContact = new StudentContact();
         switch (consoleSelector) {
             case CONSOLE -> studentContact = addContact();
-            case STAX -> studentContact = staxService.readStudentContactFromXml();
-            case JAXB -> studentContact = jaxBService.readStudentContactFromJaxb();
-            case JACKSON -> studentContact = jacksonService.readStudentContactFromJackson();
+            case STAX -> studentContact = staxStudent.readStudentContactFromXml();
+            case JAXB -> studentContact = jaxBStudent.readStudentContactFromJaxb();
+            case JACKSON -> studentContact = jacksonStudent.readStudentContactFromJackson();
         }
 
         studentContact.setStudentId(student.getStudentId());

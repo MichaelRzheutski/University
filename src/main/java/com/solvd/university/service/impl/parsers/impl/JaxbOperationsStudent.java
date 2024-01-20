@@ -1,16 +1,17 @@
-package com.solvd.university.util.parsers;
+package com.solvd.university.service.impl.parsers.impl;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
-import com.solvd.university.service.JaxBService;
+import com.solvd.university.service.impl.parsers.JaxbStudent;
 import com.solvd.university.util.exceptions.NotValidXmlFileException;
+import com.solvd.university.util.parsers.XmlValidator;
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 
 import java.io.File;
 
-public class JaxbOperations implements JaxBService {
+public class JaxbOperationsStudent implements JaxbStudent {
     @Override
     public Student readStudentFromJaxb() {
         File xmlFile = new File("src/main/resources/xml/student.xml");

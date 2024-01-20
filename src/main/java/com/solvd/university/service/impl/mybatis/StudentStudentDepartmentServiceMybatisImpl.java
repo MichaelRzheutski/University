@@ -4,21 +4,21 @@ import com.solvd.university.domain.Department;
 import com.solvd.university.domain.Student;
 import com.solvd.university.persistence.DepartmentRepository;
 import com.solvd.university.persistence.StudentRepository;
-import com.solvd.university.service.DepartmentCAService;
-import com.solvd.university.service.DepartmentService;
-import com.solvd.university.service.impl.commonactions.DepartmentCommonActionsService;
+import com.solvd.university.service.StudentDepartmentCAService;
+import com.solvd.university.service.StudentDepartmentService;
+import com.solvd.university.service.impl.commonactions.StudentDepartmentServiceCommonActions;
 
 import java.util.List;
 
-public class DepartmentMybatisImplService extends DepartmentCommonActionsService implements DepartmentService {
+public class StudentStudentDepartmentServiceMybatisImpl extends StudentDepartmentServiceCommonActions implements StudentDepartmentService {
     private final StudentRepository studentRepository;
     private final DepartmentRepository departmentRepository;
-    private final DepartmentCAService commonActionable;
+    private final StudentDepartmentCAService commonActionable;
 
-    public DepartmentMybatisImplService(
+    public StudentStudentDepartmentServiceMybatisImpl(
             StudentRepository studentRepository,
             DepartmentRepository departmentRepository,
-            DepartmentCAService commonActionable
+            StudentDepartmentCAService commonActionable
     ) {
         this.studentRepository = studentRepository;
         this.departmentRepository = departmentRepository;

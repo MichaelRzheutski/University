@@ -4,25 +4,25 @@ import com.solvd.university.domain.Department;
 import com.solvd.university.domain.Student;
 import com.solvd.university.persistence.DepartmentRepository;
 import com.solvd.university.persistence.StudentRepository;
-import com.solvd.university.service.DepartmentCAService;
-import com.solvd.university.service.DepartmentService;
-import com.solvd.university.service.impl.commonactions.DepartmentCommonActionsService;
+import com.solvd.university.service.StudentDepartmentCAService;
+import com.solvd.university.service.StudentDepartmentService;
+import com.solvd.university.service.impl.commonactions.StudentDepartmentServiceCommonActions;
 
 import java.util.List;
 
-public class DepartmentJdbcImplService extends DepartmentCommonActionsService implements DepartmentService {
+public class StudentDepartmentServiceJdbcImpl extends StudentDepartmentServiceCommonActions implements StudentDepartmentService {
     private final StudentRepository studentRepository;
     private final DepartmentRepository departmentRepository;
-    private final DepartmentCAService departmentCAService;
+    private final StudentDepartmentCAService studentDepartmentCAService;
 
-    public DepartmentJdbcImplService(
+    public StudentDepartmentServiceJdbcImpl(
             StudentRepository studentRepository,
             DepartmentRepository departmentRepository,
-            DepartmentCAService departmentCAService
+            StudentDepartmentCAService studentDepartmentCAService
     ) {
         this.studentRepository = studentRepository;
         this.departmentRepository = departmentRepository;
-        this.departmentCAService = departmentCAService;
+        this.studentDepartmentCAService = studentDepartmentCAService;
     }
 
     @Override
@@ -30,6 +30,6 @@ public class DepartmentJdbcImplService extends DepartmentCommonActionsService im
         List<Student> students = studentRepository.findAll();
         List<Department> departments = departmentRepository.getAllDepartments();
 
-        return departmentCAService.setDepartmentsToStudents(students, departments);
+        return studentDepartmentCAService.setDepartmentsToStudents(students, departments);
     }
 }

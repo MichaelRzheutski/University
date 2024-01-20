@@ -1,9 +1,10 @@
-package com.solvd.university.util.parsers;
+package com.solvd.university.service.impl.parsers.impl;
 
-import com.solvd.university.domain.Student;
-import com.solvd.university.domain.StudentContact;
-import com.solvd.university.service.StaxService;
+import com.solvd.university.domain.Lecturer;
+import com.solvd.university.domain.LecturerContact;
+import com.solvd.university.service.impl.parsers.StaxLecturer;
 import com.solvd.university.util.exceptions.NotValidXmlFileException;
+import com.solvd.university.util.parsers.XmlValidator;
 
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
@@ -13,15 +14,14 @@ import javax.xml.stream.events.XMLEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.time.LocalDate;
 
-public class StaxServiceOperations implements StaxService {
+public class StaxOperationsLecturer implements StaxLecturer {
     @Override
-    public Student readStudentFromXml() {
-        File xmlFile = new File("src/main/resources/xml/student.xml");
-        File xsdFile = new File("src/main/resources/xml/student.xsd");
+    public Lecturer readLecturerFromXml() {
+        File xmlFile = new File("src/main/resources/xml/lecturer.xml");
+        File xsdFile = new File("src/main/resources/xml/lecturer.xsd");
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-        Student student = new Student();
+        Lecturer lecturer = new Lecturer();
 
         try (FileInputStream fis = new FileInputStream(xmlFile)) {
             XmlValidator.validateXml(xmlFile, xsdFile);
@@ -31,16 +31,8 @@ public class StaxServiceOperations implements StaxService {
                 if (nextEvent.isStartElement()) {
                     StartElement startElement = nextEvent.asStartElement();
                     switch (startElement.getName().getLocalPart()) {
-                        case "firstName":
-                            student.setFirstName(reader.nextEvent().toString());
-                            break;
-                        case "lastName":
-                            student.setLastName(reader.nextEvent().toString());
-                            break;
-                        case "dateOfBirth":
-                            LocalDate date = LocalDate.parse(reader.nextEvent().toString());
-                            student.setDateOfBirth(date);
-                            break;
+                        case "firstName" -> lecturer.setFirstName(reader.nextEvent().toString());
+                        case "lastName" -> lecturer.setLastName(reader.nextEvent().toString());
                     }
                 }
             }
@@ -48,15 +40,15 @@ public class StaxServiceOperations implements StaxService {
             throw new RuntimeException(e);
         }
 
-        return student;
+        return lecturer;
     }
 
     @Override
-    public StudentContact readStudentContactFromXml() {
+    public LecturerContact readLecturerContactFromXml() {
         File xmlFile = new File("src/main/resources/xml/studentContact.xml");
         File xsdFile = new File("src/main/resources/xml/studentContact.xsd");
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
-        StudentContact studentContact = new StudentContact();
+        LecturerContact lecturerContact = new LecturerContact();
 
         try (FileInputStream fis = new FileInputStream(xmlFile)) {
             XmlValidator.validateXml(xmlFile, xsdFile);
@@ -66,12 +58,8 @@ public class StaxServiceOperations implements StaxService {
                 if (nextEvent.isStartElement()) {
                     StartElement startElement = nextEvent.asStartElement();
                     switch (startElement.getName().getLocalPart()) {
-                        case "phone":
-                            studentContact.setPhone(reader.nextEvent().toString());
-                            break;
-                        case "email":
-                            studentContact.setEmail(reader.nextEvent().toString());
-                            break;
+                        case "phone" -> lecturerContact.setPhone(reader.nextEvent().toString());
+                        case "email" -> lecturerContact.setEmail(reader.nextEvent().toString());
                     }
                 }
             }
@@ -79,6 +67,6 @@ public class StaxServiceOperations implements StaxService {
             throw new RuntimeException(e);
         }
 
-        return studentContact;
+        return lecturerContact;
     }
 }

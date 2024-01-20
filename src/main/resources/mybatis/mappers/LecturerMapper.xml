@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.solvd.university.persistence.LecturerRepository">
+    <select id="findAll" resultMap="AllLecturersResultMap">
+        SELECT lecturer_id, first_name, last_name FROM lecturers
+    </select>
+
+    <insert id="create" keyColumn="lecturer_id" keyProperty="lecturerId" useGeneratedKeys="true">
+        INSERT
+        INTO lecturers (first_name, last_name)
+        VALUES (#{firstName}, #{lastName})
+    </insert>
+
+    <select id="findById" resultMap="findByIdResultMap">
+        SELECT * FROM lecturers WHERE lecturer_id = #{lecturerId}
+    </select>
+
+    <update id="update">
+        UPDATE lecturers
+        SET
+        first_name = #{firstName},
+        last_name = #{lastName}
+        WHERE lecturer_id = #{lecturerId}
+    </update>
+
+    <delete id="deleteById">
+        DELETE
+        FROM lecturers
+        WHERE lecturer_id = #{lecturerId}
+    </delete>
+
+    <select id="countOfEntries" resultMap="CountOfEntriesLecturerResultMap">
+        SELECT
+        COUNT(*) AS lecturers_count
+        FROM lecturers
+    </select>
+
+    <resultMap id="AllLecturersResultMap" type="com.solvd.university.domain.Lecturer" autoMapping="false">
+        <id column="lecturer_id" property="lecturerId"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+        <association property="department"
+                     resultMap="com.solvd.university.persistence.DepartmentRepository.departmentResultMap"/>
+    </resultMap>
+
+    <resultMap id="findByIdResultMap" type="com.solvd.university.domain.Lecturer" autoMapping="false">
+        <id column="lecturer_id" property="lecturerId"/>
+        <result column="first_name" property="firstName"/>
+        <result column="last_name" property="lastName"/>
+    </resultMap>
+
+    <resultMap id="CountOfEntriesLecturerResultMap" type="Long" autoMapping="false">
+        <result column="lecturers_count" property="id"/>
+    </resultMap>
+</mapper>

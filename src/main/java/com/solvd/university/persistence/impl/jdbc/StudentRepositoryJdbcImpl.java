@@ -70,7 +70,7 @@ public class StudentRepositoryJdbcImpl implements StudentRepository {
             student.setFirstName(resultSet.getString(2));
             student.setLastName(resultSet.getString(3));
         } catch (SQLException e) {
-            throw new RuntimeException("Не у далось найти студента по ID!", e);
+            throw new RuntimeException("Не удалось найти студента по ID!", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }
@@ -88,7 +88,7 @@ public class StudentRepositoryJdbcImpl implements StudentRepository {
             preparedStatement.setLong(4, student.getStudentId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Не удалось обновить имя студента!", e);
+            throw new RuntimeException("Не удалось обновить данные студента!", e);
         } finally {
             CONNECTION_POOL.releaseConnection(connection);
         }

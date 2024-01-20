@@ -4,8 +4,13 @@ import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
 import com.solvd.university.persistence.StudentContactRepository;
 import com.solvd.university.persistence.StudentRepository;
-import com.solvd.university.service.*;
+import com.solvd.university.service.StudentContactService;
+import com.solvd.university.service.StudentDepartmentService;
+import com.solvd.university.service.StudentService;
 import com.solvd.university.service.impl.commonactions.StudentServiceCommonActions;
+import com.solvd.university.service.impl.parsers.JacksonStudent;
+import com.solvd.university.service.impl.parsers.JaxbStudent;
+import com.solvd.university.service.impl.parsers.StaxStudent;
 import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
 
 import java.util.List;
@@ -14,29 +19,29 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class StudentServiceJdbcImpl extends StudentServiceCommonActions implements StudentService {
-    private final DepartmentService departmentService;
+    private final StudentDepartmentService studentDepartmentService;
     private final StudentContactRepository studentContactRepository;
     private final StudentRepository studentRepository;
     private final StudentContactService studentContactService;
 
     public StudentServiceJdbcImpl(
-            StaxService staxService,
-            JaxBService jaxBService,
-            JacksonService jacksonService,
-            DepartmentService departmentService,
+            StaxStudent staxStudent,
+            JaxbStudent jaxBStudent,
+            JacksonStudent jacksonStudent,
+            StudentDepartmentService studentDepartmentService,
             StudentContactRepository studentContactRepository,
             StudentRepository studentRepository,
             StudentContactService studentContactService
     ) {
-        super(staxService, jaxBService, jacksonService);
-        this.departmentService = departmentService;
+        super(staxStudent, jaxBStudent, jacksonStudent);
+        this.studentDepartmentService = studentDepartmentService;
         this.studentContactRepository = studentContactRepository;
         this.studentRepository = studentRepository;
         this.studentContactService = studentContactService;
     }
 
     private List<Student> getStudentsWithContacts() {
-        List<Student> studentList = departmentService.getStudentsWithDepartments();
+        List<Student> studentList = studentDepartmentService.getStudentsWithDepartments();
         List<StudentContact> contactList = studentContactRepository.getAllStudentContacts();
 
         return setStudentContactData(studentList, contactList);

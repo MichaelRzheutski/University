@@ -4,6 +4,6 @@ import com.solvd.university.domain.Student;
 
 import java.util.List;
 
-public interface DepartmentService {
+public interface StudentDepartmentService {
     List<Student> getStudentsWithDepartments();
 }

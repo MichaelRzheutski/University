@@ -2,9 +2,9 @@ package com.solvd.university.service.impl.commonactions;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.StudentContact;
-import com.solvd.university.service.JacksonService;
-import com.solvd.university.service.JaxBService;
-import com.solvd.university.service.StaxService;
+import com.solvd.university.service.impl.parsers.JacksonStudent;
+import com.solvd.university.service.impl.parsers.JaxbStudent;
+import com.solvd.university.service.impl.parsers.StaxStudent;
 import com.solvd.university.util.menus.enums.XmlConsoleSelectors;
 
 import java.time.LocalDate;
@@ -15,18 +15,18 @@ import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
 public class StudentServiceCommonActions {
-    private final StaxService staxService;
-    private final JaxBService jaxBService;
-    private final JacksonService jacksonService;
+    private final StaxStudent staxStudent;
+    private final JaxbStudent jaxBStudent;
+    private final JacksonStudent jacksonStudent;
 
     public StudentServiceCommonActions(
-            StaxService staxService,
-            JaxBService jaxBService,
-            JacksonService jacksonService
+            StaxStudent staxStudent,
+            JaxbStudent jaxBStudent,
+            JacksonStudent jacksonStudent
     ) {
-        this.staxService = staxService;
-        this.jaxBService = jaxBService;
-        this.jacksonService = jacksonService;
+        this.staxStudent = staxStudent;
+        this.jaxBStudent = jaxBStudent;
+        this.jacksonStudent = jacksonStudent;
     }
 
     protected void printWholeStudentInfo(List<Student> studentsWithContacts) {
@@ -85,9 +85,9 @@ public class StudentServiceCommonActions {
         Student studentToCreate = new Student();
         switch (xmlConsoleSelector) {
             case CONSOLE -> studentToCreate = collectStudentData();
-            case STAX -> studentToCreate = staxService.readStudentFromXml();
-            case JAXB -> studentToCreate = jaxBService.readStudentFromJaxb();
-            case JACKSON -> studentToCreate = jacksonService.readStudentFromJackson();
+            case STAX -> studentToCreate = staxStudent.readStudentFromXml();
+            case JAXB -> studentToCreate = jaxBStudent.readStudentFromJaxb();
+            case JACKSON -> studentToCreate = jacksonStudent.readStudentFromJackson();
         }
         return studentToCreate;
     }
