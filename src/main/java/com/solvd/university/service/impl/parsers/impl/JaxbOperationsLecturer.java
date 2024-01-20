@@ -35,18 +35,18 @@ public class JaxbOperationsLecturer implements JaxbLecturer {
     public LecturerContact readLecturerContactFromJaxb() {
         File xmlFile = new File("src/main/resources/xml/lecturerContact.xml");
         File xsdFile = new File("src/main/resources/xml/lecturerContact.xsd");
-        LecturerContact LecturerContact;
+        LecturerContact lecturerContact;
 
         try {
             XmlValidator.validateXml(xmlFile, xsdFile);
             JAXBContext context = JAXBContext.newInstance(Lecturer.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            LecturerContact = (LecturerContact) unmarshaller.unmarshal(xmlFile);
+            lecturerContact = (LecturerContact) unmarshaller.unmarshal(xmlFile);
 
         } catch (JAXBException | NotValidXmlFileException e) {
             throw new RuntimeException(e);
         }
 
-        return LecturerContact;
+        return lecturerContact;
     }
 }

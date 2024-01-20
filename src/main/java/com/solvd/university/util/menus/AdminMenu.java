@@ -76,9 +76,13 @@ public class AdminMenu {
                 } else {
                     MY_LOGGER.info(ANSI_GREEN + "Меню администратора: "
                             + controllerType + " + " + xmlConsoleSelector + ANSI_RESET);
+                    MY_LOGGER.info(ANSI_GREEN + "Операции для студента:" + ANSI_RESET);
                     MY_LOGGER.info("[1]. " + AdminMenuStudentItems.ADMIN_SHOW_ALL_STUDENTS);
                     MY_LOGGER.info("[2]. " + AdminMenuStudentItems.ADMIN_ADD_STUDENT);
-                    MY_LOGGER.info("[3]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);
+                    MY_LOGGER.info(ANSI_GREEN + "Операции для преподавателя:" + ANSI_RESET);
+                    MY_LOGGER.info("[3]. " + AdminMenuLecturerItems.ADMIN_SHOW_ALL_LECTURERS);
+                    MY_LOGGER.info("[4]. " + AdminMenuLecturerItems.ADMIN_ADD_LECTURER);
+                    MY_LOGGER.info("[5]. " + GeneralMenuItems.UNIVERSITY_PREVIOUS_MENU);
                     MY_LOGGER.info("[0]. " + GeneralMenuItems.UNIVERSITY_EXIT);
                 }
                 if (scanner.hasNextInt()) {

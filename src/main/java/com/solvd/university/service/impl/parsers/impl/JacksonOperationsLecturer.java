@@ -12,7 +12,7 @@ import java.io.IOException;
 public class JacksonOperationsLecturer implements JacksonLecturer {
     @Override
     public Lecturer readLecturerFromJackson() {
-        File jsonFile = new File("src/main/resources/json/student.json");
+        File jsonFile = new File("src/main/resources/json/lecturer.json");
         ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
         Lecturer lecturer;
@@ -28,7 +28,7 @@ public class JacksonOperationsLecturer implements JacksonLecturer {
 
     @Override
     public LecturerContact readLecturerContactFromJackson() {
-        File jsonFile = new File("src/main/resources/json/studentContact.json");
+        File jsonFile = new File("src/main/resources/json/lecturerContact.json");
         ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
         LecturerContact lecturerContact;
         try {

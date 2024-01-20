@@ -45,8 +45,8 @@ public class StaxOperationsLecturer implements StaxLecturer {
 
     @Override
     public LecturerContact readLecturerContactFromXml() {
-        File xmlFile = new File("src/main/resources/xml/studentContact.xml");
-        File xsdFile = new File("src/main/resources/xml/studentContact.xsd");
+        File xmlFile = new File("src/main/resources/xml/lecturerContact.xml");
+        File xsdFile = new File("src/main/resources/xml/lecturerContact.xsd");
         XMLInputFactory xmlInputFactory = XMLInputFactory.newInstance();
         LecturerContact lecturerContact = new LecturerContact();
 

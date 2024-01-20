@@ -1,16 +1,12 @@
 {
   "firstName": "Сергей",
   "lastName": "Пчёлкин",
-  "department": [
-    {
-      "departmentName": "Кафедра перевода",
-      "course": 1
-    }
-  ],
-  "subject": [
-    {
-      "departmentName": "Природоведение",
-      "grade": 0
-    }
-  ]
+  "department": {
+    "departmentName": "Кафедра перевода",
+    "course": 1
+  },
+  "subject": {
+    "departmentName": "Природоведение",
+    "grade": 0
+  }
 }
