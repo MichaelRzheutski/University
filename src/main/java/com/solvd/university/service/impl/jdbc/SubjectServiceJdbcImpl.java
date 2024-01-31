@@ -2,50 +2,64 @@ package com.solvd.university.service.impl.jdbc;
 
 import com.solvd.university.domain.Student;
 import com.solvd.university.domain.Subject;
-import com.solvd.university.persistence.impl.jdbc.StudentRepositoryJdbcImpl;
-import com.solvd.university.persistence.impl.jdbc.SubjectRepositoryJdbcImpl;
+import com.solvd.university.persistence.StudentRepository;
+import com.solvd.university.persistence.SubjectRepository;
+import com.solvd.university.service.StudentService;
 import com.solvd.university.service.SubjectService;
-import com.solvd.university.service.impl.commonactions.SubjectServiceCommonActions;
+import com.solvd.university.service.SubjectServiceSetter;
+import com.solvd.university.service.impl.commonactions.SubjectServiceCA;
+import com.solvd.university.service.impl.proxy.AllSubjectsProxy;
 
 import java.util.List;
 
-public class SubjectServiceJdbcImpl extends SubjectServiceCommonActions implements SubjectService {
+public class SubjectServiceJdbcImpl extends SubjectServiceCA implements SubjectService, AllSubjectsProxy {
+    private final StudentRepository studentRepository;
+    private final SubjectRepository subjectRepository;
+    private final StudentService studentService;
+    private final SubjectServiceSetter subjectServiceSetter;
+
+    public SubjectServiceJdbcImpl(
+            StudentRepository studentRepository,
+            SubjectRepository subjectRepository,
+            StudentService studentService,
+            SubjectServiceSetter subjectServiceSetter
+    ) {
+        this.studentRepository = studentRepository;
+        this.subjectRepository = subjectRepository;
+        this.studentService = studentService;
+        this.subjectServiceSetter = subjectServiceSetter;
+    }
+
+    public List<Student> getStudentsWithSubjects() {
+        List<Student> students = studentRepository.findAll();
+        List<Subject> subjects = subjectRepository.getAllSubjects();
+        return subjectServiceSetter.setSubjectsToStudents(students, subjects);
+    }
+
     @Override
     public void printAllSubjects() {
-        List<Student> students = new StudentRepositoryJdbcImpl().findAll();
-        List<Subject> subjects = new SubjectRepositoryJdbcImpl().getAllSubjects();
-        List<Student> studentsWithSubjects =
-                new SubjectServiceCommonActions().setSubjectsToStudents(students, subjects);
+        List<Student> studentsWithSubjects = getStudentsWithSubjects();
         printStudentSubjects(studentsWithSubjects);
     }
 
     @Override
     public void getStudentAllSubjects() {
-        Student foundStudent = new StudentServiceJdbcImpl().findStudent();
-        List<Student> students = new StudentRepositoryJdbcImpl().findAll();
-        List<Subject> subjects = new SubjectRepositoryJdbcImpl().getAllSubjects();
-        List<Student> studentsWithSubjects =
-                new SubjectServiceCommonActions().setSubjectsToStudents(students, subjects);
+        Student foundStudent = studentService.findStudent();
+        List<Student> studentsWithSubjects = getStudentsWithSubjects();
         showStudentAllSubjects(studentsWithSubjects, foundStudent);
     }
 
     @Override
     public void showStudentPerformance() {
-        Student foundStudent = new StudentServiceJdbcImpl().findStudent();
-        List<Student> students = new StudentRepositoryJdbcImpl().findAll();
-        List<Subject> subjects = new SubjectRepositoryJdbcImpl().getAllSubjects();
-        List<Student> studentsWithSubjects =
-                new SubjectServiceCommonActions().setSubjectsToStudents(students, subjects);
+        Student foundStudent = studentService.findStudent();
+        List<Student> studentsWithSubjects = getStudentsWithSubjects();
         showStudentResults(studentsWithSubjects, foundStudent);
     }
 
     @Override
     public void takeExam() {
-        Student foundStudent = new StudentServiceJdbcImpl().findStudent();
-        List<Student> students = new StudentRepositoryJdbcImpl().findAll();
-        List<Subject> subjects = new SubjectRepositoryJdbcImpl().getAllSubjects();
-        List<Student> studentsWithSubjects =
-                new SubjectServiceCommonActions().setSubjectsToStudents(students, subjects);
+        Student foundStudent = studentService.findStudent();
+        List<Student> studentsWithSubjects = getStudentsWithSubjects();
         passExam(studentsWithSubjects, foundStudent);
     }
 

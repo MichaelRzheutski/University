@@ -1,7 +1,7 @@
 package com.solvd.university.util.menus.menuenums;
 
 public enum AppMainMenuItems {
-    UNIVERSITY_MYSQL("Работать с базой данных MySQL"),
+    UNIVERSITY_JDBC("Работать с JDBC"),
     UNIVERSITY_MYBATIS("Работать с MyBatis");
 
     private final String appMainMenuItem;

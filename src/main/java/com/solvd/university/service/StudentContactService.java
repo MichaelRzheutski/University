@@ -1,13 +1,8 @@
 package com.solvd.university.service;
 
 import com.solvd.university.domain.Student;
+import com.solvd.university.util.menus.enums.ParserSelectors;
 
 public interface StudentContactService {
-    void createStudentContact(Student student);
-
-    void createStudentContactStax(Student student);
-
-    void createStudentContactJaxb(Student student);
-
-    void createStudentContactJackson(Student student);
+    void createStudentContact(Student student, ParserSelectors consoleSelector);
 }

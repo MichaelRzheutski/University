@@ -1,17 +1,19 @@
 package com.solvd.university.persistence;
 
+import com.solvd.university.domain.Lecturer;
+
 import java.util.List;
 
 public interface LecturerRepository {
-    void create(LecturerRepository lecturerRepository);
+    List<Lecturer> findAll();
 
-    LecturerRepository findById();
+    void create(Lecturer lecturer);
 
-    List<LecturerRepository> findAll();
+    Lecturer findById(Lecturer lecturer);
 
-    void update(LecturerRepository lecturerRepository);
+    void update(Lecturer lecturer);
 
-    void deleteById();
+    void deleteById(Lecturer lecturer);
 
     Long countOfEntries();
 }

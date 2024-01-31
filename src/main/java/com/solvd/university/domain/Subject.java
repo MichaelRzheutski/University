@@ -17,12 +17,6 @@ public class Subject {
     public Subject() {
     }
 
-    public Subject(Long subjectId, String subjectName, Integer grade) {
-        this.subjectId = subjectId;
-        this.subjectName = subjectName;
-        this.grade = grade;
-    }
-
     public Long getSubjectId() {
         return subjectId;
     }
@@ -49,6 +43,6 @@ public class Subject {
 
     @Override
     public String toString() {
-        return ANSI_YELLOW + subjectName + ANSI_RESET;
+        return ANSI_YELLOW + subjectName + " " + grade + ANSI_RESET;
     }
 }
