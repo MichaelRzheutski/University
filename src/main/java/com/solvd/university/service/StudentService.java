@@ -7,6 +7,12 @@ public interface StudentService {
 
     void enrollStudent();
 
+    void enrollStudentStax();
+
+    void enrollStudentJaxb();
+
+    void enrollStudentJackson();
+
     Student findStudent();
 
     void editStudentInfo();

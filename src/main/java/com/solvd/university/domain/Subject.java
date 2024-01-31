@@ -1,14 +1,20 @@
 package com.solvd.university.domain;
 
-import static com.solvd.university.util.ConsoleColors.*;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
+import static com.solvd.university.util.ConsoleColors.ANSI_RESET;
+import static com.solvd.university.util.ConsoleColors.ANSI_YELLOW;
+
+@XmlRootElement(name = "subject")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Subject {
     private Long subjectId;
     private String subjectName;
     private Integer grade;
 
     public Subject() {
-
     }
 
     public Subject(Long subjectId, String subjectName, Integer grade) {

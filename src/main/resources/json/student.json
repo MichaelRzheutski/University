@@ -1,0 +1,28 @@
+{
+  "firstName": "Владимир",
+  "lastName": "Минский",
+  "dateOfBirth": "1998-07-05",
+  "subjects": [
+    {
+      "subjectId": 1,
+      "title": "Английский язык",
+      "grade": "9"
+    },
+    {
+      "subjectId": 3,
+      "title": "Информатика",
+      "grade": "10"
+    },
+    {
+      "subjectId": 7,
+      "title": "Философия",
+      "grade": "8"
+    }
+  ],
+  "averageScore": 8.0,
+  "department": {
+    "departmentId": 1,
+    "departmentName": "Кафедра перевода",
+    "course": 1
+  }
+}

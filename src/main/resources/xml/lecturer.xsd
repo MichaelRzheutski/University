@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="lecturer" type="lecturerType"/>
+
+    <xs:complexType name="departmentType">
+        <xs:all>
+            <xs:element type="xs:string" name="departmentName"/>
+            <xs:element type="xs:byte" name="course"/>
+        </xs:all>
+        <xs:attribute type="xs:byte" name="id"/>
+    </xs:complexType>
+
+    <xs:complexType name="subjectType">
+        <xs:all>
+            <xs:element type="xs:string" name="subjectName"/>
+            <xs:element type="xs:string" name="grade"/>
+        </xs:all>
+        <xs:attribute type="xs:byte" name="id"/>
+    </xs:complexType>
+
+    <xs:complexType name="lecturerType">
+        <xs:all>
+            <xs:element type="xs:string" name="firstName"/>
+            <xs:element type="xs:string" name="lastName"/>
+            <xs:element type="departmentType" name="department"/>
+            <xs:element type="subjectType" name="subject"/>
+            <xs:element type="xs:string" name="lecturerContactId"/>
+        </xs:all>
+        <xs:attribute type="xs:byte" name="id"/>
+    </xs:complexType>
+</xs:schema>

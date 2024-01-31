@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="semester" type="semesterType"/>
+    <xs:complexType name="semesterType">
+        <xs:all>
+            <xs:element type="xs:string" name="semesterName" minOccurs="0"/>
+            <xs:element type="xs:byte" name="subjectId" minOccurs="0"/>
+            <xs:element type="semestersType" name="semesters" minOccurs="0"/>
+        </xs:all>
+        <xs:attribute type="xs:byte" name="id" use="optional"/>
+    </xs:complexType>
+    <xs:complexType name="semestersType">
+        <xs:sequence>
+            <xs:element type="semesterType" name="semester" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

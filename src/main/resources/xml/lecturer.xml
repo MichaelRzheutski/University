@@ -1,0 +1,14 @@
+<lecturer id="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="lecturer.xsd">
+    <firstName>Сергей</firstName>
+    <lastName>Пчёлкин</lastName>
+    <department id="1">
+        <departmentName>Кафедра перевода</departmentName>
+        <course>1</course>
+    </department>
+    <subject id="1">
+        <subjectName>Природоведение</subjectName>
+        <grade> </grade>
+    </subject>
+    <lecturerContactId> </lecturerContactId>
+</lecturer>

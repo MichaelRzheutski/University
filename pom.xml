@@ -13,6 +13,9 @@
         <mavenJarPluginVersion>3.3.0</mavenJarPluginVersion>
         <mysqlConnectorJVersion>8.2.0</mysqlConnectorJVersion>
         <mybatisVersion>3.5.15</mybatisVersion>
+        <sl4jVersion>1.7.5</sl4jVersion>
+        <jaxbVersion>4.0.4</jaxbVersion>
+        <jacksonVersion>2.16.1</jacksonVersion>
     </properties>
 
     <dependencies>
@@ -49,13 +52,37 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.5</version>
+            <version>${sl4jVersion}</version>
         </dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.7.5</version>
+            <version>${sl4jVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>${jaxbVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>${jaxbVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jacksonVersion}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jacksonVersion}</version>
         </dependency>
     </dependencies>
 

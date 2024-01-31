@@ -1,0 +1,13 @@
+<semester id="1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="semester.xsd">
+    <semesters>
+        <semester id="1">
+            <semesterName>1 семестр</semesterName>
+            <subjectId>1</subjectId>
+        </semester>
+        <semester id="2">
+            <semesterName>2 семестр</semesterName>
+            <subjectId>2</subjectId>
+        </semester>
+    </semesters>
+</semester>

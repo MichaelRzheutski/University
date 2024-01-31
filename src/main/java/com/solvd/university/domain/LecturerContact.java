@@ -1,5 +1,11 @@
 package com.solvd.university.domain;
 
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "lecturerContact")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class LecturerContact {
     private Long lecturerContactId;
     private String phone;
