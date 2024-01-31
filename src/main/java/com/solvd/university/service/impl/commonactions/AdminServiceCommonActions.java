@@ -1,7 +1,6 @@
-package com.solvd.university.persistence.impl;
+package com.solvd.university.service.impl.commonactions;
 
 import com.solvd.university.domain.Admin;
-import com.solvd.university.persistence.AdminRepository;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,9 +10,11 @@ import java.util.Scanner;
 import static com.solvd.university.util.ConsoleColors.*;
 import static com.solvd.university.util.MyLogger.MY_LOGGER;
 
-public class AdminRepositoryDaoImpl implements AdminRepository {
-    public void setAdminCredentials(Admin admin) {
+public class AdminServiceCommonActions {
+    private void setAdminCredentials() {
         Properties property = new Properties();
+        Admin admin = new Admin();
+
         try (FileInputStream fis = new FileInputStream("src/main/resources/admin_credentials.properties")) {
             property.load(fis);
 
@@ -24,11 +25,10 @@ public class AdminRepositoryDaoImpl implements AdminRepository {
             throw new RuntimeException("Невозможно прочитать property файл!", e);
         }
 
-        authorizeAdmin(admin);
+        isAdmin(admin);
     }
 
-    @Override
-    public void authorizeAdmin(Admin admin) {
+    private void isAdmin(Admin admin) {
         Scanner scanner = new Scanner(System.in);
         String enteredAdminLogin = "";
         String enteredAdminPassword = "";
@@ -48,12 +48,17 @@ public class AdminRepositoryDaoImpl implements AdminRepository {
                 MY_LOGGER.info(ANSI_RED + "Неверная операция, попробуйте ещё раз!" + ANSI_RESET);
             }
 
-            if (enteredAdminLogin.equals(admin.getLogin()) && enteredAdminPassword.equals(admin.getPassword())) {
+            if (enteredAdminLogin.equals(admin.getLogin())
+                    && enteredAdminPassword.equals(admin.getPassword())) {
                 MY_LOGGER.info(ANSI_GREEN + "Авторизация выполнена успешно\n" + ANSI_RESET);
                 break;
             } else {
                 MY_LOGGER.info(ANSI_RED + "Логин и пароль не совпадают, попробуйте ещё раз!\n" + ANSI_RESET);
             }
         }
+    }
+
+    public void getAdminAccess() {
+        setAdminCredentials();
     }
 }

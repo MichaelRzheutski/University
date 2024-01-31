@@ -1,6 +1,6 @@
 package com.solvd.university.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Set;
 
@@ -8,16 +8,16 @@ public class Student {
     private Long studentId;
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
-    private StudentContact studentContactId;
+    private LocalDate dateOfBirth;
+    private Long studentContactId;
     private Set<Subject> subjects;
     private Double averageScore;
 
     public Student() {
     }
 
-    public Student(Long studentId, String firstName, String lastName, Date dateOfBirth,
-                   StudentContact studentContactId, Set<Subject> subjects, Double averageScore) {
+    public Student(Long studentId, String firstName, String lastName, LocalDate dateOfBirth,
+                   Long studentContactId, Set<Subject> subjects, Double averageScore) {
         this.studentId = studentId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -51,19 +51,19 @@ public class Student {
         this.lastName = lastName;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public StudentContact getStudentContactId() {
+    public Long getStudentContactId() {
         return studentContactId;
     }
 
-    public void setStudentContactId(StudentContact studentContactId) {
+    public void setStudentContactId(Long studentContactId) {
         this.studentContactId = studentContactId;
     }
 
